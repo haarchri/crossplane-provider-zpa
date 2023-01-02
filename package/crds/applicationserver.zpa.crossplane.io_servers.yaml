@@ -5,18 +5,18 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.8.0
   creationTimestamp: null
-  name: resources.null.zpa.upbound.io
+  name: servers.applicationserver.zpa.crossplane.io
 spec:
-  group: null.zpa.upbound.io
+  group: applicationserver.zpa.crossplane.io
   names:
     categories:
     - crossplane
     - managed
     - zpa
-    kind: Resource
-    listKind: ResourceList
-    plural: resources
-    singular: resource
+    kind: Server
+    listKind: ServerList
+    plural: servers
+    singular: server
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -35,7 +35,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Resource is the Schema for the Resources API. <no value>
+        description: Server is the Schema for the Servers API. <no value>
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -50,7 +50,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: ResourceSpec defines the desired state of Resource
+            description: ServerSpec defines the desired state of Server
             properties:
               deletionPolicy:
                 default: Delete
@@ -63,13 +63,29 @@ spec:
                 type: string
               forProvider:
                 properties:
-                  triggers:
-                    additionalProperties:
+                  address:
+                    description: This field defines the domain or IP address of the
+                      server.
+                    type: string
+                  appServerGroupIds:
+                    description: This field defines the list of server groups IDs.
+                    items:
                       type: string
-                    description: A map of arbitrary strings that, when changed, will
-                      force the null resource to be replaced, re-running any associated
-                      provisioners.
-                    type: object
+                    type: array
+                  configSpace:
+                    type: string
+                  description:
+                    description: This field defines the description of the server.
+                    type: string
+                  enabled:
+                    description: This field defines the status of the server.
+                    type: boolean
+                  name:
+                    description: This field defines the name of the server.
+                    type: string
+                required:
+                - address
+                - name
                 type: object
               providerConfigRef:
                 default:
@@ -243,7 +259,7 @@ spec:
             - forProvider
             type: object
           status:
-            description: ResourceStatus defines the observed state of Resource.
+            description: ServerStatus defines the observed state of Server.
             properties:
               atProvider:
                 properties:
