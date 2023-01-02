@@ -5,9 +5,9 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.8.0
   creationTimestamp: null
-  name: connectorgroups.appconnectorgroup.zpa.crossplane.io
+  name: connectorgroups.app.zpa.crossplane.io
 spec:
-  group: appconnectorgroup.zpa.crossplane.io
+  group: app.zpa.crossplane.io
   names:
     categories:
     - crossplane

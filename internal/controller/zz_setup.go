@@ -10,7 +10,7 @@ import (
 	"github.com/upbound/upjet/pkg/controller"
 
 	accessrule "github.com/zscaler/provider-zpa/internal/controller/accessrule/accessrule"
-	connectorgroup "github.com/zscaler/provider-zpa/internal/controller/appconnectorgroup/connectorgroup"
+	connectorgroup "github.com/zscaler/provider-zpa/internal/controller/app/connectorgroup"
 	segmentbrowseraccess "github.com/zscaler/provider-zpa/internal/controller/application/segmentbrowseraccess"
 	segmentinspection "github.com/zscaler/provider-zpa/internal/controller/application/segmentinspection"
 	segmentpra "github.com/zscaler/provider-zpa/internal/controller/application/segmentpra"
