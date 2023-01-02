@@ -10,8 +10,18 @@ package apis
 import (
 	"k8s.io/apimachinery/pkg/runtime"
 
-	v1alpha1 "github.com/zscaler/provider-zpa/apis/applicationserver/v1alpha1"
+	v1alpha1 "github.com/zscaler/provider-zpa/apis/accessrule/v1alpha1"
+	v1alpha1appconnectorgroup "github.com/zscaler/provider-zpa/apis/appconnectorgroup/v1alpha1"
+	v1alpha1application "github.com/zscaler/provider-zpa/apis/application/v1alpha1"
+	v1alpha1applicationsegment "github.com/zscaler/provider-zpa/apis/applicationsegment/v1alpha1"
+	v1alpha1applicationserver "github.com/zscaler/provider-zpa/apis/applicationserver/v1alpha1"
+	v1alpha1inspection "github.com/zscaler/provider-zpa/apis/inspection/v1alpha1"
+	v1alpha1lss "github.com/zscaler/provider-zpa/apis/lss/v1alpha1"
+	v1alpha1policy "github.com/zscaler/provider-zpa/apis/policy/v1alpha1"
+	v1alpha1provisioning "github.com/zscaler/provider-zpa/apis/provisioning/v1alpha1"
 	v1alpha1segmentgroup "github.com/zscaler/provider-zpa/apis/segmentgroup/v1alpha1"
+	v1alpha1servergroup "github.com/zscaler/provider-zpa/apis/servergroup/v1alpha1"
+	v1alpha1serviceedgegroup "github.com/zscaler/provider-zpa/apis/serviceedgegroup/v1alpha1"
 	v1alpha1apis "github.com/zscaler/provider-zpa/apis/v1alpha1"
 	v1beta1 "github.com/zscaler/provider-zpa/apis/v1beta1"
 )
@@ -20,7 +30,17 @@ func init() {
 	// Register the types with the Scheme so the components can map objects to GroupVersionKinds and back
 	AddToSchemes = append(AddToSchemes,
 		v1alpha1.SchemeBuilder.AddToScheme,
+		v1alpha1appconnectorgroup.SchemeBuilder.AddToScheme,
+		v1alpha1application.SchemeBuilder.AddToScheme,
+		v1alpha1applicationsegment.SchemeBuilder.AddToScheme,
+		v1alpha1applicationserver.SchemeBuilder.AddToScheme,
+		v1alpha1inspection.SchemeBuilder.AddToScheme,
+		v1alpha1lss.SchemeBuilder.AddToScheme,
+		v1alpha1policy.SchemeBuilder.AddToScheme,
+		v1alpha1provisioning.SchemeBuilder.AddToScheme,
 		v1alpha1segmentgroup.SchemeBuilder.AddToScheme,
+		v1alpha1servergroup.SchemeBuilder.AddToScheme,
+		v1alpha1serviceedgegroup.SchemeBuilder.AddToScheme,
 		v1alpha1apis.SchemeBuilder.AddToScheme,
 		v1beta1.SchemeBuilder.AddToScheme,
 	)
