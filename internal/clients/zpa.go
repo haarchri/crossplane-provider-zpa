@@ -15,7 +15,7 @@ import (
 
 	"github.com/upbound/upjet/pkg/terraform"
 
-	"github.com/upbound/upjet-provider-template/apis/v1beta1"
+	"github.com/zscaler/provider-zpa/apis/v1beta1"
 )
 
 const (
@@ -24,7 +24,11 @@ const (
 	errGetProviderConfig    = "cannot get referenced ProviderConfig"
 	errTrackUsage           = "cannot track ProviderConfig usage"
 	errExtractCredentials   = "cannot extract credentials"
-	errUnmarshalCredentials = "cannot unmarshal template credentials as JSON"
+	errUnmarshalCredentials = "cannot unmarshal zpa credentials as JSON"
+	keyClientID             = "zpa_client_id"
+	keyClientSecret         = "zpa_client_secret"
+	keyCustomerID           = "zpa_customer_id"
+	keyCloud                = "zpa_cloud"
 )
 
 // TerraformSetupBuilder builds Terraform a terraform.SetupFn function which
@@ -63,10 +67,23 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 		}
 
 		// Set credentials in Terraform provider configuration.
-		/*ps.Configuration = map[string]any{
-			"username": creds["username"],
-			"password": creds["password"],
-		}*/
+		ps.Configuration = map[string]any{}
+
+		if v, ok := creds[keyClientID]; ok {
+			ps.Configuration[keyClientID] = v
+		}
+
+		if v, ok := creds[keyClientSecret]; ok {
+			ps.Configuration[keyClientSecret] = v
+		}
+
+		if v, ok := creds[keyCustomerID]; ok {
+			ps.Configuration[keyCustomerID] = v
+		}
+
+		if v, ok := creds[keyCloud]; ok {
+			ps.Configuration[keyCloud] = v
+		}
 		return ps, nil
 	}
 }

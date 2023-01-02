@@ -9,13 +9,13 @@ import (
 	_ "embed"
 
 	ujconfig "github.com/upbound/upjet/pkg/config"
-
-	"github.com/upbound/upjet-provider-template/config/null"
+	"github.com/zscaler/provider-zpa/config/zpaapplicationserver"
+	"github.com/zscaler/provider-zpa/config/zpasegmentgroup"
 )
 
 const (
-	resourcePrefix = "template"
-	modulePath     = "github.com/upbound/upjet-provider-template"
+	resourcePrefix = "zpa"
+	modulePath     = "github.com/zscaler/provider-zpa"
 )
 
 //go:embed schema.json
@@ -28,13 +28,16 @@ var providerMetadata string
 func GetProvider() *ujconfig.Provider {
 	pc := ujconfig.NewProvider([]byte(providerSchema), resourcePrefix, modulePath, []byte(providerMetadata),
 		ujconfig.WithIncludeList(ExternalNameConfigured()),
+		ujconfig.WithShortName("zpa"),
+		ujconfig.WithRootGroup("zpa.crossplane.io"),
 		ujconfig.WithDefaultResourceOptions(
 			ExternalNameConfigurations(),
 		))
 
 	for _, configure := range []func(provider *ujconfig.Provider){
 		// add custom config functions
-		null.Configure,
+		zpaapplicationserver.Configure,
+		zpasegmentgroup.Configure,
 	} {
 		configure(pc)
 	}
