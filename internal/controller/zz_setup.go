@@ -18,6 +18,8 @@ import (
 	segmentpra "github.com/zscaler/provider-zpa/internal/controller/zpaapplicationsegmentpra/segmentpra"
 	server "github.com/zscaler/provider-zpa/internal/controller/zpaapplicationserver/server"
 	forwardingrule "github.com/zscaler/provider-zpa/internal/controller/zpaforwardingrule/forwardingrule"
+	customcontrols "github.com/zscaler/provider-zpa/internal/controller/zpainspectioncustomcontrols/customcontrols"
+	profile "github.com/zscaler/provider-zpa/internal/controller/zpainspectionprofile/profile"
 	inspectionrule "github.com/zscaler/provider-zpa/internal/controller/zpainspectionrule/inspectionrule"
 	key "github.com/zscaler/provider-zpa/internal/controller/zpaprovisioningkey/key"
 	group "github.com/zscaler/provider-zpa/internal/controller/zpasegmentgroup/group"
@@ -39,6 +41,8 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		segmentpra.Setup,
 		server.Setup,
 		forwardingrule.Setup,
+		customcontrols.Setup,
+		profile.Setup,
 		inspectionrule.Setup,
 		key.Setup,
 		group.Setup,
