@@ -32,6 +32,10 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"zpa_inspection_profile":                 config.IdentifierFromProvider,
 	"zpa_inspection_predefined_controls":     config.IdentifierFromProvider,
 	"zpa_inspection_all_predefined_controls": config.IdentifierFromProvider,
+	"zpa_idp_controller":                     config.IdentifierFromProvider,
+	"zpa_saml_attribute":                     config.IdentifierFromProvider,
+	"zpa_scim_groups":                        config.IdentifierFromProvider,
+	"zpa_scim_attribute_header":              config.IdentifierFromProvider,
 }
 
 // ExternalNameConfigurations applies all external name configs listed in the
