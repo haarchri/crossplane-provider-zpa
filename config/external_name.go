@@ -10,8 +10,8 @@ import "github.com/upbound/upjet/pkg/config"
 // provider.
 var ExternalNameConfigs = map[string]config.ExternalName{
 	// Import requires using a randomly generated ID from provider: nl-2e21sda
-	// "zpa_app_connector_group":                config.IdentifierFromProvider,
-	"zpa_application_server": config.IdentifierFromProvider,
+	"zpa_app_connector_group": config.IdentifierFromProvider,
+	"zpa_application_server":  config.IdentifierFromProvider,
 	// "zpa_application_segment":                config.IdentifierFromProvider,
 	// "zpa_application_segment_pra":            config.IdentifierFromProvider,
 	// "zpa_application_segment_inspection":     config.IdentifierFromProvider,

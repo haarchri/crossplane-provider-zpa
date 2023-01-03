@@ -9,6 +9,7 @@ import (
 	_ "embed"
 
 	ujconfig "github.com/upbound/upjet/pkg/config"
+	"github.com/zscaler/provider-zpa/config/zpaappconnectorgroup"
 	"github.com/zscaler/provider-zpa/config/zpaapplicationserver"
 	"github.com/zscaler/provider-zpa/config/zpapolicyaccessforwardingrule"
 	"github.com/zscaler/provider-zpa/config/zpapolicyaccessinspectionrule"
@@ -42,6 +43,7 @@ func GetProvider() *ujconfig.Provider {
 
 	for _, configure := range []func(provider *ujconfig.Provider){
 		// add custom config functions
+		zpaappconnectorgroup.Configure,
 		zpaapplicationserver.Configure,
 		zpasegmentgroup.Configure,
 		zpaservergroup.Configure,

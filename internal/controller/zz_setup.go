@@ -11,6 +11,7 @@ import (
 
 	providerconfig "github.com/zscaler/provider-zpa/internal/controller/providerconfig"
 	accessrule "github.com/zscaler/provider-zpa/internal/controller/zpaaccessrule/accessrule"
+	connectorgroup "github.com/zscaler/provider-zpa/internal/controller/zpaappconnectorgroup/connectorgroup"
 	server "github.com/zscaler/provider-zpa/internal/controller/zpaapplicationserver/server"
 	forwardingrule "github.com/zscaler/provider-zpa/internal/controller/zpaforwardingrule/forwardingrule"
 	inspectionrule "github.com/zscaler/provider-zpa/internal/controller/zpainspectionrule/inspectionrule"
@@ -26,6 +27,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
 		providerconfig.Setup,
 		accessrule.Setup,
+		connectorgroup.Setup,
 		server.Setup,
 		forwardingrule.Setup,
 		inspectionrule.Setup,
