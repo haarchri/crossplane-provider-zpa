@@ -25,17 +25,8 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"zpa_provisioning_key":                   config.IdentifierFromProvider,
 	"zpa_service_edge_group":                 config.IdentifierFromProvider,
 	"zpa_lss_config_controller":              config.IdentifierFromProvider,
-	"zpa_lss_config_client_types":            config.IdentifierFromProvider,
-	"zpa_lss_config_status_codes":            config.IdentifierFromProvider,
-	"zpa_lss_config_log_type_formats":        config.IdentifierFromProvider,
 	"zpa_inspection_custom_controls":         config.IdentifierFromProvider,
 	"zpa_inspection_profile":                 config.IdentifierFromProvider,
-	"zpa_inspection_predefined_controls":     config.IdentifierFromProvider,
-	"zpa_inspection_all_predefined_controls": config.IdentifierFromProvider,
-	"zpa_idp_controller":                     config.IdentifierFromProvider,
-	"zpa_saml_attribute":                     config.IdentifierFromProvider,
-	"zpa_scim_groups":                        config.IdentifierFromProvider,
-	"zpa_scim_attribute_header":              config.IdentifierFromProvider,
 }
 
 // ExternalNameConfigurations applies all external name configs listed in the
