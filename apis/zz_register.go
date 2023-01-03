@@ -10,7 +10,8 @@ package apis
 import (
 	"k8s.io/apimachinery/pkg/runtime"
 
-	v1alpha1 "github.com/zscaler/provider-zpa/apis/v1alpha1"
+	v1alpha1 "github.com/zscaler/provider-zpa/apis/service/v1alpha1"
+	v1alpha1apis "github.com/zscaler/provider-zpa/apis/v1alpha1"
 	v1beta1 "github.com/zscaler/provider-zpa/apis/v1beta1"
 	v1alpha1zpaaccessrule "github.com/zscaler/provider-zpa/apis/zpaaccessrule/v1alpha1"
 	v1alpha1zpaappconnectorgroup "github.com/zscaler/provider-zpa/apis/zpaappconnectorgroup/v1alpha1"
@@ -21,6 +22,7 @@ import (
 	v1alpha1zpaapplicationserver "github.com/zscaler/provider-zpa/apis/zpaapplicationserver/v1alpha1"
 	v1alpha1zpaforwardingrule "github.com/zscaler/provider-zpa/apis/zpaforwardingrule/v1alpha1"
 	v1alpha1zpainspectionrule "github.com/zscaler/provider-zpa/apis/zpainspectionrule/v1alpha1"
+	v1alpha1zpalssconfigcontroller "github.com/zscaler/provider-zpa/apis/zpalssconfigcontroller/v1alpha1"
 	v1alpha1zpaprovisioningkey "github.com/zscaler/provider-zpa/apis/zpaprovisioningkey/v1alpha1"
 	v1alpha1zpasegmentgroup "github.com/zscaler/provider-zpa/apis/zpasegmentgroup/v1alpha1"
 	v1alpha1zpaservergroup "github.com/zscaler/provider-zpa/apis/zpaservergroup/v1alpha1"
@@ -31,6 +33,7 @@ func init() {
 	// Register the types with the Scheme so the components can map objects to GroupVersionKinds and back
 	AddToSchemes = append(AddToSchemes,
 		v1alpha1.SchemeBuilder.AddToScheme,
+		v1alpha1apis.SchemeBuilder.AddToScheme,
 		v1beta1.SchemeBuilder.AddToScheme,
 		v1alpha1zpaaccessrule.SchemeBuilder.AddToScheme,
 		v1alpha1zpaappconnectorgroup.SchemeBuilder.AddToScheme,
@@ -41,6 +44,7 @@ func init() {
 		v1alpha1zpaapplicationserver.SchemeBuilder.AddToScheme,
 		v1alpha1zpaforwardingrule.SchemeBuilder.AddToScheme,
 		v1alpha1zpainspectionrule.SchemeBuilder.AddToScheme,
+		v1alpha1zpalssconfigcontroller.SchemeBuilder.AddToScheme,
 		v1alpha1zpaprovisioningkey.SchemeBuilder.AddToScheme,
 		v1alpha1zpasegmentgroup.SchemeBuilder.AddToScheme,
 		v1alpha1zpaservergroup.SchemeBuilder.AddToScheme,
