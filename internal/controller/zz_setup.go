@@ -16,6 +16,7 @@ import (
 	inspectionrule "github.com/zscaler/provider-zpa/internal/controller/zpainspectionrule/inspectionrule"
 	key "github.com/zscaler/provider-zpa/internal/controller/zpaprovisioningkey/key"
 	group "github.com/zscaler/provider-zpa/internal/controller/zpasegmentgroup/group"
+	groupzpaservergroup "github.com/zscaler/provider-zpa/internal/controller/zpaservergroup/group"
 	timeoutrule "github.com/zscaler/provider-zpa/internal/controller/zpatimeoutrule/timeoutrule"
 )
 
@@ -30,6 +31,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		inspectionrule.Setup,
 		key.Setup,
 		group.Setup,
+		groupzpaservergroup.Setup,
 		timeoutrule.Setup,
 	} {
 		if err := setup(mgr, o); err != nil {

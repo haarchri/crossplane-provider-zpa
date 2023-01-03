@@ -16,7 +16,7 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	// "zpa_application_segment_pra":            config.IdentifierFromProvider,
 	// "zpa_application_segment_inspection":     config.IdentifierFromProvider,
 	// "zpa_application_segment_browser_access": config.IdentifierFromProvider,
-	// "zpa_server_group":                       config.IdentifierFromProvider,
+	"zpa_server_group":           config.IdentifierFromProvider,
 	"zpa_segment_group":          config.IdentifierFromProvider,
 	"zpa_policy_access_rule":     config.IdentifierFromProvider,
 	"zpa_policy_inspection_rule": config.IdentifierFromProvider,

@@ -18,6 +18,7 @@ import (
 	v1alpha1zpainspectionrule "github.com/zscaler/provider-zpa/apis/zpainspectionrule/v1alpha1"
 	v1alpha1zpaprovisioningkey "github.com/zscaler/provider-zpa/apis/zpaprovisioningkey/v1alpha1"
 	v1alpha1zpasegmentgroup "github.com/zscaler/provider-zpa/apis/zpasegmentgroup/v1alpha1"
+	v1alpha1zpaservergroup "github.com/zscaler/provider-zpa/apis/zpaservergroup/v1alpha1"
 	v1alpha1zpatimeoutrule "github.com/zscaler/provider-zpa/apis/zpatimeoutrule/v1alpha1"
 )
 
@@ -32,6 +33,7 @@ func init() {
 		v1alpha1zpainspectionrule.SchemeBuilder.AddToScheme,
 		v1alpha1zpaprovisioningkey.SchemeBuilder.AddToScheme,
 		v1alpha1zpasegmentgroup.SchemeBuilder.AddToScheme,
+		v1alpha1zpaservergroup.SchemeBuilder.AddToScheme,
 		v1alpha1zpatimeoutrule.SchemeBuilder.AddToScheme,
 	)
 }
