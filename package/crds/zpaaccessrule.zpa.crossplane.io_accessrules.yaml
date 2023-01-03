@@ -5,18 +5,18 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.8.0
   creationTimestamp: null
-  name: servers.applicationserver.zpa.crossplane.io
+  name: accessrules.zpaaccessrule.zpa.crossplane.io
 spec:
-  group: applicationserver.zpa.crossplane.io
+  group: zpaaccessrule.zpa.crossplane.io
   names:
     categories:
     - crossplane
     - managed
     - zpa
-    kind: Server
-    listKind: ServerList
-    plural: servers
-    singular: server
+    kind: AccessRule
+    listKind: AccessRuleList
+    plural: accessrules
+    singular: accessrule
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -35,7 +35,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Server is the Schema for the Servers API. <no value>
+        description: AccessRule is the Schema for the AccessRules API. <no value>
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -50,7 +50,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: ServerSpec defines the desired state of Server
+            description: AccessRuleSpec defines the desired state of AccessRule
             properties:
               deletionPolicy:
                 default: Delete
@@ -63,28 +63,113 @@ spec:
                 type: string
               forProvider:
                 properties:
-                  address:
-                    description: This field defines the domain or IP address of the
-                      server.
+                  action:
+                    description: This is for providing the rule action.
                     type: string
-                  appServerGroupIds:
-                    description: This field defines the list of server groups IDs.
-                    items:
-                      type: string
-                    type: array
-                  configSpace:
-                    type: string
-                  description:
+                  actionId:
                     description: This field defines the description of the server.
                     type: string
-                  enabled:
-                    description: This field defines the status of the server.
+                  appConnectorGroups:
+                    description: List of app-connector IDs.
+                    items:
+                      properties:
+                        id:
+                          items:
+                            type: string
+                          type: array
+                      type: object
+                    type: array
+                  appServerGroups:
+                    description: List of the server group IDs.
+                    items:
+                      properties:
+                        id:
+                          items:
+                            type: string
+                          type: array
+                      type: object
+                    type: array
+                  bypassDefaultRule:
+                    type: boolean
+                  conditions:
+                    description: This is for proviidng the set of conditions for the
+                      policy.
+                    items:
+                      properties:
+                        negated:
+                          type: boolean
+                        operands:
+                          description: This signifies the various policy criteria.
+                          items:
+                            properties:
+                              idpId:
+                                type: string
+                              lhs:
+                                description: 'This signifies the key for the object
+                                  type. String ID example: id'
+                                type: string
+                              name:
+                                type: string
+                              objectType:
+                                description: This is for specifying the policy critiera.
+                                type: string
+                              rhs:
+                                description: This denotes the value for the given
+                                  object type. Its value depends upon the key.
+                                type: string
+                              rhsList:
+                                description: This denotes a list of values for the
+                                  given object type. The value depend upon the key.
+                                  If rhs is defined this list will be ignored
+                                items:
+                                  type: string
+                                type: array
+                            required:
+                            - lhs
+                            - objectType
+                            type: object
+                          type: array
+                        operator:
+                          type: string
+                      required:
+                      - operator
+                      type: object
+                    type: array
+                  customMsg:
+                    description: This is for providing a customer message for the
+                      user.
+                    type: string
+                  defaultRule:
+                    description: This is for providing a customer message for the
+                      user.
+                    type: boolean
+                  description:
+                    description: This is the description of the access policy.
+                    type: string
+                  lssDefaultRule:
                     type: boolean
                   name:
-                    description: This field defines the name of the server.
+                    description: This is the name of the policy.
+                    type: string
+                  operator:
+                    type: string
+                  policySetId:
+                    type: string
+                  policyType:
+                    type: string
+                  priority:
+                    type: string
+                  reauthDefaultRule:
+                    type: boolean
+                  reauthIdleTimeout:
+                    type: string
+                  reauthTimeout:
+                    type: string
+                  ruleOrder:
+                    type: string
+                  zpnInspectionProfileId:
                     type: string
                 required:
-                - address
                 - name
                 type: object
               providerConfigRef:
@@ -259,10 +344,27 @@ spec:
             - forProvider
             type: object
           status:
-            description: ServerStatus defines the observed state of Server.
+            description: AccessRuleStatus defines the observed state of AccessRule.
             properties:
               atProvider:
                 properties:
+                  conditions:
+                    description: This is for proviidng the set of conditions for the
+                      policy.
+                    items:
+                      properties:
+                        id:
+                          type: string
+                        operands:
+                          description: This signifies the various policy criteria.
+                          items:
+                            properties:
+                              id:
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
                   id:
                     type: string
                 type: object

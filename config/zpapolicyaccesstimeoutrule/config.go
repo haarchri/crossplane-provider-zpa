@@ -1,10 +1,10 @@
-package zpaapplicationserver
+package zpapolicyaccesstimeoutrule
 
 import "github.com/upbound/upjet/pkg/config"
 
 // Configure configures individual resources by adding custom ResourceConfigurators.
 func Configure(p *config.Provider) {
-	p.AddResourceConfigurator("zpa_application_server", func(r *config.Resource) {
-		r.ShortGroup = "zpaapplicationserver"
+	p.AddResourceConfigurator("zpa_policy_timeout_rule", func(r *config.Resource) {
+		r.ShortGroup = "zpatimeoutrule"
 	})
 }

@@ -5,9 +5,9 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.8.0
   creationTimestamp: null
-  name: groups.segmentgroup.zpa.crossplane.io
+  name: groups.zpasegmentgroup.zpa.crossplane.io
 spec:
-  group: segmentgroup.zpa.crossplane.io
+  group: zpasegmentgroup.zpa.crossplane.io
   names:
     categories:
     - crossplane
