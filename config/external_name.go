@@ -23,7 +23,7 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"zpa_policy_timeout_rule":                config.IdentifierFromProvider,
 	"zpa_policy_forwarding_rule":             config.IdentifierFromProvider,
 	"zpa_provisioning_key":                   config.IdentifierFromProvider,
-	// "zpa_service_edge_group":                 config.IdentifierFromProvider,
+	"zpa_service_edge_group":                 config.IdentifierFromProvider,
 	// "zpa_lss_config_controller":              config.IdentifierFromProvider,
 	// "zpa_inspection_custom_controls":         config.IdentifierFromProvider,
 	// "zpa_inspection_profile":                 config.IdentifierFromProvider,
