@@ -15,23 +15,14 @@ import (
 	"github.com/zscaler/provider-zpa/config/zpaapplicationsegmentinspection"
 	"github.com/zscaler/provider-zpa/config/zpaapplicationsegmentpra"
 	"github.com/zscaler/provider-zpa/config/zpaapplicationserver"
-	"github.com/zscaler/provider-zpa/config/zpaidpcontroller"
-	"github.com/zscaler/provider-zpa/config/zpainspectionallpredefinedcontrols"
 	"github.com/zscaler/provider-zpa/config/zpainspectioncustomcontrols"
-	"github.com/zscaler/provider-zpa/config/zpainspectionpredefinedcontrols"
 	"github.com/zscaler/provider-zpa/config/zpainspectionprofile"
-	"github.com/zscaler/provider-zpa/config/zpalssconfigclienttypes"
 	"github.com/zscaler/provider-zpa/config/zpalssconfigcontroller"
-	"github.com/zscaler/provider-zpa/config/zpalssconfiglogtypeformats"
-	"github.com/zscaler/provider-zpa/config/zpalssconfigstatuscodes"
 	"github.com/zscaler/provider-zpa/config/zpapolicyaccessforwardingrule"
 	"github.com/zscaler/provider-zpa/config/zpapolicyaccessinspectionrule"
 	"github.com/zscaler/provider-zpa/config/zpapolicyaccessrule"
 	"github.com/zscaler/provider-zpa/config/zpapolicyaccesstimeoutrule"
 	"github.com/zscaler/provider-zpa/config/zpaprovisioningkey"
-	"github.com/zscaler/provider-zpa/config/zpasamlattribute"
-	"github.com/zscaler/provider-zpa/config/zpascimattributeheader"
-	"github.com/zscaler/provider-zpa/config/zpascimgroups"
 	"github.com/zscaler/provider-zpa/config/zpasegmentgroup"
 	"github.com/zscaler/provider-zpa/config/zpaservergroup"
 	"github.com/zscaler/provider-zpa/config/zpaserviceedgegroup"
@@ -74,18 +65,9 @@ func GetProvider() *ujconfig.Provider {
 		zpapolicyaccessforwardingrule.Configure,
 		zpapolicyaccessinspectionrule.Configure,
 		zpaprovisioningkey.Configure,
-		zpainspectionallpredefinedcontrols.Configure,
 		zpainspectioncustomcontrols.Configure,
-		zpainspectionpredefinedcontrols.Configure,
 		zpainspectionprofile.Configure,
 		zpalssconfigcontroller.Configure,
-		zpalssconfigclienttypes.Configure,
-		zpalssconfiglogtypeformats.Configure,
-		zpalssconfigstatuscodes.Configure,
-		zpaidpcontroller.Configure,
-		zpasamlattribute.Configure,
-		zpascimgroups.Configure,
-		zpascimattributeheader.Configure,
 	} {
 		configure(pc)
 	}
