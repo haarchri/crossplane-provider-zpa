@@ -26,7 +26,6 @@ import (
 	key "github.com/zscaler/provider-zpa/internal/controller/zpaprovisioningkey/key"
 	group "github.com/zscaler/provider-zpa/internal/controller/zpasegmentgroup/group"
 	groupzpaservergroup "github.com/zscaler/provider-zpa/internal/controller/zpaservergroup/group"
-	edgegroup "github.com/zscaler/provider-zpa/internal/controller/zpaserviceedgegroup/edgegroup"
 	timeoutrule "github.com/zscaler/provider-zpa/internal/controller/zpatimeoutrule/timeoutrule"
 )
 

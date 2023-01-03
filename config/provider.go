@@ -19,6 +19,10 @@ import (
 	"github.com/zscaler/provider-zpa/config/zpainspectioncustomcontrols"
 	"github.com/zscaler/provider-zpa/config/zpainspectionpredefinedcontrols"
 	"github.com/zscaler/provider-zpa/config/zpainspectionprofile"
+	"github.com/zscaler/provider-zpa/config/zpalssconfigclienttypes"
+	"github.com/zscaler/provider-zpa/config/zpalssconfigcontroller"
+	"github.com/zscaler/provider-zpa/config/zpalssconfiglogtypeformats"
+	"github.com/zscaler/provider-zpa/config/zpalssconfigstatuscodes"
 	"github.com/zscaler/provider-zpa/config/zpapolicyaccessforwardingrule"
 	"github.com/zscaler/provider-zpa/config/zpapolicyaccessinspectionrule"
 	"github.com/zscaler/provider-zpa/config/zpapolicyaccessrule"
@@ -70,6 +74,10 @@ func GetProvider() *ujconfig.Provider {
 		zpainspectioncustomcontrols.Configure,
 		zpainspectionpredefinedcontrols.Configure,
 		zpainspectionprofile.Configure,
+		zpalssconfigcontroller.Configure,
+		zpalssconfigclienttypes.Configure,
+		zpalssconfiglogtypeformats.Configure,
+		zpalssconfigstatuscodes.Configure,
 	} {
 		configure(pc)
 	}
