@@ -15,6 +15,7 @@ import (
 	"github.com/zscaler/provider-zpa/config/zpapolicyaccessrule"
 	"github.com/zscaler/provider-zpa/config/zpapolicyaccesstimeoutrule"
 	"github.com/zscaler/provider-zpa/config/zpasegmentgroup"
+	"github.com/zscaler/provider-zpa/config/zpaservergroup"
 )
 
 const (
@@ -42,6 +43,7 @@ func GetProvider() *ujconfig.Provider {
 		// add custom config functions
 		zpaapplicationserver.Configure,
 		zpasegmentgroup.Configure,
+		zpaservergroup.Configure,
 		zpapolicyaccessrule.Configure,
 		zpapolicyaccesstimeoutrule.Configure,
 		zpapolicyaccessforwardingrule.Configure,

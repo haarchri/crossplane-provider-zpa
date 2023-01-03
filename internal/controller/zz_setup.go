@@ -15,6 +15,7 @@ import (
 	forwardingrule "github.com/zscaler/provider-zpa/internal/controller/zpaforwardingrule/forwardingrule"
 	inspectionrule "github.com/zscaler/provider-zpa/internal/controller/zpainspectionrule/inspectionrule"
 	group "github.com/zscaler/provider-zpa/internal/controller/zpasegmentgroup/group"
+	groupzpaservergroup "github.com/zscaler/provider-zpa/internal/controller/zpaservergroup/group"
 	timeoutrule "github.com/zscaler/provider-zpa/internal/controller/zpatimeoutrule/timeoutrule"
 )
 
@@ -28,6 +29,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		forwardingrule.Setup,
 		inspectionrule.Setup,
 		group.Setup,
+		groupzpaservergroup.Setup,
 		timeoutrule.Setup,
 	} {
 		if err := setup(mgr, o); err != nil {
