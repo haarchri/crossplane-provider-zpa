@@ -22,6 +22,7 @@ import (
 	"github.com/zscaler/provider-zpa/config/zpaprovisioningkey"
 	"github.com/zscaler/provider-zpa/config/zpasegmentgroup"
 	"github.com/zscaler/provider-zpa/config/zpaservergroup"
+	"github.com/zscaler/provider-zpa/config/zpaserviceedgegroup"
 )
 
 const (
@@ -52,6 +53,7 @@ func GetProvider() *ujconfig.Provider {
 		zpaapplicationsegmentinspection.Configure,
 		zpaapplicationsegmentbrowseraccess.Configure,
 		zpaappconnectorgroup.Configure,
+		zpaserviceedgegroup.Configure,
 		zpaapplicationserver.Configure,
 		zpasegmentgroup.Configure,
 		zpaservergroup.Configure,
