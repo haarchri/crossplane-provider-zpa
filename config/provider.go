@@ -14,6 +14,7 @@ import (
 	"github.com/zscaler/provider-zpa/config/zpapolicyaccessinspectionrule"
 	"github.com/zscaler/provider-zpa/config/zpapolicyaccessrule"
 	"github.com/zscaler/provider-zpa/config/zpapolicyaccesstimeoutrule"
+	"github.com/zscaler/provider-zpa/config/zpaprovisioningkey"
 	"github.com/zscaler/provider-zpa/config/zpasegmentgroup"
 )
 
@@ -46,6 +47,7 @@ func GetProvider() *ujconfig.Provider {
 		zpapolicyaccesstimeoutrule.Configure,
 		zpapolicyaccessforwardingrule.Configure,
 		zpapolicyaccessinspectionrule.Configure,
+		zpaprovisioningkey.Configure,
 	} {
 		configure(pc)
 	}
