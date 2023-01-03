@@ -10,7 +10,6 @@ import (
 	"github.com/upbound/upjet/pkg/controller"
 
 	providerconfig "github.com/zscaler/provider-zpa/internal/controller/providerconfig"
-	edgegroup "github.com/zscaler/provider-zpa/internal/controller/service/edgegroup"
 	accessrule "github.com/zscaler/provider-zpa/internal/controller/zpaaccessrule/accessrule"
 	connectorgroup "github.com/zscaler/provider-zpa/internal/controller/zpaappconnectorgroup/connectorgroup"
 	segment "github.com/zscaler/provider-zpa/internal/controller/zpaapplicationsegment/segment"
@@ -26,6 +25,7 @@ import (
 	key "github.com/zscaler/provider-zpa/internal/controller/zpaprovisioningkey/key"
 	group "github.com/zscaler/provider-zpa/internal/controller/zpasegmentgroup/group"
 	groupzpaservergroup "github.com/zscaler/provider-zpa/internal/controller/zpaservergroup/group"
+	edgegroup "github.com/zscaler/provider-zpa/internal/controller/zpaserviceedgegroup/edgegroup"
 	timeoutrule "github.com/zscaler/provider-zpa/internal/controller/zpatimeoutrule/timeoutrule"
 )
 
@@ -34,7 +34,6 @@ import (
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
 		providerconfig.Setup,
-		edgegroup.Setup,
 		accessrule.Setup,
 		connectorgroup.Setup,
 		segment.Setup,
