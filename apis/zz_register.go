@@ -14,6 +14,10 @@ import (
 	v1beta1 "github.com/zscaler/provider-zpa/apis/v1beta1"
 	v1alpha1zpaaccessrule "github.com/zscaler/provider-zpa/apis/zpaaccessrule/v1alpha1"
 	v1alpha1zpaappconnectorgroup "github.com/zscaler/provider-zpa/apis/zpaappconnectorgroup/v1alpha1"
+	v1alpha1zpaapplicationsegment "github.com/zscaler/provider-zpa/apis/zpaapplicationsegment/v1alpha1"
+	v1alpha1zpaapplicationsegmentbrowseraccess "github.com/zscaler/provider-zpa/apis/zpaapplicationsegmentbrowseraccess/v1alpha1"
+	v1alpha1zpaapplicationsegmentinspection "github.com/zscaler/provider-zpa/apis/zpaapplicationsegmentinspection/v1alpha1"
+	v1alpha1zpaapplicationsegmentpra "github.com/zscaler/provider-zpa/apis/zpaapplicationsegmentpra/v1alpha1"
 	v1alpha1zpaapplicationserver "github.com/zscaler/provider-zpa/apis/zpaapplicationserver/v1alpha1"
 	v1alpha1zpaforwardingrule "github.com/zscaler/provider-zpa/apis/zpaforwardingrule/v1alpha1"
 	v1alpha1zpainspectionrule "github.com/zscaler/provider-zpa/apis/zpainspectionrule/v1alpha1"
@@ -30,6 +34,10 @@ func init() {
 		v1beta1.SchemeBuilder.AddToScheme,
 		v1alpha1zpaaccessrule.SchemeBuilder.AddToScheme,
 		v1alpha1zpaappconnectorgroup.SchemeBuilder.AddToScheme,
+		v1alpha1zpaapplicationsegment.SchemeBuilder.AddToScheme,
+		v1alpha1zpaapplicationsegmentbrowseraccess.SchemeBuilder.AddToScheme,
+		v1alpha1zpaapplicationsegmentinspection.SchemeBuilder.AddToScheme,
+		v1alpha1zpaapplicationsegmentpra.SchemeBuilder.AddToScheme,
 		v1alpha1zpaapplicationserver.SchemeBuilder.AddToScheme,
 		v1alpha1zpaforwardingrule.SchemeBuilder.AddToScheme,
 		v1alpha1zpainspectionrule.SchemeBuilder.AddToScheme,
