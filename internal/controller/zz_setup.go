@@ -12,6 +12,10 @@ import (
 	providerconfig "github.com/zscaler/provider-zpa/internal/controller/providerconfig"
 	accessrule "github.com/zscaler/provider-zpa/internal/controller/zpaaccessrule/accessrule"
 	connectorgroup "github.com/zscaler/provider-zpa/internal/controller/zpaappconnectorgroup/connectorgroup"
+	segment "github.com/zscaler/provider-zpa/internal/controller/zpaapplicationsegment/segment"
+	segmentbrowseraccess "github.com/zscaler/provider-zpa/internal/controller/zpaapplicationsegmentbrowseraccess/segmentbrowseraccess"
+	segmentinspection "github.com/zscaler/provider-zpa/internal/controller/zpaapplicationsegmentinspection/segmentinspection"
+	segmentpra "github.com/zscaler/provider-zpa/internal/controller/zpaapplicationsegmentpra/segmentpra"
 	server "github.com/zscaler/provider-zpa/internal/controller/zpaapplicationserver/server"
 	forwardingrule "github.com/zscaler/provider-zpa/internal/controller/zpaforwardingrule/forwardingrule"
 	inspectionrule "github.com/zscaler/provider-zpa/internal/controller/zpainspectionrule/inspectionrule"
@@ -28,6 +32,10 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		providerconfig.Setup,
 		accessrule.Setup,
 		connectorgroup.Setup,
+		segment.Setup,
+		segmentbrowseraccess.Setup,
+		segmentinspection.Setup,
+		segmentpra.Setup,
 		server.Setup,
 		forwardingrule.Setup,
 		inspectionrule.Setup,
