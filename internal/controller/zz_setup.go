@@ -10,6 +10,7 @@ import (
 	"github.com/upbound/upjet/pkg/controller"
 
 	providerconfig "github.com/zscaler/provider-zpa/internal/controller/providerconfig"
+	edgegroup "github.com/zscaler/provider-zpa/internal/controller/service/edgegroup"
 	accessrule "github.com/zscaler/provider-zpa/internal/controller/zpaaccessrule/accessrule"
 	connectorgroup "github.com/zscaler/provider-zpa/internal/controller/zpaappconnectorgroup/connectorgroup"
 	segment "github.com/zscaler/provider-zpa/internal/controller/zpaapplicationsegment/segment"
@@ -21,6 +22,7 @@ import (
 	customcontrols "github.com/zscaler/provider-zpa/internal/controller/zpainspectioncustomcontrols/customcontrols"
 	profile "github.com/zscaler/provider-zpa/internal/controller/zpainspectionprofile/profile"
 	inspectionrule "github.com/zscaler/provider-zpa/internal/controller/zpainspectionrule/inspectionrule"
+	configcontroller "github.com/zscaler/provider-zpa/internal/controller/zpalssconfigcontroller/configcontroller"
 	key "github.com/zscaler/provider-zpa/internal/controller/zpaprovisioningkey/key"
 	group "github.com/zscaler/provider-zpa/internal/controller/zpasegmentgroup/group"
 	groupzpaservergroup "github.com/zscaler/provider-zpa/internal/controller/zpaservergroup/group"
@@ -33,6 +35,7 @@ import (
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
 		providerconfig.Setup,
+		edgegroup.Setup,
 		accessrule.Setup,
 		connectorgroup.Setup,
 		segment.Setup,
@@ -44,6 +47,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		customcontrols.Setup,
 		profile.Setup,
 		inspectionrule.Setup,
+		configcontroller.Setup,
 		key.Setup,
 		group.Setup,
 		groupzpaservergroup.Setup,
