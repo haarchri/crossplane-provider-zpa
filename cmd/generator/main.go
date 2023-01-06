@@ -11,7 +11,7 @@ import (
 
 	"github.com/upbound/upjet/pkg/pipeline"
 
-	"github.com/zscaler/provider-zpa/config"
+	"github.com/zscaler/crossplane-provider-zpa/config"
 )
 
 func main() {

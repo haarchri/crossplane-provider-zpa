@@ -1,6 +1,6 @@
 # Provider ZPA
 
-`provider-zpa` is a [Crossplane](https://crossplane.io/) provider that
+`crossplane-provider-zpa` is a [Crossplane](https://crossplane.io/) provider that
 is built using [Upjet](https://github.com/upbound/upjet) code
 generation tools and exposes XRM-conformant managed resources for the
 ZPA API.
@@ -8,9 +8,9 @@ ZPA API.
 ## Getting Started
 
 Install the provider by using the following command after changing the image tag
-to the [latest release](https://marketplace.upbound.io/providers/zscaler/provider-zpa):
+to the [latest release](https://marketplace.crossplane.io/providers/zscaler/crossplane-provider-zpa):
 ```
-up ctp provider install zscaler/provider-zpa:v0.1.0
+up ctp provider install zscaler/crossplane-provider-zpa:v0.1.0
 ```
 
 Alternatively, you can use declarative installation:
@@ -19,15 +19,15 @@ cat <<EOF | kubectl apply -f -
 apiVersion: pkg.crossplane.io/v1
 kind: Provider
 metadata:
-  name: provider-zpa
+  name: crossplane-provider-zpa
 spec:
-  package: zscaler/provider-zpa:v0.1.0
+  package: zscaler/crossplane-provider-zpa:v0.1.0
 EOF
 ```
 
 Notice that in this example Provider resource is referencing ControllerConfig with debug enabled.
 
-You can see the API reference [here](https://doc.crds.dev/github.com/zscaler/provider-zpa).
+You can see the API reference [here](https://doc.crds.dev/github.com/zscaler/crossplane-provider-zpa).
 
 ## Developing
 
@@ -57,4 +57,4 @@ make build
 ## Report a Bug
 
 For filing bugs, suggesting improvements, or requesting new features, please
-open an [issue](https://github.com/zscaler/provider-zpa/issues).
+open an [issue](https://github.com/zscaler/crossplane-provider-zpa/issues).

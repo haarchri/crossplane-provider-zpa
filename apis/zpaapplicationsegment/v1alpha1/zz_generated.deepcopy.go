@@ -10,6 +10,7 @@ Copyright 2022 Upbound Inc.
 package v1alpha1
 
 import (
+	"github.com/crossplane/crossplane-runtime/apis/common/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )
 
@@ -176,6 +177,16 @@ func (in *SegmentParameters) DeepCopyInto(out *SegmentParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.SegmentGroupIDRef != nil {
+		in, out := &in.SegmentGroupIDRef, &out.SegmentGroupIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.SegmentGroupIDSelector != nil {
+		in, out := &in.SegmentGroupIDSelector, &out.SegmentGroupIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.SegmentGroupName != nil {
 		in, out := &in.SegmentGroupName, &out.SegmentGroupName
 		*out = new(string)
@@ -298,6 +309,18 @@ func (in *ServerGroupsParameters) DeepCopyInto(out *ServerGroupsParameters) {
 				**out = **in
 			}
 		}
+	}
+	if in.IDRefs != nil {
+		in, out := &in.IDRefs, &out.IDRefs
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 

@@ -5,9 +5,9 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.8.0
   creationTimestamp: null
-  name: storeconfigs.zpa.upbound.io
+  name: storeconfigs.zpa.crossplane.io
 spec:
-  group: zpa.upbound.io
+  group: zpa.crossplane.io
   names:
     categories:
     - crossplane

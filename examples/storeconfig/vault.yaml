@@ -1,4 +1,4 @@
-apiVersion: zpa.upbound.io/v1alpha1
+apiVersion: zpa.crossplane.io/v1alpha1
 kind: StoreConfig
 metadata:
   name: vault

@@ -1,0 +1,20 @@
+---
+apiVersion: zpaappconnectorgroup.zpa.crossplane.io/v1alpha1
+kind: ConnectorGroup
+metadata:
+  name: example
+spec:
+  forProvider:
+    name: "Example"
+    description: "Example"
+    enabled: true
+    cityCountry: "California, US"
+    countryCode: "US"
+    latitude: "37.3382082"
+    longitude: "-121.8863286"
+    location: "San Jose, CA, USA"
+    upgradeDay: "SUNDAY"
+    upgradeTimeInSecs: "66600"
+    overrideVersionProfile: true
+    versionProfileName: "New Release"
+    dnsQueryType: "IPV4"

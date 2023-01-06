@@ -1,0 +1,13 @@
+---
+apiVersion: zpaapplicationserver.zpa.crossplane.io/v1alpha1
+kind: Server
+metadata:
+  name: crm-app-server
+spec:
+  forProvider:
+    name: "CRM App Server"
+    description: "CRM App Server"
+    address: "crm.example.com"
+    enabled: true
+    appServerGroupIdRefs:
+      - name: crm-servers

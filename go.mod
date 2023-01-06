@@ -1,4 +1,4 @@
-module github.com/zscaler/provider-zpa
+module github.com/zscaler/crossplane-provider-zpa
 
 go 1.19
 

@@ -13,7 +13,7 @@ import (
 
 // Package type metadata.
 const (
-	Group   = "zpa.upbound.io"
+	Group   = "zpa.crossplane.io"
 	Version = "v1alpha1"
 )
 

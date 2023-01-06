@@ -1,0 +1,23 @@
+---
+apiVersion: zpaapplicationsegment.zpa.crossplane.io/v1alpha1
+kind: Segment
+metadata:
+  name: crm-application
+spec:
+  forProvider:
+    name: crm-application
+    description: description
+    enabled: true
+    healthReporting: "ON_ACCESS"
+    bypassType: "NEVER"
+    isCnameEnabled: true
+    tcpPortRanges:
+      - "80"
+      - "80"
+    domainNames:
+      - "crm.example.com"
+    segmentGroupIdRef:
+      name: crm-app-group
+    serverGroups:
+      - idRefs: 
+          - name: crm-servers

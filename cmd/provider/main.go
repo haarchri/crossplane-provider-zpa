@@ -24,12 +24,12 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	"github.com/zscaler/provider-zpa/apis"
-	"github.com/zscaler/provider-zpa/apis/v1alpha1"
-	"github.com/zscaler/provider-zpa/config"
-	"github.com/zscaler/provider-zpa/internal/clients"
-	"github.com/zscaler/provider-zpa/internal/controller"
-	"github.com/zscaler/provider-zpa/internal/features"
+	"github.com/zscaler/crossplane-provider-zpa/apis"
+	"github.com/zscaler/crossplane-provider-zpa/apis/v1alpha1"
+	"github.com/zscaler/crossplane-provider-zpa/config"
+	"github.com/zscaler/crossplane-provider-zpa/internal/clients"
+	"github.com/zscaler/crossplane-provider-zpa/internal/controller"
+	"github.com/zscaler/crossplane-provider-zpa/internal/features"
 )
 
 func main() {

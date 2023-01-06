@@ -18,8 +18,17 @@ type AppConnectorGroupsObservation struct {
 
 type AppConnectorGroupsParameters struct {
 
+	// +crossplane:generate:reference:type=github.com/zscaler/crossplane-provider-zpa/apis/zpaappconnectorgroup/v1alpha1.ConnectorGroup
 	// +kubebuilder:validation:Optional
 	ID []*string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// References to ConnectorGroup in zpaappconnectorgroup to populate id.
+	// +kubebuilder:validation:Optional
+	IDRefs []v1.Reference `json:"idRefs,omitempty" tf:"-"`
+
+	// Selector for a list of ConnectorGroup in zpaappconnectorgroup to populate id.
+	// +kubebuilder:validation:Optional
+	IDSelector *v1.Selector `json:"idSelector,omitempty" tf:"-"`
 }
 
 type ApplicationsObservation struct {

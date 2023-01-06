@@ -23,7 +23,18 @@ type ServerParameters struct {
 	// +kubebuilder:validation:Required
 	Address *string `json:"address" tf:"address,omitempty"`
 
+	// References to Group in zpaservergroup to populate appServerGroupIds.
+	// +kubebuilder:validation:Optional
+	AppServerGroupIDRefs []v1.Reference `json:"appServerGroupIdRefs,omitempty" tf:"-"`
+
+	// Selector for a list of Group in zpaservergroup to populate appServerGroupIds.
+	// +kubebuilder:validation:Optional
+	AppServerGroupIDSelector *v1.Selector `json:"appServerGroupIdSelector,omitempty" tf:"-"`
+
 	// This field defines the list of server groups IDs.
+	// +crossplane:generate:reference:type=github.com/zscaler/crossplane-provider-zpa/apis/zpaservergroup/v1alpha1.Group
+	// +crossplane:generate:reference:refFieldName=AppServerGroupIDRefs
+	// +crossplane:generate:reference:selectorFieldName=AppServerGroupIDSelector
 	// +kubebuilder:validation:Optional
 	AppServerGroupIds []*string `json:"appServerGroupIds,omitempty" tf:"app_server_group_ids,omitempty"`
 
