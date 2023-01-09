@@ -10,6 +10,7 @@ Copyright 2022 Upbound Inc.
 package v1alpha1
 
 import (
+	"github.com/crossplane/crossplane-runtime/apis/common/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )
 
@@ -99,6 +100,18 @@ func (in *ServerParameters) DeepCopyInto(out *ServerParameters) {
 		in, out := &in.Address, &out.Address
 		*out = new(string)
 		**out = **in
+	}
+	if in.AppServerGroupIDRefs != nil {
+		in, out := &in.AppServerGroupIDRefs, &out.AppServerGroupIDRefs
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.AppServerGroupIDSelector != nil {
+		in, out := &in.AppServerGroupIDSelector, &out.AppServerGroupIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.AppServerGroupIds != nil {
 		in, out := &in.AppServerGroupIds, &out.AppServerGroupIds

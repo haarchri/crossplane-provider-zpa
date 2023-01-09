@@ -1,7 +1,7 @@
 # ====================================================================================
 # Setup Project
 
-PROJECT_NAME := provider-zpa
+PROJECT_NAME := crossplane-provider-zpa
 PROJECT_REPO := github.com/zscaler/$(PROJECT_NAME)
 
 export TERRAFORM_VERSION := 1.3.3
@@ -57,23 +57,23 @@ UPTEST_VERSION = v0.2.1
 # ====================================================================================
 # Setup Images
 
-REGISTRY_ORGS ?= xpkg.upbound.io/upbound
+REGISTRY_ORGS ?= xpkg.crossplane.io/upbound
 IMAGES = $(PROJECT_NAME)
 -include build/makelib/imagelight.mk
 
 # ====================================================================================
 # Setup XPKG
 
-XPKG_REG_ORGS ?= xpkg.upbound.io/upbound
-# NOTE(hasheddan): skip promoting on xpkg.upbound.io as channel tags are
+XPKG_REG_ORGS ?= xpkg.crossplane.io/upbound
+# NOTE(hasheddan): skip promoting on xpkg.crossplane.io as channel tags are
 # inferred.
-XPKG_REG_ORGS_NO_PROMOTE ?= xpkg.upbound.io/upbound
+XPKG_REG_ORGS_NO_PROMOTE ?= xpkg.crossplane.io/upbound
 XPKGS = $(PROJECT_NAME)
 -include build/makelib/xpkg.mk
 
 # NOTE(hasheddan): we force image building to happen prior to xpkg build so that
 # we ensure image is present in daemon.
-xpkg.build.provider-zpa: do.build.images
+xpkg.build.crossplane-provider-zpa: do.build.images
 
 # NOTE(hasheddan): we ensure up is installed prior to running platform-specific
 # build steps in parallel to avoid encountering an installation race condition.

@@ -10,6 +10,7 @@ Copyright 2022 Upbound Inc.
 package v1alpha1
 
 import (
+	"github.com/crossplane/crossplane-runtime/apis/common/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )
 
@@ -41,6 +42,18 @@ func (in *AppConnectorGroupsParameters) DeepCopyInto(out *AppConnectorGroupsPara
 				**out = **in
 			}
 		}
+	}
+	if in.IDRefs != nil {
+		in, out := &in.IDRefs, &out.IDRefs
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 

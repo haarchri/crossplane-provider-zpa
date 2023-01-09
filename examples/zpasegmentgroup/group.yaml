@@ -1,0 +1,11 @@
+---
+apiVersion: zpasegmentgroup.zpa.crossplane.io/v1alpha1
+kind: Group
+metadata:
+  name: crm-app-group
+spec:
+  forProvider:
+    name: "CRM App group"
+    description: "CRM App group"
+    enabled: true
+    policyMigrated: true

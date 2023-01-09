@@ -1,0 +1,14 @@
+---
+apiVersion: zpaservergroup.zpa.crossplane.io/v1alpha1
+kind: Group
+metadata:
+  name: crm-servers
+spec:
+  forProvider:
+    name: "CRM Servers"
+    description: "CRM Servers"
+    enabled: true
+    dynamicDiscovery: true
+    appConnectorGroups:
+      - idRefs: 
+          - name: example

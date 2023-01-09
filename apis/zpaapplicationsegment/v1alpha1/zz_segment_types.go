@@ -69,8 +69,17 @@ type SegmentParameters struct {
 	// +kubebuilder:validation:Optional
 	PassiveHealthEnabled *bool `json:"passiveHealthEnabled,omitempty" tf:"passive_health_enabled,omitempty"`
 
+	// +crossplane:generate:reference:type=github.com/zscaler/crossplane-provider-zpa/apis/zpasegmentgroup/v1alpha1.Group
 	// +kubebuilder:validation:Optional
 	SegmentGroupID *string `json:"segmentGroupId,omitempty" tf:"segment_group_id,omitempty"`
+
+	// Reference to a Group in zpasegmentgroup to populate segmentGroupId.
+	// +kubebuilder:validation:Optional
+	SegmentGroupIDRef *v1.Reference `json:"segmentGroupIdRef,omitempty" tf:"-"`
+
+	// Selector for a Group in zpasegmentgroup to populate segmentGroupId.
+	// +kubebuilder:validation:Optional
+	SegmentGroupIDSelector *v1.Selector `json:"segmentGroupIdSelector,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	SegmentGroupName *string `json:"segmentGroupName,omitempty" tf:"segment_group_name,omitempty"`
@@ -101,8 +110,17 @@ type ServerGroupsObservation struct {
 
 type ServerGroupsParameters struct {
 
-	// +kubebuilder:validation:Required
-	ID []*string `json:"id" tf:"id,omitempty"`
+	// +crossplane:generate:reference:type=github.com/zscaler/crossplane-provider-zpa/apis/zpaservergroup/v1alpha1.Group
+	// +kubebuilder:validation:Optional
+	ID []*string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// References to Group in zpaservergroup to populate id.
+	// +kubebuilder:validation:Optional
+	IDRefs []v1.Reference `json:"idRefs,omitempty" tf:"-"`
+
+	// Selector for a list of Group in zpaservergroup to populate id.
+	// +kubebuilder:validation:Optional
+	IDSelector *v1.Selector `json:"idSelector,omitempty" tf:"-"`
 }
 
 type TCPPortRangeObservation struct {

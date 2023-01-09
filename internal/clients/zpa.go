@@ -15,7 +15,7 @@ import (
 
 	"github.com/upbound/upjet/pkg/terraform"
 
-	"github.com/zscaler/provider-zpa/apis/v1beta1"
+	"github.com/zscaler/crossplane-provider-zpa/apis/v1beta1"
 )
 
 const (
