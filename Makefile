@@ -57,17 +57,17 @@ UPTEST_VERSION = v0.2.1
 # ====================================================================================
 # Setup Images
 
-REGISTRY_ORGS ?= xpkg.crossplane.io/upbound
+REGISTRY_ORGS ?= xpkg.upbound.io/zscaler
 IMAGES = $(PROJECT_NAME)
 -include build/makelib/imagelight.mk
 
 # ====================================================================================
 # Setup XPKG
 
-XPKG_REG_ORGS ?= xpkg.crossplane.io/upbound
-# NOTE(hasheddan): skip promoting on xpkg.crossplane.io as channel tags are
+XPKG_REG_ORGS ?= xpkg.upbound.io/zscaler
+# NOTE(hasheddan): skip promoting on xpkg.upbound.io as channel tags are
 # inferred.
-XPKG_REG_ORGS_NO_PROMOTE ?= xpkg.crossplane.io/upbound
+XPKG_REG_ORGS_NO_PROMOTE ?= xpkg.upbound.io/zscaler
 XPKGS = $(PROJECT_NAME)
 -include build/makelib/xpkg.mk
 
