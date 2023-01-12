@@ -35,7 +35,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Server is the Schema for the Servers API. <no value>
+        description: Server is the Schema for the Servers API. Creates and manages
+          ZPA Application Servers.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -64,8 +65,9 @@ spec:
               forProvider:
                 properties:
                   address:
-                    description: This field defines the domain or IP address of the
-                      server.
+                    description: Address. The address of the application server to
+                      be exported. This field defines the domain or IP address of
+                      the server.
                     type: string
                   appServerGroupIdRefs:
                     description: References to Group in zpaservergroup to populate
@@ -146,7 +148,8 @@ spec:
                         type: object
                     type: object
                   appServerGroupIds:
-                    description: This field defines the list of server groups IDs.
+                    description: This field defines the list of server group IDs.
+                      This field defines the list of server groups IDs.
                     items:
                       type: string
                     type: array
@@ -154,12 +157,15 @@ spec:
                     type: string
                   description:
                     description: This field defines the description of the server.
+                      This field defines the description of the server.
                     type: string
                   enabled:
-                    description: This field defines the status of the server.
+                    description: This field defines the status of the server. This
+                      field defines the status of the server.
                     type: boolean
                   name:
-                    description: This field defines the name of the server.
+                    description: Name. The name of the application server to be exported.
+                      This field defines the name of the server.
                     type: string
                 required:
                 - address

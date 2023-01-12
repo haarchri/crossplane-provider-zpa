@@ -20,6 +20,7 @@ type SegmentObservation struct {
 type SegmentParameters struct {
 
 	// Indicates whether users can bypass ZPA to access applications.
+	// Indicates whether users can bypass ZPA to access applications.
 	// +kubebuilder:validation:Optional
 	BypassType *string `json:"bypassType,omitempty" tf:"bypass_type,omitempty"`
 
@@ -30,17 +31,21 @@ type SegmentParameters struct {
 	DefaultIdleTimeout *string `json:"defaultIdleTimeout,omitempty" tf:"default_idle_timeout,omitempty"`
 
 	// Description of the application.
+	// Description of the application.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// List of domains and IPs.
 	// List of domains and IPs.
 	// +kubebuilder:validation:Required
 	DomainNames []*string `json:"domainNames" tf:"domain_names,omitempty"`
 
 	// Whether Double Encryption is enabled or disabled for the app.
+	// Whether Double Encryption is enabled or disabled for the app.
 	// +kubebuilder:validation:Optional
 	DoubleEncrypt *bool `json:"doubleEncrypt,omitempty" tf:"double_encrypt,omitempty"`
 
+	// Whether this application is enabled or not.
 	// Whether this application is enabled or not.
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
@@ -48,6 +53,7 @@ type SegmentParameters struct {
 	// +kubebuilder:validation:Optional
 	HealthCheckType *string `json:"healthCheckType,omitempty" tf:"health_check_type,omitempty"`
 
+	// Whether health reporting for the app is Continuous or On Access. Supported values: NONE, ON_ACCESS, CONTINUOUS.
 	// Whether health reporting for the app is Continuous or On Access. Supported values: NONE, ON_ACCESS, CONTINUOUS.
 	// +kubebuilder:validation:Optional
 	HealthReporting *string `json:"healthReporting,omitempty" tf:"health_reporting,omitempty"`
@@ -59,9 +65,11 @@ type SegmentParameters struct {
 	IcmpAccessType *string `json:"icmpAccessType,omitempty" tf:"icmp_access_type,omitempty"`
 
 	// Indicates if the Zscaler Client Connector (formerly Zscaler App or Z App) receives CNAME DNS records from the connectors.
+	// Indicates if the Zscaler Client Connector (formerly Zscaler App or Z App) receives CNAME DNS records from the connectors.
 	// +kubebuilder:validation:Optional
 	IsCnameEnabled *bool `json:"isCnameEnabled,omitempty" tf:"is_cname_enabled,omitempty"`
 
+	// Name. The name of the App Connector Group to be exported.
 	// Name of the application.
 	// +kubebuilder:validation:Required
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -69,6 +77,7 @@ type SegmentParameters struct {
 	// +kubebuilder:validation:Optional
 	PassiveHealthEnabled *bool `json:"passiveHealthEnabled,omitempty" tf:"passive_health_enabled,omitempty"`
 
+	// List of Segment Group IDs
 	// +crossplane:generate:reference:type=github.com/zscaler/crossplane-provider-zpa/apis/zpasegmentgroup/v1alpha1.Group
 	// +kubebuilder:validation:Optional
 	SegmentGroupID *string `json:"segmentGroupId,omitempty" tf:"segment_group_id,omitempty"`
@@ -81,25 +90,31 @@ type SegmentParameters struct {
 	// +kubebuilder:validation:Optional
 	SegmentGroupIDSelector *v1.Selector `json:"segmentGroupIdSelector,omitempty" tf:"-"`
 
+	// Name. The name of the App Connector Group to be exported.
 	// +kubebuilder:validation:Optional
 	SegmentGroupName *string `json:"segmentGroupName,omitempty" tf:"segment_group_name,omitempty"`
 
+	// List of Server Group IDs
 	// List of the server group IDs.
 	// +kubebuilder:validation:Required
 	ServerGroups []ServerGroupsParameters `json:"serverGroups" tf:"server_groups,omitempty"`
 
+	// TCP port ranges used to access the app.
 	// tcp port range
 	// +kubebuilder:validation:Optional
 	TCPPortRange []TCPPortRangeParameters `json:"tcpPortRange,omitempty" tf:"tcp_port_range,omitempty"`
 
 	// TCP port ranges used to access the app.
+	// TCP port ranges used to access the app.
 	// +kubebuilder:validation:Optional
 	TCPPortRanges []*string `json:"tcpPortRanges,omitempty" tf:"tcp_port_ranges,omitempty"`
 
+	// UDP port ranges used to access the app.
 	// udp port range
 	// +kubebuilder:validation:Optional
 	UDPPortRange []UDPPortRangeParameters `json:"udpPortRange,omitempty" tf:"udp_port_range,omitempty"`
 
+	// UDP port ranges used to access the app.
 	// UDP port ranges used to access the app.
 	// +kubebuilder:validation:Optional
 	UDPPortRanges []*string `json:"udpPortRanges,omitempty" tf:"udp_port_ranges,omitempty"`
@@ -161,7 +176,7 @@ type SegmentStatus struct {
 
 // +kubebuilder:object:root=true
 
-// Segment is the Schema for the Segments API. <no value>
+// Segment is the Schema for the Segments API. Creates and manages ZPA Application Segments.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

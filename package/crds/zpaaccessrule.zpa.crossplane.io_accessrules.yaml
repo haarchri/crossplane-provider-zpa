@@ -35,7 +35,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: AccessRule is the Schema for the AccessRules API. <no value>
+        description: AccessRule is the Schema for the AccessRules API. Creates and
+          manages ZPA Policy Access Rule with Trusted Networks conditions.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -64,16 +65,19 @@ spec:
               forProvider:
                 properties:
                   action:
-                    description: This is for providing the rule action.
+                    description: 'This is for providing the rule action. Supported
+                      values: ALLOW, DENY This is for providing the rule action.'
                     type: string
                   actionId:
-                    description: This field defines the description of the server.
+                    description: The ID of an app connector group resource This field
+                      defines the description of the server.
                     type: string
                   appConnectorGroups:
                     description: List of app-connector IDs.
                     items:
                       properties:
                         id:
+                          description: The ID of an app connector group resource
                           items:
                             type: string
                           type: array
@@ -84,6 +88,7 @@ spec:
                     items:
                       properties:
                         id:
+                          description: The ID of an app connector group resource
                           items:
                             type: string
                           type: array
@@ -97,25 +102,36 @@ spec:
                     items:
                       properties:
                         negated:
+                          description: 'Supported values: true or false'
                           type: boolean
                         operands:
-                          description: This signifies the various policy criteria.
+                          description: Operands block must be repeated if multiple
+                            per object_type conditions are to be added to the rule.
+                            This signifies the various policy criteria.
                           items:
                             properties:
                               idpId:
                                 type: string
                               lhs:
-                                description: 'This signifies the key for the object
-                                  type. String ID example: id'
+                                description: 'Trusted Network (network_id) required
+                                  when object_type = "TRUSTED_NETWORK". Use zpa_trusted_network
+                                  data source to retrieve the network_id This signifies
+                                  the key for the object type. String ID example:
+                                  id'
                                 type: string
                               name:
+                                description: This is the name of the policy rule.
                                 type: string
                               objectType:
-                                description: This is for specifying the policy critiera.
+                                description: 'This is for specifying the policy critiera.
+                                  For posture profile the supported value is:  TRUSTED_NETWORK
+                                  This is for specifying the policy critiera.'
                                 type: string
                               rhs:
-                                description: This denotes the value for the given
-                                  object type. Its value depends upon the key.
+                                description: 'Required when object_type = "TRUSTED_NETWORK".
+                                  Supported values are: This denotes the value for
+                                  the given object type. Its value depends upon the
+                                  key.'
                                 type: string
                               rhsList:
                                 description: This denotes a list of values for the
@@ -130,6 +146,7 @@ spec:
                             type: object
                           type: array
                         operator:
+                          description: 'Supported values: AND, OR'
                           type: string
                       required:
                       - operator
@@ -137,25 +154,31 @@ spec:
                     type: array
                   customMsg:
                     description: This is for providing a customer message for the
-                      user.
+                      user. This is for providing a customer message for the user.
                     type: string
                   defaultRule:
                     description: This is for providing a customer message for the
                       user.
                     type: boolean
                   description:
-                    description: This is the description of the access policy.
+                    description: This is the description of the access policy rule.
+                      This is the description of the access policy.
                     type: string
                   lssDefaultRule:
                     type: boolean
                   name:
-                    description: This is the name of the policy.
+                    description: This is the name of the policy rule. This is the
+                      name of the policy.
                     type: string
                   operator:
+                    description: 'Supported values: AND, OR'
                     type: string
                   policySetId:
+                    description: Use zpa_policy_type data source to retrieve the necessary
+                      policy Set ID policy_set_id
                     type: string
                   policyType:
+                    description: 'Supported values: ACCESS_POLICY or GLOBAL_POLICY'
                     type: string
                   priority:
                     type: string
@@ -168,6 +191,7 @@ spec:
                   ruleOrder:
                     type: string
                   zpnInspectionProfileId:
+                    description: The ID of an app connector group resource
                     type: string
                 required:
                 - name
@@ -354,18 +378,23 @@ spec:
                     items:
                       properties:
                         id:
+                          description: The ID of an app connector group resource
                           type: string
                         operands:
-                          description: This signifies the various policy criteria.
+                          description: Operands block must be repeated if multiple
+                            per object_type conditions are to be added to the rule.
+                            This signifies the various policy criteria.
                           items:
                             properties:
                               id:
+                                description: The ID of an app connector group resource
                                 type: string
                             type: object
                           type: array
                       type: object
                     type: array
                   id:
+                    description: The ID of an app connector group resource
                     type: string
                 type: object
               conditions:

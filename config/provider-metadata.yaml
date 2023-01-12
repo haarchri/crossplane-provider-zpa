@@ -1,2 +1,1404 @@
 name: zscaler/zpa
-resources: {}
+resources:
+    zpa_app_connector_group:
+        subCategory: App Connector Group
+        description: Creates and manages ZPA App Connector Groups.
+        name: zpa_app_connector_group
+        title: app_connector_group
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "city_country": "San Jose, CA",
+                  "country_code": "US",
+                  "description": "Example",
+                  "dns_query_type": "IPV4_IPV6",
+                  "enabled": true,
+                  "latitude": "37.338",
+                  "location": "San Jose, CA, US",
+                  "longitude": "-121.8863",
+                  "name": "Example",
+                  "override_version_profile": true,
+                  "upgrade_day": "SUNDAY",
+                  "upgrade_time_in_secs": "66600",
+                  "version_profile_name": "New Release"
+                }
+        argumentDocs:
+            "0": = Default
+            "1": = Previous Default
+            "2": = New Release
+            Default: = 0
+            IPV4: ', IPV6, IPV4_IPV6'
+            New Release: = 2
+            Previous Default: = 1
+            city_country: '- (Optional) Whether Double Encryption is enabled or disabled for the app. i.e "San Jose, US"'
+            country_code: '- (Optional) i.e "US", "CA"'
+            description: (Optional) Description of the App Connector Group.
+            dns_query_type: '- (Optional) Supported values are:'
+            enabled: '- (Optional) Whether this App Connector Group is enabled or not. Default value: true. Supported values: true, false'
+            id: '- The ID of the Group Role Assignment.'
+            latitude: '- (Required) Latitude of the App Connector Group. Integer or decimal. With values in the range of -90 to 90'
+            location: '- (Required) Location of the App Connector Group. i.e "San Jose, CA, USA"'
+            longitude: '- (Required) Longitude of the App Connector Group. Integer or decimal. With values in the range of -180 to 180'
+            name: '- (Required) Name of the App Connector Group.'
+            override_version_profile: '- (Optional) Whether the default version profile of the App Connector Group is applied or overridden. Default: false Supported values: true, false'
+            tcp_quick_ack_app: '- (Optional) Whether TCP Quick Acknowledgement is enabled or disabled for the application. The tcpQuickAckApp, tcpQuickAckAssistant, and tcpQuickAckReadAssistant fields must all share the same value. Supported values: true, false'
+            tcp_quick_ack_assistant: '- (Optional) Whether TCP Quick Acknowledgement is enabled or disabled for the application. The tcpQuickAckApp, tcpQuickAckAssistant, and tcpQuickAckReadAssistant fields must all share the same value. Supported values: true, false'
+            tcp_quick_ack_read_assistant: '- (Optional) Whether TCP Quick Acknowledgement is enabled or disabled for the application. The tcpQuickAckApp, tcpQuickAckAssistant, and tcpQuickAckReadAssistant fields must all share the same value. Supported values: true, false'
+            upgrade_day: '- (Optional) App Connectors in this group will attempt to update to a newer version of the software during this specified day i.e SUNDAY'
+            upgrade_time_in_secs: '- (Optional) App Connectors in this group will attempt to update to a newer version of the software during this specified time. Default value: 66600. Integer in seconds (i.e., -66600). The integer should be greater than or equal to 0 and less than 86400, in 15 minute intervals'
+            use_in_dr_mode: '- (Optional) Supported values: true, false'
+            version_profile_id: '- (Optional) ID of the version profile. To learn more, see Version Profile Use Cases. Supported values are:'
+            version_profile_name: '- (Optional)'
+            version_profile_visibility_scope: '- (Optional)'
+        importStatements:
+            - terraform import zpa_app_connector_group.example <app_connector_group_id>
+            - terraform import zpa_app_connector_group.example <app_connector_group_name>
+    zpa_application_segment:
+        subCategory: Application Segment
+        description: Creates and manages ZPA Application Segments.
+        name: zpa_application_segment
+        title: application_segment
+        examples:
+            - name: this
+              manifest: |-
+                {
+                  "bypass_type": "NEVER",
+                  "depends_on": [
+                    "${zpa_server_group.this}",
+                    "${zpa_segment_group.this}"
+                  ],
+                  "description": "Example",
+                  "domain_names": [
+                    "server.acme.com"
+                  ],
+                  "enabled": true,
+                  "health_reporting": "ON_ACCESS",
+                  "is_cname_enabled": true,
+                  "name": "Example",
+                  "segment_group_id": "${zpa_segment_group.this.id}",
+                  "server_groups": [
+                    {
+                      "id": [
+                        "${zpa_server_group.this.id}"
+                      ]
+                    }
+                  ],
+                  "tcp_port_ranges": [
+                    "8080",
+                    "8080"
+                  ]
+                }
+              references:
+                segment_group_id: zpa_segment_group.this.id
+              dependencies:
+                zpa_app_connector_group.this: |-
+                    {
+                      "city_country": "San Jose, CA",
+                      "country_code": "US",
+                      "description": "Example",
+                      "dns_query_type": "IPV4",
+                      "enabled": true,
+                      "latitude": "37.338",
+                      "location": "San Jose, CA, US",
+                      "longitude": "-121.8863",
+                      "name": "Example",
+                      "override_version_profile": true,
+                      "upgrade_day": "SUNDAY",
+                      "upgrade_time_in_secs": "66600",
+                      "version_profile_id": 0
+                    }
+                zpa_segment_group.this: |-
+                    {
+                      "description": "Example",
+                      "enabled": true,
+                      "name": "Example"
+                    }
+                zpa_server_group.this: |-
+                    {
+                      "app_connector_groups": [
+                        {
+                          "id": [
+                            "${zpa_app_connector_group.this.id}"
+                          ]
+                        }
+                      ],
+                      "depends_on": [
+                        "${zpa_app_connector_group.this}"
+                      ],
+                      "description": "Example",
+                      "dynamic_discovery": false,
+                      "enabled": true,
+                      "name": "Example"
+                    }
+            - name: this
+              manifest: |-
+                {
+                  "bypass_type": "NEVER",
+                  "depends_on": [
+                    "${zpa_server_group.this}",
+                    "${zpa_segment_group.this}"
+                  ],
+                  "description": "Example",
+                  "domain_names": [
+                    "server.acme.com"
+                  ],
+                  "enabled": true,
+                  "health_reporting": "ON_ACCESS",
+                  "is_cname_enabled": true,
+                  "name": "Example",
+                  "segment_group_id": "${zpa_segment_group.this.id}",
+                  "server_groups": [
+                    {
+                      "id": [
+                        "${zpa_server_group.this.id}"
+                      ]
+                    }
+                  ],
+                  "tcp_port_range": [
+                    {
+                      "from": "8080",
+                      "to": "8080"
+                    }
+                  ],
+                  "udp_port_range": [
+                    {
+                      "from": "8080",
+                      "to": "8080"
+                    }
+                  ]
+                }
+              references:
+                segment_group_id: zpa_segment_group.this.id
+              dependencies:
+                zpa_app_connector_group.this: |-
+                    {
+                      "city_country": "San Jose, CA",
+                      "country_code": "US",
+                      "description": "Example",
+                      "dns_query_type": "IPV4",
+                      "enabled": true,
+                      "latitude": "37.338",
+                      "location": "San Jose, CA, US",
+                      "longitude": "-121.8863",
+                      "name": "Example",
+                      "override_version_profile": true,
+                      "upgrade_day": "SUNDAY",
+                      "upgrade_time_in_secs": "66600",
+                      "version_profile_id": 0
+                    }
+                zpa_segment_group.this: |-
+                    {
+                      "description": "Example",
+                      "enabled": true,
+                      "name": "Example"
+                    }
+                zpa_server_group.this: |-
+                    {
+                      "app_connector_groups": [
+                        {
+                          "id": [
+                            "${zpa_app_connector_group.this.id}"
+                          ]
+                        }
+                      ],
+                      "depends_on": [
+                        "${zpa_app_connector_group.this}"
+                      ],
+                      "description": "Example",
+                      "dynamic_discovery": false,
+                      "enabled": true,
+                      "name": "Example"
+                    }
+        argumentDocs:
+            bypass_type: '- (Optional) Indicates whether users can bypass ZPA to access applications.'
+            config_space: '- (Optional)'
+            description: '- (Optional) Description of the application.'
+            domain_names: '- (Required) List of domains and IPs.'
+            double_encrypt: '- (Optional) Whether Double Encryption is enabled or disabled for the app.'
+            enabled: '- (Optional) Whether this application is enabled or not.'
+            health_check_type: (Optional)
+            health_reporting: '- (Optional) Whether health reporting for the app is Continuous or On Access. Supported values: NONE, ON_ACCESS, CONTINUOUS.'
+            icmp_access_type: '- (Optional)'
+            ip_anchored: '- (Optional)'
+            is_cname_enabled: '- (Optional) Indicates if the Zscaler Client Connector (formerly Zscaler App or Z App) receives CNAME DNS records from the connectors.'
+            log_features: '- (Optional)'
+            name: '- (Required) Name. The name of the App Connector Group to be exported.'
+            passive_health_enabled: '- (Optional)'
+            segment_group_id: '- (Required) List of Segment Group IDs'
+            server_groups: '- (Required) List of Server Group IDs'
+            tcp_port_range: '- (Required) TCP port ranges used to access the app.'
+            tcp_port_ranges: '- (Required) TCP port ranges used to access the app.'
+            udp_port_range: '- (Required) UDP port ranges used to access the app.'
+            udp_port_ranges: '- (Required) UDP port ranges used to access the app.'
+        importStatements:
+            - terraform import zpa_application_segment.example <application_segment_id>
+            - terraform import zpa_application_segment.example <application_segment_name>
+    zpa_application_segment_browser_access:
+        subCategory: Application Segment
+        description: Creates and manages ZPA Browser Access Application Segment.
+        name: zpa_application_segment_browser_access
+        title: application_segment_browser_access
+        examples:
+            - name: browser_access_apps
+              manifest: |-
+                {
+                  "bypass_type": "NEVER",
+                  "clientless_apps": [
+                    {
+                      "application_port": "80",
+                      "application_protocol": "HTTP",
+                      "certificate_id": "${data.zpa_ba_certificate.test_cert.id}",
+                      "domain": "sales.acme.com",
+                      "enabled": true,
+                      "name": "sales.acme.com",
+                      "trust_untrusted_cert": true
+                    }
+                  ],
+                  "description": "Browser Access Apps",
+                  "domain_names": [
+                    "sales.acme.com"
+                  ],
+                  "enabled": true,
+                  "health_reporting": "ON_ACCESS",
+                  "name": "Browser Access Apps",
+                  "segment_group_id": "${zpa_segment_group.example.id}",
+                  "server_groups": [
+                    {
+                      "id": [
+                        "${zpa_server_group.example.id}"
+                      ]
+                    }
+                  ],
+                  "tcp_port_ranges": [
+                    "80",
+                    "80"
+                  ]
+                }
+              references:
+                clientless_apps.certificate_id: data.zpa_ba_certificate.test_cert.id
+                segment_group_id: zpa_segment_group.example.id
+              dependencies:
+                zpa_segment_group.example: |-
+                    {
+                      "description": "Example",
+                      "enabled": true,
+                      "name": "Example"
+                    }
+                zpa_server_group.example: |-
+                    {
+                      "app_connector_groups": [
+                        {
+                          "id": [
+                            "${data.zpa_app_connector_group.example.id}"
+                          ]
+                        }
+                      ],
+                      "description": "Example",
+                      "dynamic_discovery": true,
+                      "enabled": true,
+                      "name": "Example"
+                    }
+        argumentDocs:
+            allow_options: '- (Optional) - If you want ZPA to forward unauthenticated HTTP preflight OPTIONS requests from the browser to the app.. Supported values: true and false'
+            application_port: '- (Required) - Port for the BA app.'
+            application_protocol: '- (Required) - Protocol for the BA app. Supported values: HTTP and HTTPS'
+            bypass_type: '(Optional) Indicates whether users can bypass ZPA to access applications. Default value is: NEVER and supported values are: ALWAYS, NEVER and ON_NET. The value NEVER indicates the use of the client forwarding policy.'
+            certificate_id: '- (Required) - ID of the BA certificate. Refer to the data source documentation for zpa_ba_certificate'
+            certificate_name: '- (Optional) - Name of the BA certificate. Refer to the data source documentation for zpa_ba_certificate'
+            cname: (Optional)
+            config_space: '(Optional) Default: DEFAULT. Supported values: DEFAULT, SIEM'
+            description: (Optional) Description of the application.
+            domain: '- (Required) - Domain name or IP address of the BA app.'
+            domain_names: '- (Required) List of domains and IPs.'
+            double_encrypt: (Optional) Whether Double Encryption is enabled or disabled for the app.
+            enabled: (Optional) - Whether this app is enabled or not.
+            health_check_type: '(Optional) Default: DEFAULT. Supported values: DEFAULT, NONE'
+            health_reporting: '(Optional) Whether health reporting for the app is Continuous or On Access. Supported values: NONE, ON_ACCESS, CONTINUOUS.'
+            hidden: (Optional)
+            id: '- (Required)'
+            ip_anchored: (Optional) - If Source IP Anchoring for use with ZIA, is enabled or disabled for the app. Supported values are true and false
+            is_cname_enabled: (Optional) Indicates if the Zscaler Client Connector (formerly Zscaler App or Z App) receives CNAME DNS records from the connectors.
+            local_domain: (Optional)
+            name: '- (Required) Name of the application.'
+            path: (Optional)
+            segment_group_id: '- (Required) List of Segment Group IDs'
+            server_groups: '- (Required) List of Server Group IDs'
+            tcp_port_ranges: '- (Required) TCP port ranges used to access the app.'
+            trust_untrusted_cert: (Optional)
+            udp_port_ranges: '- (Required) UDP port ranges used to access the app.'
+        importStatements:
+            - terraform import zpa_application_segment_browser_access.example <browser_access_id>.
+            - terraform import zpa_application_segment_browser_access.example <browser_access_name>
+    zpa_application_segment_inspection:
+        subCategory: Application Segment
+        description: Creates and manages ZPA Application Segment for Inspection.
+        name: zpa_application_segment_inspection
+        title: application_segment
+        examples:
+            - name: this
+              manifest: |-
+                {
+                  "bypass_type": "NEVER",
+                  "common_apps_dto": [
+                    {
+                      "apps_config": [
+                        {
+                          "app_types": [
+                            "INSPECT"
+                          ],
+                          "application_port": "443",
+                          "application_protocol": "HTTPS",
+                          "certificate_id": "${data.zpa_ba_certificate.jenkins.id}",
+                          "domain": "jenkins.example.com",
+                          "enabled": true,
+                          "name": "jenkins.example.com"
+                        }
+                      ]
+                    }
+                  ],
+                  "description": "ZPA_Inspection_Example",
+                  "domain_names": [
+                    "jenkins.example.com"
+                  ],
+                  "enabled": true,
+                  "health_reporting": "ON_ACCESS",
+                  "is_cname_enabled": true,
+                  "name": "ZPA_Inspection_Example",
+                  "segment_group_id": "${zpa_segment_group.this.id}",
+                  "server_groups": [
+                    {
+                      "id": [
+                        "${zpa_server_group.this.id}"
+                      ]
+                    }
+                  ],
+                  "tcp_port_ranges": [
+                    "443",
+                    "443"
+                  ]
+                }
+              references:
+                common_apps_dto.apps_config.certificate_id: data.zpa_ba_certificate.jenkins.id
+                segment_group_id: zpa_segment_group.this.id
+        argumentDocs:
+            app_types: '- (Required) Indicates the type of application as inspection. Supported value: INSPECT'
+            application_port: '- (Required) Port for the Inspection Application Segment.'
+            application_protocol: '- (Required) Protocol for the Inspection Application Segment.. Supported values: HTTP and HTTPS'
+            'apps_config:': '- (Required) List of applications to be configured'
+            bypass_type: '- (Optional) Indicates whether users can bypass ZPA to access applications.'
+            certificate_id: '- (string) - ID of the signing certificate. This field is required if the applicationProtocol is set to HTTPS. The certificateId is not supported if the applicationProtocol is set to HTTP.'
+            common_apps_dto: '- (Required) List of applications (e.g., Inspection, Browser Access or Privileged Remote Access)'
+            config_space: '- (Optional)'
+            description: '- (Optional) Description of the application.'
+            domain: '- (Required) Domain name of the Inspection Application Segment.'
+            domain_names: '- (Required) List of domains and IPs.'
+            double_encrypt: '- (Optional) Whether Double Encryption is enabled or disabled for the app.'
+            enabled: '- (Optional) Whether this application is enabled or not'
+            health_check_type: (Optional)
+            health_reporting: '- (Optional) Whether health reporting for the app is Continuous or On Access. Supported values: NONE, ON_ACCESS, CONTINUOUS.'
+            icmp_access_type: '- (Optional)'
+            ip_anchored: '- (Optional)'
+            is_cname_enabled: '- (Optional) Indicates if the Zscaler Client Connector (formerly Zscaler App or Z App) receives CNAME DNS records from the connectors.'
+            name: '- (Required) Name. The name of the App Connector Group to be exported.'
+            passive_health_enabled: '- (Optional)'
+            segment_group_id: '- (Required) List of Segment Group IDs'
+            server_groups: '- (Required) List of Server Group IDs'
+            tcp_port_range: '- (Required) TCP port ranges used to access the app.'
+            tcp_port_ranges: '- (Required) TCP port ranges used to access the app.'
+            udp_port_range: '- (Required) UDP port ranges used to access the app.'
+            udp_port_ranges: '- (Required) UDP port ranges used to access the app.'
+        importStatements:
+            - terraform import zpa_application_segment_inspection.example <application_segment_id>
+            - terraform import zpa_application_segment_inspection.example <application_segment_name>
+    zpa_application_segment_pra:
+        subCategory: Application Segment
+        description: Creates and manages ZPA Application Segment for Privileged Remote Access.
+        name: zpa_application_segment_pra
+        title: application_segment
+        examples:
+            - name: this
+              manifest: |-
+                {
+                  "bypass_type": "NEVER",
+                  "common_apps_dto": [
+                    {
+                      "apps_config": [
+                        {
+                          "app_types": [
+                            "SECURE_REMOTE_ACCESS"
+                          ],
+                          "application_port": "22",
+                          "application_protocol": "SSH",
+                          "domain": "ssh_pra.example.com",
+                          "enabled": true,
+                          "name": "ssh_pra"
+                        },
+                        {
+                          "app_types": [
+                            "SECURE_REMOTE_ACCESS"
+                          ],
+                          "application_port": "3389",
+                          "application_protocol": "RDP",
+                          "connection_security": "ANY",
+                          "domain": "rdp_pra.example.com",
+                          "enabled": true,
+                          "name": "rdp_pra"
+                        }
+                      ]
+                    }
+                  ],
+                  "description": "PRA_Example",
+                  "domain_names": [
+                    "ssh_pra.example.com",
+                    "rdp_pra.example.com"
+                  ],
+                  "enabled": true,
+                  "health_reporting": "ON_ACCESS",
+                  "is_cname_enabled": true,
+                  "name": "PRA_Example",
+                  "segment_group_id": "${zpa_segment_group.this.id}",
+                  "server_groups": [
+                    {
+                      "id": [
+                        "${zpa_server_group.this.id}"
+                      ]
+                    }
+                  ],
+                  "tcp_port_ranges": [
+                    "22",
+                    "22",
+                    "3389",
+                    "3389"
+                  ]
+                }
+              references:
+                segment_group_id: zpa_segment_group.this.id
+        argumentDocs:
+            app_types: '- (Required) Indicates the type of application as Privileged Remote Access. Supported value: SECURE_REMOTE_ACCESS'
+            application_port: '- (Required) Port for the Privileged Remote Access'
+            application_protocol: '- (Required) Protocol for the Privileged Remote Access. Supported values: RDP and SSH'
+            'apps_config:': '- (Required) List of applications to be configured'
+            bypass_type: '- (Optional) Indicates whether users can bypass ZPA to access applications.'
+            common_apps_dto: '- (Required) List of applications (e.g., Inspection, Browser Access or Privileged Remote Access)'
+            config_space: '- (Optional)'
+            connection_security: '- (Required) - Parameter required when application_protocol is of type RDP'
+            description: '- (Optional) Description of the application.'
+            domain: '- (Required) Domain name of the Privileged Remote Access'
+            domain_names: '- (Required) List of domains and IPs.'
+            double_encrypt: '- (Optional) Whether Double Encryption is enabled or disabled for the app.'
+            enabled: '- (Optional) Whether this application is enabled or not'
+            health_check_type: (Optional)
+            health_reporting: '- (Optional) Whether health reporting for the app is Continuous or On Access. Supported values: NONE, ON_ACCESS, CONTINUOUS.'
+            icmp_access_type: '- (Optional)'
+            ip_anchored: '- (Optional)'
+            is_cname_enabled: '- (Optional) Indicates if the Zscaler Client Connector (formerly Zscaler App or Z App) receives CNAME DNS records from the connectors.'
+            name: '- (Required) Name. The name of the App Connector Group to be exported.'
+            passive_health_enabled: '- (Optional)'
+            segment_group_id: '- (Required) List of Segment Group IDs'
+            server_groups: '- (Required) List of Server Group IDs'
+            tcp_port_range: '- (Required) TCP port ranges used to access the app.'
+            tcp_port_ranges: '- (Required) TCP port ranges used to access the app.'
+            udp_port_range: '- (Required) UDP port ranges used to access the app.'
+            udp_port_ranges: '- (Required) UDP port ranges used to access the app.'
+        importStatements:
+            - terraform import zpa_application_segment_pra.example <application_segment_id>
+            - terraform import zpa_application_segment_pra.example <application_segment_name>
+    zpa_application_server:
+        subCategory: Application Server
+        description: Creates and manages ZPA Application Servers.
+        name: zpa_application_server
+        title: application_server
+        examples:
+            - name: test_app_server
+              manifest: |-
+                {
+                  "address": "192.168.1.1",
+                  "description": "test1-app-server",
+                  "enabled": true,
+                  "name": "test1-app-server"
+                }
+            - name: test_app_server
+              manifest: |-
+                {
+                  "address": "server1.acme.com",
+                  "description": "test1-app-server",
+                  "enabled": true,
+                  "name": "test1-app-server"
+                }
+            - name: test_app_server
+              manifest: |-
+                {
+                  "address": "192.168.1.1",
+                  "app_server_group_ids": [
+                    "${data.zpa_server_group.example.com}"
+                  ],
+                  "description": "test1-app-server",
+                  "enabled": true,
+                  "name": "test1-app-server"
+                }
+        argumentDocs:
+            address: '- (Required) Address. The address of the application server to be exported.'
+            app_server_group_ids: '- (Optional) This field defines the list of server group IDs.'
+            config_space: '- (Optional)'
+            description: '- (Optional) This field defines the description of the server.'
+            enabled: '- (Optional) This field defines the status of the server.'
+            name: '- (Required) Name. The name of the application server to be exported.'
+        importStatements:
+            - terraform import zpa_application_server.example <application_server_id>
+            - terraform import zpa_application_server.example <application_server_name>
+    zpa_inspection_custom_controls:
+        subCategory: Inspection
+        description: Creates and manages Inspection Custom Control in Zscaler Private Access cloud.
+        name: zpa_inspection_custom_controls
+        title: zpa_inspection
+        examples:
+            - name: this
+              manifest: |-
+                {
+                  "action": "PASS",
+                  "associated_inspection_profile_names": [
+                    {
+                      "id": [
+                        "${data.zpa_inspection_profile.this.id}"
+                      ]
+                    }
+                  ],
+                  "default_action": "PASS",
+                  "description": "Example",
+                  "name": "Example",
+                  "paranoia_level": "1",
+                  "rules": [
+                    {
+                      "conditions": [
+                        {
+                          "lhs": "SIZE",
+                          "op": "GE",
+                          "rhs": "1000"
+                        }
+                      ],
+                      "names": [
+                        "this"
+                      ],
+                      "type": "RESPONSE_HEADERS"
+                    },
+                    {
+                      "conditions": [
+                        {
+                          "lhs": "SIZE",
+                          "op": "GE",
+                          "rhs": "1000"
+                        }
+                      ],
+                      "type": "RESPONSE_BODY"
+                    }
+                  ],
+                  "severity": "CRITICAL",
+                  "type": "RESPONSE"
+                }
+        argumentDocs:
+            action: '- (Required) The performed action. Supported values: PASS, BLOCK and REDIRECT'
+            action_value: '- (Required) Denotes the action'
+            associated_inspection_profile_names: '- (Optional) Name of the inspection profile'
+            conditions: '- (Required)'
+            control_rule_json: (Optional) The control rule in JSON format that has the conditions and type of control for the inspection control
+            default_action: '- (Required) The performed action. Supported values: PASS, BLOCK and REDIRECT'
+            default_action_value: '- (Optional) This is used to provide the redirect URL if the default action is set to REDIRECT'
+            description: '- (Optional) Description of the custom control'
+            id: '- (Optional)'
+            lhs: '- (Required) Signifies the key for the object type Supported values: SIZE, VALUE'
+            name: '- (Required) The name of the predefined control.'
+            names: '- (Required) Name of the rules. If rules.type is set to REQUEST_HEADERS, REQUEST_COOKIES, or RESPONSE_HEADERS, the rules.name field is required.'
+            op: '- (Required) If lhs is set to SIZE, then the user may pass one of the following: EQ: Equals, LE: Less than or equal to, GE: Greater than or equal to. If the lhs is set to VALUE, then the user may pass one of the following: CONTAINS, STARTS_WITH, ENDS_WITH, RX.'
+            paranoia_level: '- (Required) OWASP Predefined Paranoia Level.'
+            rhs: '- (Required) Denotes the value for the given object type. Its value depends on the key. If rules.type is set to REQUEST_METHOD, the conditions.rhs field must have one of the following values: GET,HEAD, POST, OPTIONS, PUT, DELETE, TRACE'
+            rules: '- (Required) Rules of the custom controls applied as conditions JSON'
+            severity: '- (Required) Severity of the control number. Supported values: CRITICAL, ERROR, WARNING, INFO'
+            type: '- (Required) Rules to be applied to the request or response type'
+            version: '- (Required) The version of the predefined control, the default is: OWASP_CRS/3.3.0'
+        importStatements: []
+    zpa_inspection_profile:
+        subCategory: Inspection
+        description: Creates and manages Inspection Profile in Zscaler Private Access cloud.
+        name: zpa_inspection_profile
+        title: zpa_inspection
+        examples:
+            - name: this
+              manifest: |-
+                {
+                  "common_global_override_actions_config": {
+                    "IS_OVERRIDE_ACTION_COMMON": "TRUE",
+                    "PREDEF_CNTRL_GLOBAL_ACTION": "PASS"
+                  },
+                  "controls_info": [
+                    {
+                      "control_type": "PREDEFINED"
+                    }
+                  ],
+                  "description": "Example",
+                  "dynamic": {
+                    "predefined_controls": [
+                      {
+                        "content": [
+                          {
+                            "action": "${predefined_controls.value.action == \"\" ? predefined_controls.value.default_action : predefined_controls.value.action}",
+                            "action_value": "${predefined_controls.value.action_value}",
+                            "id": "${predefined_controls.value.id}"
+                          }
+                        ],
+                        "for_each": "${data.zpa_inspection_all_predefined_controls.default_predefined_controls.list}"
+                      }
+                    ]
+                  },
+                  "global_control_actions": [
+                    "PREDEFINED:PASS",
+                    "CUSTOM:NONE",
+                    "OVERRIDE_ACTION:COMMON"
+                  ],
+                  "incarnation_number": "6",
+                  "name": "Example",
+                  "paranoia_level": "1",
+                  "predefined_controls": [
+                    {
+                      "action": "BLOCK",
+                      "id": "${data.zpa_inspection_predefined_controls.this.id}"
+                    }
+                  ],
+                  "predefined_controls_version": "OWASP_CRS/3.3.0"
+                }
+              references:
+                dynamic.content.action_value: predefined_controls.value.action_value
+                dynamic.content.id: predefined_controls.value.id
+                dynamic.for_each: data.zpa_inspection_all_predefined_controls.default_predefined_controls.list
+                predefined_controls.id: data.zpa_inspection_predefined_controls.this.id
+        argumentDocs:
+            action: '- (Required) The action of the predefined control. Supported values: PASS, BLOCK and REDIRECT'
+            action_value: '- (Required) Value for the predefined controls action. This field is only required if the action is set to REDIRECT. This field is only required if the action is set to REDIRECT.'
+            associated_inspection_profile_names: '- (Optional) Name of the inspection profile'
+            attachment: (Optional) Control attachment
+            common_global_override_actions_config: '- (Optional)'
+            conditions: '- (Optional)'
+            control_group: (Optional) Control group
+            control_rule_json: (Optional) Custom controls string in JSON format
+            control_type: '- (Optional) Control types. Supported Values: CUSTOM, PREDEFINED, ZSCALER'
+            controls_info: '- (Optional) Types for custom controls'
+            count: '- (Optional) Control information counts Long'
+            custom_controls: '- (Optional) Types for custom controls'
+            description: '- (Optional) Description of the inspection profile.'
+            group_name: = "preprocessors"
+            id: '- (Required) ID of the predefined control'
+            lhs: '- (Optional) Signifies the key for the object type Supported values: SIZE, VALUE'
+            name: '- (Required) The name of the inspection profile.'
+            names: '- (Optional) Name of the rules. If rules.type is set to REQUEST_HEADERS, REQUEST_COOKIES, or RESPONSE_HEADERS, the rules.name field is required.'
+            op: '- (Optional) If lhs is set to SIZE, then the user may pass one of the following: EQ: Equals, LE: Less than or equal to, GE: Greater than or equal to. If the lhs is set to VALUE, then the user may pass one of the following: CONTAINS, STARTS_WITH, ENDS_WITH, RX.'
+            paranoia_level: '- (Required) OWASP Predefined Paranoia Level. Range: [1-4], inclusive'
+            predefined_controls: '- (Required) The predefined controls. The default predefined control Preprocessors are mandatory and injected in the request by default. Individual predefined_controls can be set by using the data source data_source_zpa_predefined_controls or by group using the data source zpa_inspection_all_predefined_controls.'
+            rhs: '- (Optional) Denotes the value for the given object type. Its value depends on the key. If rules.type is set to REQUEST_METHOD, the conditions.rhs field must have one of the following values: GET,HEAD, POST, OPTIONS, PUT, DELETE, TRACE'
+            rules: '- (Optional) Rules of the custom controls applied as conditions JSON'
+            type: (Optional) Types for custom controls
+            version: = "OWASP_CRS/3.3.0"
+        importStatements: []
+    zpa_lss_config_controller:
+        subCategory: Log Streaming (LSS)
+        description: Creates and manages ZPA LSS Configuration.
+        name: zpa_lss_config_controller
+        title: lss_config_controller
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "config": [
+                    {
+                      "description": "Example",
+                      "enabled": true,
+                      "filter": [
+                        "ZPN_STATUS_AUTH_FAILED",
+                        "ZPN_STATUS_DISCONNECTED",
+                        "ZPN_STATUS_AUTHENTICATED"
+                      ],
+                      "format": "${data.zpa_lss_config_log_type_formats.zpn_ast_auth_log.json}",
+                      "lss_host": "splunk.acme.com",
+                      "lss_port": "11000",
+                      "name": "Example",
+                      "source_log_type": "zpn_ast_auth_log",
+                      "use_tls": true
+                    }
+                  ],
+                  "connector_groups": [
+                    {
+                      "id": [
+                        "${zpa_app_connector_group.example.id}"
+                      ]
+                    }
+                  ]
+                }
+              references:
+                config.format: data.zpa_lss_config_log_type_formats.zpn_ast_auth_log.json
+            - name: lss_user_activity
+              manifest: |-
+                {
+                  "config": [
+                    {
+                      "description": "LSS User Activity",
+                      "enabled": true,
+                      "format": "${data.zpa_lss_config_log_type_formats.zpn_trans_log.json}",
+                      "lss_host": "splunk.acme.com",
+                      "lss_port": "11001",
+                      "name": "LSS User Activity",
+                      "source_log_type": "zpn_trans_log",
+                      "use_tls": true
+                    }
+                  ],
+                  "connector_groups": [
+                    {
+                      "id": [
+                        "${zpa_app_connector_group.example.id}"
+                      ]
+                    }
+                  ],
+                  "policy_rule_resource": [
+                    {
+                      "action": "ALLOW",
+                      "conditions": [
+                        {
+                          "negated": false,
+                          "operands": [
+                            {
+                              "object_type": "CLIENT_TYPE",
+                              "values": [
+                                "zpn_client_type_exporter"
+                              ]
+                            },
+                            {
+                              "object_type": "CLIENT_TYPE",
+                              "values": [
+                                "zpn_client_type_ip_anchoring"
+                              ]
+                            },
+                            {
+                              "object_type": "CLIENT_TYPE",
+                              "values": [
+                                "zpn_client_type_zapp"
+                              ]
+                            },
+                            {
+                              "object_type": "CLIENT_TYPE",
+                              "values": [
+                                "zpn_client_type_edge_connector"
+                              ]
+                            },
+                            {
+                              "object_type": "CLIENT_TYPE",
+                              "values": [
+                                "zpn_client_type_machine_tunnel"
+                              ]
+                            },
+                            {
+                              "object_type": "CLIENT_TYPE",
+                              "values": [
+                                "zpn_client_type_browser_isolation"
+                              ]
+                            },
+                            {
+                              "object_type": "CLIENT_TYPE",
+                              "values": [
+                                "zpn_client_type_slogger"
+                              ]
+                            }
+                          ],
+                          "operator": "OR"
+                        }
+                      ],
+                      "name": "policy_rule_resource-lss_user_activity",
+                      "policy_set_id": "${data.zpa_policy_type.lss_siem_policy.id}"
+                    }
+                  ]
+                }
+              references:
+                config.format: data.zpa_lss_config_log_type_formats.zpn_trans_log.json
+                policy_rule_resource.policy_set_id: data.zpa_policy_type.lss_siem_policy.id
+        argumentDocs:
+            action: '- (Optional)'
+            app_server_groups: |-
+                - (Optional)
+                - id - (Optional) - Server Group ID(s).
+            audit_message: '- (Optional)'
+            conditions: '- (Optional)'
+            config: '- (Required)'
+            connector_groups: |-
+                - (Required)
+                - id - (Required) - App Connector Group ID(s) where logs will be forwarded to.
+            custom_msg: '- (Optional)'
+            description: '- (Optional)'
+            enabled: '- (Optional)'
+            filter: '- (Optional)'
+            format: '- (Required) The format of the LSS resource. The supported formats are: JSON, CSV, and TSV'
+            lss_host: '- (Required) The IP or FQDN of the SIEM (Log Receiver) where logs will be forwarded to.'
+            lss_port: '- (Required) The destination port of the SIEM (Log Receiver) where logs will be forwarded to.'
+            name: '- (Required)'
+            negated: '- (Optional)'
+            object_type: '(Optional) This is for specifying the policy critiera. Supported values: APP, APP_GROUP, CLIENT_TYPE, TRUSTED_NETWORK, SAML, SCIM, SCIM_GROUP'
+            operands: ""
+            operator: '(Optional) - Supported values are: AND or OR'
+            policy_rule_resource: '- (Optional)'
+            source_log_type: '- (Required) Refer to the log type documentation'
+            use_tls: '- (Optional)'
+            values: |-
+                (Optional) The below values are supported when choosing object_type of type CLIENT_TYPE.
+                - zpn_client_type_exporter
+                - zpn_client_type_browser_isolation
+                - zpn_client_type_machine_tunnel
+                - zpn_client_type_ip_anchoring
+                - zpn_client_type_edge_connector
+                - zpn_client_type_zapp
+        importStatements: []
+    zpa_policy_access_rule:
+        subCategory: Policy Set Controller
+        description: Creates and manages ZPA Policy Access Rule with Trusted Networks conditions.
+        name: zpa_policy_access_rule
+        title: policy_access_rule
+        examples:
+            - name: this
+              manifest: |-
+                {
+                  "action": "ALLOW",
+                  "conditions": [
+                    {
+                      "negated": false,
+                      "operands": [
+                        {
+                          "lhs": "${data.zpa_trusted_network.corp_trusted_network.network_id}",
+                          "object_type": "TRUSTED_NETWORK",
+                          "rhs": true
+                        }
+                      ],
+                      "operator": "OR"
+                    }
+                  ],
+                  "description": "Example",
+                  "name": "Example",
+                  "operator": "AND",
+                  "policy_set_id": "${data.zpa_policy_type.access_policy.id}",
+                  "rule_order": 1
+                }
+              references:
+                conditions.operands.lhs: data.zpa_trusted_network.corp_trusted_network.network_id
+                policy_set_id: data.zpa_policy_type.access_policy.id
+        argumentDocs:
+            action: '(Optional) This is for providing the rule action. Supported values: ALLOW, DENY'
+            conditions: '- (Optional)'
+            custom_msg: (optional) This is for providing a customer message for the user.
+            description: (optional) This is the description of the access policy rule.
+            id: '- (Optional) The ID of an app connector group resource'
+            idp_id: (Optional)
+            lhs: (Optional) - Trusted Network (network_id) required when object_type = "TRUSTED_NETWORK". Use zpa_trusted_network data source to retrieve the network_id
+            name: '- (Required) This is the name of the policy rule.'
+            negated: '- (Optional) Supported values: true or false'
+            object_type: '(Optional) This is for specifying the policy critiera. For posture profile the supported value is:  TRUSTED_NETWORK'
+            operands: (Optional) - Operands block must be repeated if multiple per object_type conditions are to be added to the rule.
+            operator: '(Optional) Supported values: AND, OR'
+            policy_set_id: '- (Required) Use zpa_policy_type data source to retrieve the necessary policy Set ID policy_set_id'
+            policy_type: '(Optional) Supported values: ACCESS_POLICY or GLOBAL_POLICY'
+            rhs: '(Optional) Required when object_type = "TRUSTED_NETWORK". Supported values are:'
+            rule_order: (optional)
+        importStatements:
+            - terraform import zpa_policy_access_rule.example <policy_access_rule_id>
+    zpa_policy_forwarding_rule:
+        subCategory: Policy Set Controller
+        description: Creates and manages ZPA Policy Access Forwarding Rule.
+        name: zpa_policy_forwarding_rule
+        title: policy_forwarding_rule
+        examples:
+            - name: this
+              manifest: |-
+                {
+                  "action": "BYPASS",
+                  "conditions": [
+                    {
+                      "negated": false,
+                      "operands": [
+                        {
+                          "lhs": "id",
+                          "object_type": "APP",
+                          "rhs": [
+                            "${zpa_application_segment.this.id}"
+                          ]
+                        }
+                      ],
+                      "operator": "OR"
+                    },
+                    {
+                      "negated": false,
+                      "operands": [
+                        {
+                          "lhs": "${data.zpa_idp_controller.idp_name.id}",
+                          "object_type": "SCIM_GROUP",
+                          "rhs": [
+                            "${data.zpa_scim_groups.engineering.id}"
+                          ]
+                        }
+                      ],
+                      "operator": "OR"
+                    }
+                  ],
+                  "description": "Example",
+                  "name": "Example",
+                  "operator": "AND",
+                  "policy_set_id": "${data.zpa_policy_type.client_forwarding_policy.id}"
+                }
+              references:
+                conditions.operands.lhs: data.zpa_idp_controller.idp_name.id
+                policy_set_id: data.zpa_policy_type.client_forwarding_policy.id
+              dependencies:
+                zpa_application_segment.this: |-
+                    {
+                      "bypass_type": "NEVER",
+                      "description": "Example",
+                      "domain_names": [
+                        "server.acme.com"
+                      ],
+                      "enabled": true,
+                      "health_reporting": "ON_ACCESS",
+                      "is_cname_enabled": true,
+                      "name": "Example",
+                      "segment_group_id": "${zpa_segment_group.test_segment_group.id}",
+                      "server_groups": [
+                        {
+                          "id": [
+                            "${zpa_server_group.test_server_group.id}"
+                          ]
+                        }
+                      ],
+                      "tcp_port_ranges": [
+                        "8080",
+                        "8080"
+                      ]
+                    }
+        argumentDocs:
+            BYPASS: ', INTERCEPT or INTERCEPT_ACCESSIBLE'
+            CLIENT_FORWARDING_POLICY: and BYPASS_POLICY
+            CLIENT_TYPE: (Optional) - The below options are the only ones supported in a timeout policy rule.
+            action: '- (Optional) This is for providing the rule action.'
+            conditions: '- (Optional)'
+            custom_msg: '- (Optional) This is for providing a customer message for the user.'
+            description: '- (Optional) This is the description of the access policy rule.'
+            idp_id: (Optional)
+            lhs: (Optional) LHS must always carry the string value id or the attribute ID of the resource being associated with the rule.
+            name: '- (Required) This is the name of the forwarding policy rule.'
+            negated: '- (Optional) Supported values: true or false'
+            object_type: '(Optional) This is for specifying the policy critiera. Supported values: APP, APP_GROUP, SAML, IDP, CLIENT_TYPE, TRUSTED_NETWORK, POSTURE, SCIM, SCIM_GROUP, and CLOUD_CONNECTOR_GROUP. TRUSTED_NETWORK, and CLIENT_TYPE.'
+            operands: (Optional) - Operands block must be repeated if multiple per object_type conditions are to be added to the rule.
+            operator: '(Optional) Supported values: AND, OR'
+            policy_set_id: '- (Required) Use zpa_policy_type data source to retrieve the necessary policy Set ID policy_set_id'
+            policy_type: '(Optional) Supported values: CLIENT_FORWARDING_POLICY or BYPASS_POLICY'
+            rhs: (Optional) RHS is either the ID attribute of a resource or fixed string value. Refer to the chart below for further details.
+            rule_order: '- (Optional)'
+        importStatements:
+            - terraform import zpa_policy_forwarding_rule.example <policy_forwarding_rule_id>
+    zpa_policy_inspection_rule:
+        subCategory: Policy Set Controller
+        description: Creates and manages ZPA Policy Access Inspection Rule.
+        name: zpa_policy_inspection_rule
+        title: policy_inspection_rule
+        examples:
+            - name: this
+              manifest: |-
+                {
+                  "action": "INSPECT",
+                  "conditions": [
+                    {
+                      "operands": [
+                        {
+                          "lhs": "id",
+                          "object_type": "APP",
+                          "rhs": "${zpa_application_segment_inspection.this.id}"
+                        }
+                      ],
+                      "operator": "OR"
+                    }
+                  ],
+                  "description": "Example",
+                  "name": "Example",
+                  "operator": "AND",
+                  "policy_set_id": "${data.zpa_policy_type.inspection_policy.id}",
+                  "rule_order": 1,
+                  "zpn_inspection_profile_id": "${zpa_inspection_profile.this.id}"
+                }
+              references:
+                conditions.operands.rhs: zpa_application_segment_inspection.this.id
+                policy_set_id: data.zpa_policy_type.inspection_policy.id
+                zpn_inspection_profile_id: zpa_inspection_profile.this.id
+            - name: this
+              manifest: |-
+                {
+                  "action": "BYPASS_INSPECT",
+                  "conditions": [
+                    {
+                      "operands": [
+                        {
+                          "lhs": "id",
+                          "object_type": "APP",
+                          "rhs": "${zpa_application_segment_inspection.this.id}"
+                        }
+                      ],
+                      "operator": "OR"
+                    }
+                  ],
+                  "description": "Example",
+                  "name": "Example",
+                  "operator": "AND",
+                  "policy_set_id": "${data.zpa_policy_type.inspection_policy.id}",
+                  "rule_order": 1
+                }
+              references:
+                conditions.operands.rhs: zpa_application_segment_inspection.this.id
+                policy_set_id: data.zpa_policy_type.inspection_policy.id
+        argumentDocs:
+            BYPASS_INSPECT: ', or INSPECT'
+            CLIENT_TYPE: (Optional) - The below options are the only ones supported in a timeout policy rule.
+            action: '- (Optional) This is for providing the rule action.'
+            action_id: '- (Optional) This field defines the description of the server.'
+            bypass_default_rule: '- (Optional)'
+            conditions: '- (Optional)'
+            custom_msg: '- (Optional) This is for providing a customer message for the user.'
+            description: '- (Optional) This is the description of the access policy rule.'
+            idp_id: (Optional)
+            lhs: (Optional) LHS must always carry the string value id or the attribute ID of the resource being associated with the rule.
+            name: '- (Required) This is the name of the policy inspection rule.'
+            negated: '- (Optional) Supported values: true or false'
+            object_type: '(Optional) This is for specifying the policy critiera. Supported values: APP, APP_GROUP, SAML, IDP, CLIENT_TYPE, TRUSTED_NETWORK, POSTURE, SCIM, SCIM_GROUP, and CLOUD_CONNECTOR_GROUP. TRUSTED_NETWORK, and CLIENT_TYPE.'
+            operands: (Optional) - Operands block must be repeated if multiple per object_type conditions are to be added to the rule.
+            operator: '(Optional) Supported values: AND, OR'
+            policy_set_id: '- (Required) Use zpa_policy_type data source to retrieve the necessary policy Set ID policy_set_id'
+            policy_type: '(Optional) Supported values: INSPECTION_POLICY'
+            rhs: (Optional) RHS is either the ID attribute of a resource or fixed string value. Refer to the chart below for further details.
+            rule_order: '- (Optional)'
+            zpn_inspection_profile_id: (Optional) An inspection profile is required if the action is set to INSPECT
+        importStatements:
+            - terraform import zpa_policy_inspection_rule.example <policy_inspection_rule_id>
+    zpa_policy_timeout_rule:
+        subCategory: Policy Set Controller
+        description: Creates and manages ZPA Policy Timeout Access Rule.
+        name: zpa_policy_timeout_rule
+        title: policy_timeout_rule
+        examples:
+            - name: this
+              manifest: |-
+                {
+                  "action": "RE_AUTH",
+                  "conditions": [
+                    {
+                      "negated": false,
+                      "operands": [
+                        {
+                          "lhs": "id",
+                          "object_type": "CLIENT_TYPE",
+                          "rhs": "zpn_client_type_exporter"
+                        }
+                      ],
+                      "operator": "OR"
+                    },
+                    {
+                      "negated": false,
+                      "operands": [
+                        {
+                          "lhs": "${data.zpa_idp_controller.idp_name.id}",
+                          "object_type": "SCIM_GROUP",
+                          "rhs": [
+                            "${data.zpa_scim_groups.engineering.id}"
+                          ]
+                        }
+                      ],
+                      "operator": "OR"
+                    }
+                  ],
+                  "description": "Example",
+                  "name": "Example",
+                  "operator": "AND",
+                  "policy_set_id": "${data.zpa_policy_type.timeout_policy.id}",
+                  "reauth_idle_timeout": "600",
+                  "reauth_timeout": "172800"
+                }
+              references:
+                conditions.operands.lhs: data.zpa_idp_controller.idp_name.id
+                policy_set_id: data.zpa_policy_type.timeout_policy.id
+        argumentDocs:
+            CLIENT_TYPE: (Optional) - The below options are the only ones supported in a timeout policy rule.
+            action: '(Optional) This is for providing the rule action. Supported value: RE_AUTH'
+            conditions: '- (Optional)'
+            custom_msg: (Optional) This is for providing a customer message for the user.
+            description: (Optional) This is the description of the access policy rule.
+            idp_id: (Optional)
+            lhs: (Optional) LHS must always carry the string value id or the attribute ID of the resource being associated with the rule.
+            name: '- (Required) This is the name of the policy rule.'
+            negated: '- (Optional) Supported values: true or false'
+            object_type: '(Optional) This is for specifying the policy critiera. Supported values: APP, SAML, SCIM, SCIM_GROUP, IDP, CLIENT_TYPE,  POSTURE'
+            operands: (Optional) - Operands block must be repeated if multiple per object_type conditions are to be added to the rule.
+            operator: '(Optional) Supported values: AND, and OR'
+            policy_set_id: '- (Required) Use zpa_policy_type data source to retrieve the necessary policy Set ID policy_set_id'
+            policy_type: '(Optional) Supported values: TIMEOUT_POLICY or REAUTH_POLICY'
+            reauth_idle_timeout: (Required) This denotes the idle connection timeout. Provides the timeout value in seconds. -1 value denotes Default.
+            reauth_timeout: (Required) This denotes the authentication timeout. Provides the timeout value in seconds. -1 value denotes Never.
+            rhs: (Optional) RHS is either the ID attribute of a resource or fixed string value. Refer to the chart below for further details.
+            rule_order: (Optional)
+        importStatements:
+            - terraform import zpa_policy_timeout_rule.example <policy_timeout_rule_id>
+    zpa_provisioning_key:
+        subCategory: Provisioning Key
+        description: Creates and manages ZPA Provisioning Key for Service Edge and/or App Connector Groups.
+        name: zpa_provisioning_key
+        title: provisioning_key
+        examples:
+            - name: test_provisioning_key
+              manifest: |-
+                {
+                  "association_type": "CONNECTOR_GRP",
+                  "depends_on": [
+                    "${data.zpa_enrollment_cert.connector}",
+                    "${zpa_app_connector_group.us_connector_group}"
+                  ],
+                  "enrollment_cert_id": "${data.zpa_enrollment_cert.connector.id}",
+                  "max_usage": "10",
+                  "name": "${test_provisioning_key}",
+                  "zcomponent_id": "${zpa_app_connector_group.canada_connector_group.id}"
+                }
+              references:
+                enrollment_cert_id: data.zpa_enrollment_cert.connector.id
+                name: test_provisioning_key
+                zcomponent_id: zpa_app_connector_group.canada_connector_group.id
+              dependencies:
+                zpa_app_connector_group.usa_connector_group: |-
+                    {
+                      "city_country": "San Jose, CA",
+                      "country_code": "CA",
+                      "description": "USA Connector Group",
+                      "dns_query_type": "IPV4",
+                      "enabled": true,
+                      "latitude": "43.6532",
+                      "location": "San Jose, CA, USA",
+                      "longitude": "79.3832",
+                      "name": "USA Connector Group",
+                      "override_version_profile": true,
+                      "upgrade_day": "SUNDAY",
+                      "upgrade_time_in_secs": "66600",
+                      "version_profile_id": 0
+                    }
+            - name: test_provisioning_key
+              manifest: |-
+                {
+                  "association_type": "SERVICE_EDGE_GRP",
+                  "enrollment_cert_id": "${data.zpa_enrollment_cert.service_edge.id}",
+                  "max_usage": "10",
+                  "name": "test-provisioning-key",
+                  "zcomponent_id": "${zpa_service_edge_group.service_edge_group_nyc.id}"
+                }
+              references:
+                enrollment_cert_id: data.zpa_enrollment_cert.service_edge.id
+                zcomponent_id: zpa_service_edge_group.service_edge_group_nyc.id
+              dependencies:
+                zpa_service_edge_group.service_edge_group_nyc: |-
+                    {
+                      "description": "Service Edge Group New York",
+                      "latitude": "40.7128",
+                      "location": "New York, NY, USA",
+                      "longitude": "-73.935242",
+                      "name": "Service Edge Group New York",
+                      "upgrade_day": "SUNDAY",
+                      "upgrade_time_in_secs": "66600",
+                      "version_profile_id": "0"
+                    }
+        argumentDocs:
+            association_type: (Required) Specifies the provisioning key type for App Connectors or ZPA Private Service Edges. The supported values are CONNECTOR_GRP and SERVICE_EDGE_GRP
+            enrollment_cert_id: '- (Required) ID of the enrollment certificate that can be used for this provisioning key. ID of the existing enrollment certificate that has the private key'
+            max_usage: '- (Required) The maximum number of instances where this provisioning key can be used for enrolling an App Connector or Service Edge.'
+            name: '- (Required) Name of the provisioning key.'
+            zcomponent_id: '- (Required) ID of the existing App Connector or Service Edge Group.'
+        importStatements:
+            - terraform import zpa_provisioning_key.example <provisioning_key_id>
+            - terraform import zpa_provisioning_key.example <provisioning_key_name>
+    zpa_segment_group:
+        subCategory: Segment Group
+        description: Creates and manages ZPA Segment Group resource
+        name: zpa_segment_group
+        title: segment_group
+        examples:
+            - name: test_segment_group
+              manifest: |-
+                {
+                  "description": "test1-segment-group",
+                  "enabled": true,
+                  "name": "test1-segment-group",
+                  "tcp_keep_alive_enabled": "1"
+                }
+        argumentDocs:
+            config_space: (Optional)
+            description: (Optional) Description of the segment group.
+            enabled: (Optional) Whether this segment group is enabled or not.
+            name: '- (Required) Name of the segment group.'
+            tcp_keep_alive_enabled: (Optional)
+        importStatements:
+            - terraform import zpa_segment_group.example <segment_group_id>
+            - terraform import zpa_segment_group.example <segment_group_name>
+    zpa_server_group:
+        subCategory: Server Group
+        description: Creates and manages ZPA Server Group resource
+        name: zpa_server_group
+        title: server_group
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "app_connector_groups": [
+                    {
+                      "id": [
+                        "${zpa_app_connector_group.example.id}"
+                      ]
+                    }
+                  ],
+                  "depends_on": [
+                    "${zpa_app_connector_group.example}"
+                  ],
+                  "description": "Example",
+                  "dynamic_discovery": true,
+                  "enabled": true,
+                  "name": "Example"
+                }
+              dependencies:
+                zpa_app_connector_group.example: |-
+                    {
+                      "city_country": "San Jose, CA",
+                      "country_code": "US",
+                      "description": "Example",
+                      "dns_query_type": "IPV4",
+                      "enabled": true,
+                      "latitude": "37.338",
+                      "location": "San Jose, CA, US",
+                      "longitude": "-121.8863",
+                      "name": "Example",
+                      "override_version_profile": true,
+                      "upgrade_day": "SUNDAY",
+                      "upgrade_time_in_secs": "66600",
+                      "version_profile_id": 0
+                    }
+            - name: example
+              manifest: |-
+                {
+                  "app_connector_groups": [
+                    {
+                      "id": [
+                        "${zpa_app_connector_group.example.id}"
+                      ]
+                    }
+                  ],
+                  "depends_on": [
+                    "${zpa_app_connector_group.example}",
+                    "${zpa_application_server.server}"
+                  ],
+                  "description": "Example",
+                  "dynamic_discovery": false,
+                  "enabled": true,
+                  "name": "Example",
+                  "servers": [
+                    {
+                      "id": [
+                        "${zpa_application_server.example.id}"
+                      ]
+                    }
+                  ]
+                }
+              dependencies:
+                zpa_app_connector_group.example: |-
+                    {
+                      "city_country": "San Jose, CA",
+                      "country_code": "US",
+                      "description": "Example",
+                      "dns_query_type": "IPV4",
+                      "enabled": true,
+                      "latitude": "37.338",
+                      "location": "San Jose, CA, US",
+                      "longitude": "-121.8863",
+                      "name": "Example",
+                      "override_version_profile": true,
+                      "upgrade_day": "SUNDAY",
+                      "upgrade_time_in_secs": "66600",
+                      "version_profile_id": 0
+                    }
+                zpa_application_server.example: |-
+                    {
+                      "address": "server.example.com",
+                      "description": "Example",
+                      "enabled": true,
+                      "name": "Example"
+                    }
+        argumentDocs:
+            app_connector_groups: '- (Required)'
+            config_space*: (Optional)
+            description: (Optional) This field is the description of the server group.
+            dynamic_discovery: (Optional) This field controls dynamic discovery of the servers.
+            enabled: (Optional) This field defines if the server group is enabled or disabled.
+            id: '- (Required) The ID of this resource.'
+            name: '- (Required) This field defines the name of the server group.'
+            servers: (Block List) This field is a list of servers that are applicable only when dynamic discovery is disabled. Server name is required only in cases where the new servers need to be created in this API.
+        importStatements:
+            - terraform import zpa_server_group.example <server_group_id>
+            - terraform import zpa_server_group.example <server_group_name>
+    zpa_service_edge_group:
+        subCategory: Service Edge Group
+        description: Creates and manages ZPA Service Edge Group details.
+        name: zpa_service_edge_group
+        title: service_edge_group
+        examples:
+            - name: service_edge_group_sjc
+              manifest: |-
+                {
+                  "description": "Service Edge Group in San Jose",
+                  "enabled": true,
+                  "is_public": true,
+                  "latitude": "37.3382082",
+                  "location": "San Jose, CA, USA",
+                  "longitude": "-121.8863286",
+                  "name": "Service Edge Group San Jose",
+                  "trusted_networks": [
+                    {
+                      "id": [
+                        "${data.zpa_trusted_network.example.id}"
+                      ]
+                    }
+                  ],
+                  "upgrade_day": "SUNDAY",
+                  "upgrade_time_in_secs": "66600",
+                  "version_profile_name": "New Release"
+                }
+            - name: service_edge_group_nyc
+              manifest: |-
+                {
+                  "description": "Service Edge Group in New York",
+                  "enabled": true,
+                  "is_public": true,
+                  "latitude": "40.7128",
+                  "location": "New York, NY, USA",
+                  "longitude": "-73.935242",
+                  "name": "Service Edge Group New York",
+                  "upgrade_day": "SUNDAY",
+                  "upgrade_time_in_secs": "66600",
+                  "version_profile_name": "New Release"
+                }
+        argumentDocs:
+            city_country: '- (Optional) This field controls dynamic discovery of the servers.'
+            country_code: '- (Optional) This field is an array of app-connector-id only.'
+            description: '- (Optional) Description of the Service Edge Group.'
+            enabled: '- (Optional) Whether this Service Edge Group is enabled or not. Default value: true Supported values: true, false'
+            is_public: '- (Optional) Enable or disable public access for the Service Edge Group. Default value: FALSE Supported values: DEFAULT, TRUE, FALSE'
+            latitude: '- (Required) Latitude for the Service Edge Group. Integer or decimal with values in the range of -90 to 90'
+            location: '- (Required) Location for the Service Edge Group.'
+            longitude: '- (Required) Longitude for the Service Edge Group. Integer or decimal with values in the range of -180 to 180'
+            name: '- (Required) Name of the Service Edge Group.'
+            override_version_profile: '- (Optional) Whether the default version profile of the App Connector Group is applied or overridden. Default: true. Supported values: true, false'
+            service_edges: '- (Optional)'
+            trusted_networks: '- (Optional) Trusted networks for this Service Edge Group. List of trusted network objects'
+            upgrade_day: '- (Optional) Service Edges in this group will attempt to update to a newer version of the software during this specified day. Default value: SUNDAY List of valid days (i.e., Sunday, Monday)'
+            upgrade_time_in_secs: '- (Optional) Service Edges in this group will attempt to update to a newer version of the software during this specified time. Default value: 66600 Integer in seconds (i..e, 66600). The integer must be greater than or equal to 0 and less than 86400, in 15 minute intervals'
+            version_profile_id: '- (Optional) ID of the version profile. To learn more, see Version Profile Use Cases. This value becomes required if the value for override_version_profile is set to true.'
+        importStatements:
+            - terraform import zpa_service_edge_group.example <service_edge_group_id>
+            - terraform import zpa_service_edge_group.example <service_edge_group_name>

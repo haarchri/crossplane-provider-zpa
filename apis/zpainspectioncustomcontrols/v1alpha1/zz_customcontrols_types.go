@@ -27,14 +27,17 @@ type ConditionsObservation struct {
 
 type ConditionsParameters struct {
 
+	// Signifies the key for the object type Supported values: SIZE, VALUE
 	// Signifies the key for the object type
 	// +kubebuilder:validation:Optional
 	Lhs *string `json:"lhs,omitempty" tf:"lhs,omitempty"`
 
+	// If lhs is set to SIZE, then the user may pass one of the following: EQ: Equals, LE: Less than or equal to, GE: Greater than or equal to. If the lhs is set to VALUE, then the user may pass one of the following: CONTAINS, STARTS_WITH, ENDS_WITH, RX.
 	// Denotes the operation type.
 	// +kubebuilder:validation:Optional
 	Op *string `json:"op,omitempty" tf:"op,omitempty"`
 
+	// Denotes the value for the given object type. Its value depends on the key. If rules.type is set to REQUEST_METHOD, the conditions.rhs field must have one of the following values: GET,HEAD, POST, OPTIONS, PUT, DELETE, TRACE
 	// Denotes the value for the given object type. Its value depends on the key.
 	// +kubebuilder:validation:Optional
 	Rhs *string `json:"rhs,omitempty" tf:"rhs,omitempty"`
@@ -46,13 +49,16 @@ type CustomControlsObservation struct {
 
 type CustomControlsParameters struct {
 
+	// The performed action. Supported values: PASS, BLOCK and REDIRECT
 	// The performed action
 	// +kubebuilder:validation:Optional
 	Action *string `json:"action,omitempty" tf:"action,omitempty"`
 
+	// Denotes the action
 	// +kubebuilder:validation:Optional
 	ActionValue *string `json:"actionValue,omitempty" tf:"action_value,omitempty"`
 
+	// Name of the inspection profile
 	// Name of the inspection profile
 	// +kubebuilder:validation:Optional
 	AssociatedInspectionProfileNames []AssociatedInspectionProfileNamesParameters `json:"associatedInspectionProfileNames,omitempty" tf:"associated_inspection_profile_names,omitempty"`
@@ -61,40 +67,50 @@ type CustomControlsParameters struct {
 	ControlNumber *string `json:"controlNumber,omitempty" tf:"control_number,omitempty"`
 
 	// The control rule in JSON format that has the conditions and type of control for the inspection control
+	// The control rule in JSON format that has the conditions and type of control for the inspection control
 	// +kubebuilder:validation:Optional
 	ControlRuleJSON *string `json:"controlRuleJson,omitempty" tf:"control_rule_json,omitempty"`
 
+	// The performed action. Supported values: PASS, BLOCK and REDIRECT
 	// The performed action
 	// +kubebuilder:validation:Required
 	DefaultAction *string `json:"defaultAction" tf:"default_action,omitempty"`
 
 	// This is used to provide the redirect URL if the default action is set to REDIRECT
+	// This is used to provide the redirect URL if the default action is set to REDIRECT
 	// +kubebuilder:validation:Optional
 	DefaultActionValue *string `json:"defaultActionValue,omitempty" tf:"default_action_value,omitempty"`
 
 	// Description of the custom control
+	// Description of the custom control
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// The name of the predefined control.
 	// +kubebuilder:validation:Required
 	Name *string `json:"name" tf:"name,omitempty"`
 
+	// OWASP Predefined Paranoia Level.
 	// OWASP Predefined Paranoia Level. Range: [1-4], inclusive
 	// +kubebuilder:validation:Optional
 	ParanoiaLevel *string `json:"paranoiaLevel,omitempty" tf:"paranoia_level,omitempty"`
 
+	// Rules of the custom controls applied as conditions JSON
 	// Rules of the custom controls applied as conditions (JSON)
 	// +kubebuilder:validation:Optional
 	Rules []RulesParameters `json:"rules,omitempty" tf:"rules,omitempty"`
 
+	// Severity of the control number. Supported values: CRITICAL, ERROR, WARNING, INFO
 	// Severity of the control number
 	// +kubebuilder:validation:Required
 	Severity *string `json:"severity" tf:"severity,omitempty"`
 
 	// Rules to be applied to the request or response type
+	// Rules to be applied to the request or response type
 	// +kubebuilder:validation:Required
 	Type *string `json:"type" tf:"type,omitempty"`
 
+	// The version of the predefined control, the default is: OWASP_CRS/3.3.0
 	// +kubebuilder:validation:Optional
 	Version *string `json:"version,omitempty" tf:"version,omitempty"`
 }
@@ -108,9 +124,11 @@ type RulesParameters struct {
 	Conditions []ConditionsParameters `json:"conditions,omitempty" tf:"conditions,omitempty"`
 
 	// Name of the rules. If rules.type is set to REQUEST_HEADERS, REQUEST_COOKIES, or RESPONSE_HEADERS, the rules.name field is required.
+	// Name of the rules. If rules.type is set to REQUEST_HEADERS, REQUEST_COOKIES, or RESPONSE_HEADERS, the rules.name field is required.
 	// +kubebuilder:validation:Optional
 	Names []*string `json:"names,omitempty" tf:"names,omitempty"`
 
+	// Rules to be applied to the request or response type
 	// Type value for the rules.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
@@ -130,7 +148,7 @@ type CustomControlsStatus struct {
 
 // +kubebuilder:object:root=true
 
-// CustomControls is the Schema for the CustomControlss API. <no value>
+// CustomControls is the Schema for the CustomControlss API. Creates and manages Inspection Custom Control in Zscaler Private Access cloud.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

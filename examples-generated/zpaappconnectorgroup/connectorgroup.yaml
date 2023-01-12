@@ -1,0 +1,26 @@
+apiVersion: zpaappconnectorgroup.zpa.crossplane.io/v1alpha1
+kind: ConnectorGroup
+metadata:
+  annotations:
+    meta.upbound.io/example-id: zpaappconnectorgroup/v1alpha1/connectorgroup
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    cityCountry: San Jose, CA
+    countryCode: US
+    description: Example
+    dnsQueryType: IPV4_IPV6
+    enabled: true
+    latitude: "37.338"
+    location: San Jose, CA, US
+    longitude: "-121.8863"
+    name: Example
+    overrideVersionProfile: true
+    upgradeDay: SUNDAY
+    upgradeTimeInSecs: "66600"
+    versionProfileName: New Release
+
+---
+

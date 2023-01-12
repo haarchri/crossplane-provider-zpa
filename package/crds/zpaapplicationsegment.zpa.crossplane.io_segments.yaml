@@ -35,7 +35,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Segment is the Schema for the Segments API. <no value>
+        description: Segment is the Schema for the Segments API. Creates and manages
+          ZPA Application Segments.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -65,6 +66,7 @@ spec:
                 properties:
                   bypassType:
                     description: Indicates whether users can bypass ZPA to access
+                      applications. Indicates whether users can bypass ZPA to access
                       applications.
                     type: string
                   configSpace:
@@ -72,25 +74,30 @@ spec:
                   defaultIdleTimeout:
                     type: string
                   description:
-                    description: Description of the application.
+                    description: Description of the application. Description of the
+                      application.
                     type: string
                   domainNames:
-                    description: List of domains and IPs.
+                    description: List of domains and IPs. List of domains and IPs.
                     items:
                       type: string
                     type: array
                   doubleEncrypt:
                     description: Whether Double Encryption is enabled or disabled
+                      for the app. Whether Double Encryption is enabled or disabled
                       for the app.
                     type: boolean
                   enabled:
-                    description: Whether this application is enabled or not.
+                    description: Whether this application is enabled or not. Whether
+                      this application is enabled or not.
                     type: boolean
                   healthCheckType:
                     type: string
                   healthReporting:
                     description: 'Whether health reporting for the app is Continuous
-                      or On Access. Supported values: NONE, ON_ACCESS, CONTINUOUS.'
+                      or On Access. Supported values: NONE, ON_ACCESS, CONTINUOUS.
+                      Whether health reporting for the app is Continuous or On Access.
+                      Supported values: NONE, ON_ACCESS, CONTINUOUS.'
                     type: string
                   icmpAccessType:
                     type: string
@@ -99,13 +106,17 @@ spec:
                   isCnameEnabled:
                     description: Indicates if the Zscaler Client Connector (formerly
                       Zscaler App or Z App) receives CNAME DNS records from the connectors.
+                      Indicates if the Zscaler Client Connector (formerly Zscaler
+                      App or Z App) receives CNAME DNS records from the connectors.
                     type: boolean
                   name:
-                    description: Name of the application.
+                    description: Name. The name of the App Connector Group to be exported.
+                      Name of the application.
                     type: string
                   passiveHealthEnabled:
                     type: boolean
                   segmentGroupId:
+                    description: List of Segment Group IDs
                     type: string
                   segmentGroupIdRef:
                     description: Reference to a Group in zpasegmentgroup to populate
@@ -183,9 +194,11 @@ spec:
                         type: object
                     type: object
                   segmentGroupName:
+                    description: Name. The name of the App Connector Group to be exported.
                     type: string
                   serverGroups:
-                    description: List of the server group IDs.
+                    description: List of Server Group IDs List of the server group
+                      IDs.
                     items:
                       properties:
                         id:
@@ -277,7 +290,8 @@ spec:
                       type: object
                     type: array
                   tcpPortRange:
-                    description: tcp port range
+                    description: TCP port ranges used to access the app. tcp port
+                      range
                     items:
                       properties:
                         from:
@@ -287,12 +301,14 @@ spec:
                       type: object
                     type: array
                   tcpPortRanges:
-                    description: TCP port ranges used to access the app.
+                    description: TCP port ranges used to access the app. TCP port
+                      ranges used to access the app.
                     items:
                       type: string
                     type: array
                   udpPortRange:
-                    description: udp port range
+                    description: UDP port ranges used to access the app. udp port
+                      range
                     items:
                       properties:
                         from:
@@ -302,7 +318,8 @@ spec:
                       type: object
                     type: array
                   udpPortRanges:
-                    description: UDP port ranges used to access the app.
+                    description: UDP port ranges used to access the app. UDP port
+                      ranges used to access the app.
                     items:
                       type: string
                     type: array

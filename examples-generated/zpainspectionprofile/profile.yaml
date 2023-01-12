@@ -1,0 +1,38 @@
+apiVersion: zpainspectionprofile.zpa.crossplane.io/v1alpha1
+kind: Profile
+metadata:
+  annotations:
+    meta.upbound.io/example-id: zpainspectionprofile/v1alpha1/profile
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+spec:
+  forProvider:
+    commonGlobalOverrideActionsConfig:
+      IS_OVERRIDE_ACTION_COMMON: "TRUE"
+      PREDEF_CNTRL_GLOBAL_ACTION: PASS
+    controlsInfo:
+    - controlType: PREDEFINED
+    description: Example
+    dynamic:
+      predefined_controls:
+      - content:
+        - action: '${predefined_controls.value.action == "" ? predefined_controls.value.default_action
+            : predefined_controls.value.action}'
+          action_value: ${predefined_controls.value.action_value}
+          id: ${predefined_controls.value.id}
+        for_each: ${data.zpa_inspection_all_predefined_controls.default_predefined_controls.list}
+    globalControlActions:
+    - PREDEFINED:PASS
+    - CUSTOM:NONE
+    - OVERRIDE_ACTION:COMMON
+    incarnationNumber: "6"
+    name: Example
+    paranoiaLevel: "1"
+    predefinedControls:
+    - action: BLOCK
+      id: ${data.zpa_inspection_predefined_controls.this.id}
+    predefinedControlsVersion: OWASP_CRS/3.3.0
+
+---
+

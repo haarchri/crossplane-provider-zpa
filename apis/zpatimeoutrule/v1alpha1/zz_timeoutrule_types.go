@@ -16,6 +16,7 @@ import (
 type ConditionsObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// Operands block must be repeated if multiple per object_type conditions are to be added to the rule.
 	// This signifies the various policy criteria.
 	// +kubebuilder:validation:Optional
 	Operands []OperandsObservation `json:"operands,omitempty" tf:"operands,omitempty"`
@@ -23,13 +24,16 @@ type ConditionsObservation struct {
 
 type ConditionsParameters struct {
 
+	// Supported values: true or false
 	// +kubebuilder:validation:Optional
 	Negated *bool `json:"negated,omitempty" tf:"negated,omitempty"`
 
+	// Operands block must be repeated if multiple per object_type conditions are to be added to the rule.
 	// This signifies the various policy criteria.
 	// +kubebuilder:validation:Optional
 	Operands []OperandsParameters `json:"operands,omitempty" tf:"operands,omitempty"`
 
+	// Supported values: AND, and OR
 	// +kubebuilder:validation:Required
 	Operator *string `json:"operator" tf:"operator,omitempty"`
 }
@@ -43,17 +47,21 @@ type OperandsParameters struct {
 	// +kubebuilder:validation:Optional
 	IdpID *string `json:"idpId,omitempty" tf:"idp_id,omitempty"`
 
+	// LHS must always carry the string value id or the attribute ID of the resource being associated with the rule.
 	// This signifies the key for the object type. String ID example: id
 	// +kubebuilder:validation:Required
 	Lhs *string `json:"lhs" tf:"lhs,omitempty"`
 
+	// This is the name of the policy rule.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// This is for specifying the policy critiera. Supported values: APP, SAML, SCIM, SCIM_GROUP, IDP, CLIENT_TYPE,  POSTURE
 	// This is for specifying the policy critiera.
 	// +kubebuilder:validation:Required
 	ObjectType *string `json:"objectType" tf:"object_type,omitempty"`
 
+	// RHS is either the ID attribute of a resource or fixed string value. Refer to the chart below for further details.
 	// This denotes the value for the given object type. Its value depends upon the key.
 	// +kubebuilder:validation:Optional
 	Rhs *string `json:"rhs,omitempty" tf:"rhs,omitempty"`
@@ -74,6 +82,7 @@ type TimeoutRuleObservation struct {
 
 type TimeoutRuleParameters struct {
 
+	// This is for providing the rule action. Supported value: RE_AUTH
 	// This is for providing the rule action.
 	// +kubebuilder:validation:Optional
 	Action *string `json:"action,omitempty" tf:"action,omitempty"`
@@ -90,6 +99,7 @@ type TimeoutRuleParameters struct {
 	Conditions []ConditionsParameters `json:"conditions,omitempty" tf:"conditions,omitempty"`
 
 	// This is for providing a customer message for the user.
+	// This is for providing a customer message for the user.
 	// +kubebuilder:validation:Optional
 	CustomMsg *string `json:"customMsg,omitempty" tf:"custom_msg,omitempty"`
 
@@ -97,6 +107,7 @@ type TimeoutRuleParameters struct {
 	// +kubebuilder:validation:Optional
 	DefaultRule *bool `json:"defaultRule,omitempty" tf:"default_rule,omitempty"`
 
+	// This is the description of the access policy rule.
 	// This is the description of the access policy.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
@@ -104,16 +115,20 @@ type TimeoutRuleParameters struct {
 	// +kubebuilder:validation:Optional
 	LssDefaultRule *bool `json:"lssDefaultRule,omitempty" tf:"lss_default_rule,omitempty"`
 
+	// This is the name of the policy rule.
 	// This is the name of the policy.
 	// +kubebuilder:validation:Required
 	Name *string `json:"name" tf:"name,omitempty"`
 
+	// Supported values: AND, and OR
 	// +kubebuilder:validation:Optional
 	Operator *string `json:"operator,omitempty" tf:"operator,omitempty"`
 
+	// Use zpa_policy_type data source to retrieve the necessary policy Set ID policy_set_id
 	// +kubebuilder:validation:Optional
 	PolicySetID *string `json:"policySetId,omitempty" tf:"policy_set_id,omitempty"`
 
+	// Supported values: TIMEOUT_POLICY or REAUTH_POLICY
 	// +kubebuilder:validation:Optional
 	PolicyType *string `json:"policyType,omitempty" tf:"policy_type,omitempty"`
 
@@ -123,9 +138,11 @@ type TimeoutRuleParameters struct {
 	// +kubebuilder:validation:Optional
 	ReauthDefaultRule *bool `json:"reauthDefaultRule,omitempty" tf:"reauth_default_rule,omitempty"`
 
+	// 1 value denotes Default.
 	// +kubebuilder:validation:Optional
 	ReauthIdleTimeout *string `json:"reauthIdleTimeout,omitempty" tf:"reauth_idle_timeout,omitempty"`
 
+	// 1 value denotes Never.
 	// +kubebuilder:validation:Optional
 	ReauthTimeout *string `json:"reauthTimeout,omitempty" tf:"reauth_timeout,omitempty"`
 
@@ -150,7 +167,7 @@ type TimeoutRuleStatus struct {
 
 // +kubebuilder:object:root=true
 
-// TimeoutRule is the Schema for the TimeoutRules API. <no value>
+// TimeoutRule is the Schema for the TimeoutRules API. Creates and manages ZPA Policy Timeout Access Rule.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

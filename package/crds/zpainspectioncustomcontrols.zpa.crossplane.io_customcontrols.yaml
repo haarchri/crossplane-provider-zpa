@@ -35,8 +35,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: CustomControls is the Schema for the CustomControlss API. <no
-          value>
+        description: CustomControls is the Schema for the CustomControlss API. Creates
+          and manages Inspection Custom Control in Zscaler Private Access cloud.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -65,12 +65,15 @@ spec:
               forProvider:
                 properties:
                   action:
-                    description: The performed action
+                    description: 'The performed action. Supported values: PASS, BLOCK
+                      and REDIRECT The performed action'
                     type: string
                   actionValue:
+                    description: Denotes the action
                     type: string
                   associatedInspectionProfileNames:
-                    description: Name of the inspection profile
+                    description: Name of the inspection profile Name of the inspection
+                      profile
                     items:
                       properties:
                         id:
@@ -83,62 +86,88 @@ spec:
                     type: string
                   controlRuleJson:
                     description: The control rule in JSON format that has the conditions
-                      and type of control for the inspection control
+                      and type of control for the inspection control The control rule
+                      in JSON format that has the conditions and type of control for
+                      the inspection control
                     type: string
                   defaultAction:
-                    description: The performed action
+                    description: 'The performed action. Supported values: PASS, BLOCK
+                      and REDIRECT The performed action'
                     type: string
                   defaultActionValue:
                     description: This is used to provide the redirect URL if the default
-                      action is set to REDIRECT
+                      action is set to REDIRECT This is used to provide the redirect
+                      URL if the default action is set to REDIRECT
                     type: string
                   description:
-                    description: Description of the custom control
+                    description: Description of the custom control Description of
+                      the custom control
                     type: string
                   name:
+                    description: The name of the predefined control.
                     type: string
                   paranoiaLevel:
-                    description: 'OWASP Predefined Paranoia Level. Range: [1-4], inclusive'
+                    description: 'OWASP Predefined Paranoia Level. OWASP Predefined
+                      Paranoia Level. Range: [1-4], inclusive'
                     type: string
                   rules:
                     description: Rules of the custom controls applied as conditions
-                      (JSON)
+                      JSON Rules of the custom controls applied as conditions (JSON)
                     items:
                       properties:
                         conditions:
                           items:
                             properties:
                               lhs:
-                                description: Signifies the key for the object type
+                                description: 'Signifies the key for the object type
+                                  Supported values: SIZE, VALUE Signifies the key
+                                  for the object type'
                                 type: string
                               op:
-                                description: Denotes the operation type.
+                                description: 'If lhs is set to SIZE, then the user
+                                  may pass one of the following: EQ: Equals, LE: Less
+                                  than or equal to, GE: Greater than or equal to.
+                                  If the lhs is set to VALUE, then the user may pass
+                                  one of the following: CONTAINS, STARTS_WITH, ENDS_WITH,
+                                  RX. Denotes the operation type.'
                                 type: string
                               rhs:
-                                description: Denotes the value for the given object
-                                  type. Its value depends on the key.
+                                description: 'Denotes the value for the given object
+                                  type. Its value depends on the key. If rules.type
+                                  is set to REQUEST_METHOD, the conditions.rhs field
+                                  must have one of the following values: GET,HEAD,
+                                  POST, OPTIONS, PUT, DELETE, TRACE Denotes the value
+                                  for the given object type. Its value depends on
+                                  the key.'
                                 type: string
                             type: object
                           type: array
                         names:
                           description: Name of the rules. If rules.type is set to
                             REQUEST_HEADERS, REQUEST_COOKIES, or RESPONSE_HEADERS,
-                            the rules.name field is required.
+                            the rules.name field is required. Name of the rules. If
+                            rules.type is set to REQUEST_HEADERS, REQUEST_COOKIES,
+                            or RESPONSE_HEADERS, the rules.name field is required.
                           items:
                             type: string
                           type: array
                         type:
-                          description: Type value for the rules.
+                          description: Rules to be applied to the request or response
+                            type Type value for the rules.
                           type: string
                       type: object
                     type: array
                   severity:
-                    description: Severity of the control number
+                    description: 'Severity of the control number. Supported values:
+                      CRITICAL, ERROR, WARNING, INFO Severity of the control number'
                     type: string
                   type:
                     description: Rules to be applied to the request or response type
+                      Rules to be applied to the request or response type
                     type: string
                   version:
+                    description: 'The version of the predefined control, the default
+                      is: OWASP_CRS/3.3.0'
                     type: string
                 required:
                 - defaultAction

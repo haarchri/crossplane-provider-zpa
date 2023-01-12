@@ -1,0 +1,26 @@
+apiVersion: zpainspectionrule.zpa.crossplane.io/v1alpha1
+kind: InspectionRule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: zpainspectionrule/v1alpha1/inspectionrule
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+spec:
+  forProvider:
+    action: INSPECT
+    conditions:
+    - operands:
+      - lhs: id
+        objectType: APP
+        rhs: ${zpa_application_segment_inspection.this.id}
+      operator: OR
+    description: Example
+    name: Example
+    operator: AND
+    policySetId: ${data.zpa_policy_type.inspection_policy.id}
+    ruleOrder: 1
+    zpnInspectionProfileId: ${zpa_inspection_profile.this.id}
+
+---
+

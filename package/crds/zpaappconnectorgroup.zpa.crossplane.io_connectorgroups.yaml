@@ -35,8 +35,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: ConnectorGroup is the Schema for the ConnectorGroups API. <no
-          value>
+        description: ConnectorGroup is the Schema for the ConnectorGroups API. Creates
+          and manages ZPA App Connector Groups.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -65,74 +65,108 @@ spec:
               forProvider:
                 properties:
                   cityCountry:
+                    description: Whether Double Encryption is enabled or disabled
+                      for the app. i.e "San Jose, US"
                     type: string
                   countryCode:
+                    description: i.e "US", "CA"
                     type: string
                   description:
-                    description: Description of the App Connector Group
+                    description: Description of the App Connector Group. Description
+                      of the App Connector Group
                     type: string
                   dnsQueryType:
-                    description: Whether to enable IPv4 or IPv6, or both, for DNS
-                      resolution of all applications in the App Connector Group
+                    description: 'Supported values are: Whether to enable IPv4 or
+                      IPv6, or both, for DNS resolution of all applications in the
+                      App Connector Group'
                     type: string
                   enabled:
-                    description: Whether this App Connector Group is enabled or not
+                    description: 'Whether this App Connector Group is enabled or not.
+                      Default value: true. Supported values: true, false Whether this
+                      App Connector Group is enabled or not'
                     type: boolean
                   latitude:
                     description: Latitude of the App Connector Group. Integer or decimal.
-                      With values in the range of -90 to 90
+                      With values in the range of -90 to 90 Latitude of the App Connector
+                      Group. Integer or decimal. With values in the range of -90 to
+                      90
                     type: string
                   location:
-                    description: Location of the App Connector Group
+                    description: Location of the App Connector Group. i.e "San Jose,
+                      CA, USA" Location of the App Connector Group
                     type: string
                   longitude:
                     description: Longitude of the App Connector Group. Integer or
-                      decimal. With values in the range of -180 to 180
+                      decimal. With values in the range of -180 to 180 Longitude of
+                      the App Connector Group. Integer or decimal. With values in
+                      the range of -180 to 180
                     type: string
                   lssAppConnectorGroup:
                     type: boolean
                   name:
-                    description: Name of the App Connector Group
+                    description: Name of the App Connector Group. Name of the App
+                      Connector Group
                     type: string
                   overrideVersionProfile:
                     description: 'Whether the default version profile of the App Connector
+                      Group is applied or overridden. Default: false Supported values:
+                      true, false Whether the default version profile of the App Connector
                       Group is applied or overridden. Supported values: true, false'
                     type: boolean
                   tcpQuickAckApp:
-                    description: Whether TCP Quick Acknowledgement is enabled or disabled
-                      for the application. The tcpQuickAckApp, tcpQuickAckAssistant,
+                    description: 'Whether TCP Quick Acknowledgement is enabled or
+                      disabled for the application. The tcpQuickAckApp, tcpQuickAckAssistant,
                       and tcpQuickAckReadAssistant fields must all share the same
-                      value.
+                      value. Supported values: true, false Whether TCP Quick Acknowledgement
+                      is enabled or disabled for the application. The tcpQuickAckApp,
+                      tcpQuickAckAssistant, and tcpQuickAckReadAssistant fields must
+                      all share the same value.'
                     type: boolean
                   tcpQuickAckAssistant:
-                    description: Whether TCP Quick Acknowledgement is enabled or disabled
-                      for the application. The tcpQuickAckApp, tcpQuickAckAssistant,
+                    description: 'Whether TCP Quick Acknowledgement is enabled or
+                      disabled for the application. The tcpQuickAckApp, tcpQuickAckAssistant,
                       and tcpQuickAckReadAssistant fields must all share the same
-                      value.
+                      value. Supported values: true, false Whether TCP Quick Acknowledgement
+                      is enabled or disabled for the application. The tcpQuickAckApp,
+                      tcpQuickAckAssistant, and tcpQuickAckReadAssistant fields must
+                      all share the same value.'
                     type: boolean
                   tcpQuickAckReadAssistant:
-                    description: Whether TCP Quick Acknowledgement is enabled or disabled
-                      for the application. The tcpQuickAckApp, tcpQuickAckAssistant,
+                    description: 'Whether TCP Quick Acknowledgement is enabled or
+                      disabled for the application. The tcpQuickAckApp, tcpQuickAckAssistant,
                       and tcpQuickAckReadAssistant fields must all share the same
-                      value.
+                      value. Supported values: true, false Whether TCP Quick Acknowledgement
+                      is enabled or disabled for the application. The tcpQuickAckApp,
+                      tcpQuickAckAssistant, and tcpQuickAckReadAssistant fields must
+                      all share the same value.'
                     type: boolean
                   upgradeDay:
                     description: App Connectors in this group will attempt to update
+                      to a newer version of the software during this specified day
+                      i.e SUNDAY App Connectors in this group will attempt to update
                       to a newer version of the software during this specified day.
                       List of valid days (i.e., Sunday, Monday)
                     type: string
                   upgradeTimeInSecs:
-                    description: App Connectors in this group will attempt to update
+                    description: 'App Connectors in this group will attempt to update
                       to a newer version of the software during this specified time.
-                      Integer in seconds (i.e., -66600). The integer should be greater
-                      than or equal to 0 and less than 86400, in 15 minute intervals
+                      Default value: 66600. Integer in seconds (i.e., -66600). The
+                      integer should be greater than or equal to 0 and less than 86400,
+                      in 15 minute intervals App Connectors in this group will attempt
+                      to update to a newer version of the software during this specified
+                      time. Integer in seconds (i.e., -66600). The integer should
+                      be greater than or equal to 0 and less than 86400, in 15 minute
+                      intervals'
                     type: string
                   useInDrMode:
+                    description: 'Supported values: true, false'
                     type: boolean
                   versionProfileId:
-                    description: ID of the version profile. To learn more, see Version
-                      Profile Use Cases. This value is required, if the value for
-                      overrideVersionProfile is set to true
+                    description: 'ID of the version profile. To learn more, see Version
+                      Profile Use Cases. Supported values are: ID of the version profile.
+                      To learn more, see Version Profile Use Cases. This value is
+                      required, if the value for overrideVersionProfile is set to
+                      true'
                     type: string
                   versionProfileName:
                     description: Name of the version profile. To learn more, see Version
@@ -322,6 +356,7 @@ spec:
               atProvider:
                 properties:
                   id:
+                    description: The ID of the Group Role Assignment.
                     type: string
                 type: object
               conditions:

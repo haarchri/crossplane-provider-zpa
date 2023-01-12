@@ -18,9 +18,11 @@ type ControlsInfoObservation struct {
 
 type ControlsInfoParameters struct {
 
+	// Control types. Supported Values: CUSTOM, PREDEFINED, ZSCALER
 	// +kubebuilder:validation:Optional
 	ControlType *string `json:"controlType,omitempty" tf:"control_type,omitempty"`
 
+	// Control information counts Long
 	// +kubebuilder:validation:Optional
 	Count *string `json:"count,omitempty" tf:"count,omitempty"`
 }
@@ -30,12 +32,15 @@ type CustomControlsObservation struct {
 
 type CustomControlsParameters struct {
 
+	// The action of the predefined control. Supported values: PASS, BLOCK and REDIRECT
 	// +kubebuilder:validation:Required
 	Action *string `json:"action" tf:"action,omitempty"`
 
+	// Value for the predefined controls action. This field is only required if the action is set to REDIRECT. This field is only required if the action is set to REDIRECT.
 	// +kubebuilder:validation:Optional
 	ActionValue *string `json:"actionValue,omitempty" tf:"action_value,omitempty"`
 
+	// ID of the predefined control
 	// +kubebuilder:validation:Required
 	ID *string `json:"id" tf:"id,omitempty"`
 }
@@ -45,17 +50,22 @@ type PredefinedControlsObservation struct {
 
 type PredefinedControlsParameters struct {
 
+	// The action of the predefined control. Supported values: PASS, BLOCK and REDIRECT
 	// +kubebuilder:validation:Required
 	Action *string `json:"action" tf:"action,omitempty"`
 
+	// Value for the predefined controls action. This field is only required if the action is set to REDIRECT. This field is only required if the action is set to REDIRECT.
 	// +kubebuilder:validation:Optional
 	ActionValue *string `json:"actionValue,omitempty" tf:"action_value,omitempty"`
 
+	// ID of the predefined control
 	// +kubebuilder:validation:Required
 	ID *string `json:"id" tf:"id,omitempty"`
 }
 
 type ProfileObservation struct {
+
+	// ID of the predefined control
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
@@ -67,12 +77,15 @@ type ProfileParameters struct {
 	// +kubebuilder:validation:Optional
 	CommonGlobalOverrideActionsConfig map[string]*string `json:"commonGlobalOverrideActionsConfig,omitempty" tf:"common_global_override_actions_config,omitempty"`
 
+	// Types for custom controls
 	// +kubebuilder:validation:Optional
 	ControlsInfo []ControlsInfoParameters `json:"controlsInfo,omitempty" tf:"controls_info,omitempty"`
 
+	// Types for custom controls
 	// +kubebuilder:validation:Optional
 	CustomControls []CustomControlsParameters `json:"customControls,omitempty" tf:"custom_controls,omitempty"`
 
+	// Description of the inspection profile.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
@@ -82,15 +95,19 @@ type ProfileParameters struct {
 	// +kubebuilder:validation:Optional
 	IncarnationNumber *string `json:"incarnationNumber,omitempty" tf:"incarnation_number,omitempty"`
 
+	// The name of the inspection profile.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// OWASP Predefined Paranoia Level. Range: [1-4], inclusive
 	// +kubebuilder:validation:Optional
 	ParanoiaLevel *string `json:"paranoiaLevel,omitempty" tf:"paranoia_level,omitempty"`
 
+	// The predefined controls. The default predefined control Preprocessors are mandatory and injected in the request by default. Individual predefined_controls can be set by using the data source data_source_zpa_predefined_controls or by group using the data source zpa_inspection_all_predefined_controls.
 	// +kubebuilder:validation:Optional
 	PredefinedControls []PredefinedControlsParameters `json:"predefinedControls,omitempty" tf:"predefined_controls,omitempty"`
 
+	// = "OWASP_CRS/3.3.0"
 	// +kubebuilder:validation:Optional
 	PredefinedControlsVersion *string `json:"predefinedControlsVersion,omitempty" tf:"predefined_controls_version,omitempty"`
 }
@@ -109,7 +126,7 @@ type ProfileStatus struct {
 
 // +kubebuilder:object:root=true
 
-// Profile is the Schema for the Profiles API. <no value>
+// Profile is the Schema for the Profiles API. Creates and manages Inspection Profile in Zscaler Private Access cloud.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

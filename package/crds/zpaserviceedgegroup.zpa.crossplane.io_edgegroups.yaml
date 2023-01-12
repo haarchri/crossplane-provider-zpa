@@ -35,7 +35,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: EdgeGroup is the Schema for the EdgeGroups API. <no value>
+        description: EdgeGroup is the Schema for the EdgeGroups API. Creates and manages
+          ZPA Service Edge Group details.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -64,34 +65,49 @@ spec:
               forProvider:
                 properties:
                   cityCountry:
+                    description: This field controls dynamic discovery of the servers.
                     type: string
                   countryCode:
+                    description: This field is an array of app-connector-id only.
                     type: string
                   description:
-                    description: Description of the Service Edge Group.
+                    description: Description of the Service Edge Group. Description
+                      of the Service Edge Group.
                     type: string
                   enabled:
-                    description: Whether this Service Edge Group is enabled or not.
+                    description: 'Whether this Service Edge Group is enabled or not.
+                      Default value: true Supported values: true, false Whether this
+                      Service Edge Group is enabled or not.'
                     type: boolean
                   isPublic:
-                    description: Enable or disable public access for the Service Edge
-                      Group.
+                    description: 'Enable or disable public access for the Service
+                      Edge Group. Default value: FALSE Supported values: DEFAULT,
+                      TRUE, FALSE Enable or disable public access for the Service
+                      Edge Group.'
                     type: boolean
                   latitude:
-                    description: Latitude for the Service Edge Group.
+                    description: Latitude for the Service Edge Group. Integer or decimal
+                      with values in the range of -90 to 90 Latitude for the Service
+                      Edge Group.
                     type: string
                   location:
-                    description: Location for the Service Edge Group.
+                    description: Location for the Service Edge Group. Location for
+                      the Service Edge Group.
                     type: string
                   longitude:
-                    description: Longitude for the Service Edge Group.
+                    description: Longitude for the Service Edge Group. Integer or
+                      decimal with values in the range of -180 to 180 Longitude for
+                      the Service Edge Group.
                     type: string
                   name:
-                    description: Name of the Service Edge Group.
+                    description: Name of the Service Edge Group. Name of the Service
+                      Edge Group.
                     type: string
                   overrideVersionProfile:
-                    description: Whether the default version profile of the App Connector
-                      Group is applied or overridden.
+                    description: 'Whether the default version profile of the App Connector
+                      Group is applied or overridden. Default: true. Supported values:
+                      true, false Whether the default version profile of the App Connector
+                      Group is applied or overridden.'
                     type: boolean
                   serviceEdges:
                     items:
@@ -103,6 +119,8 @@ spec:
                       type: object
                     type: array
                   trustedNetworks:
+                    description: Trusted networks for this Service Edge Group. List
+                      of trusted network objects
                     items:
                       properties:
                         id:
@@ -112,18 +130,30 @@ spec:
                       type: object
                     type: array
                   upgradeDay:
-                    description: Service Edges in this group will attempt to update
+                    description: 'Service Edges in this group will attempt to update
                       to a newer version of the software during this specified day.
+                      Default value: SUNDAY List of valid days (i.e., Sunday, Monday)
+                      Service Edges in this group will attempt to update to a newer
+                      version of the software during this specified day.'
                     type: string
                   upgradeTimeInSecs:
-                    description: Service Edges in this group will attempt to update
+                    description: 'Service Edges in this group will attempt to update
                       to a newer version of the software during this specified time.
+                      Default value: 66600 Integer in seconds (i..e, 66600). The integer
+                      must be greater than or equal to 0 and less than 86400, in 15
+                      minute intervals Service Edges in this group will attempt to
+                      update to a newer version of the software during this specified
+                      time.'
                     type: string
                   versionProfileId:
-                    description: ID of the version profile.
+                    description: ID of the version profile. To learn more, see Version
+                      Profile Use Cases. This value becomes required if the value
+                      for override_version_profile is set to true. ID of the version
+                      profile.
                     type: string
                   versionProfileName:
-                    description: ID of the version profile.
+                    description: Name of the Service Edge Group. ID of the version
+                      profile.
                     type: string
                 required:
                 - latitude

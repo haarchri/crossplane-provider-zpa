@@ -25,6 +25,7 @@ type ConditionsParameters struct {
 	// +kubebuilder:validation:Optional
 	Operands []OperandsParameters `json:"operands,omitempty" tf:"operands,omitempty"`
 
+	// Supported values are: AND or OR
 	// +kubebuilder:validation:Required
 	Operator *string `json:"operator" tf:"operator,omitempty"`
 }
@@ -47,6 +48,7 @@ type ConfigControllerParameters struct {
 	// +kubebuilder:validation:Optional
 	Config []ConfigParameters `json:"config,omitempty" tf:"config,omitempty"`
 
+	// - id -  - App Connector Group ID(s) where logs will be forwarded to.
 	// App Connector Group(s) to be added to the LSS configuration
 	// +kubebuilder:validation:Optional
 	ConnectorGroups []ConnectorGroupsParameters `json:"connectorGroups,omitempty" tf:"connector_groups,omitempty"`
@@ -76,14 +78,17 @@ type ConfigParameters struct {
 	// +kubebuilder:validation:Optional
 	Filter []*string `json:"filter,omitempty" tf:"filter,omitempty"`
 
+	// The format of the LSS resource. The supported formats are: JSON, CSV, and TSV
 	// Format of the log type. Format given by the following API to get formats: /mgmtconfig/v2/admin/lssConfig/logType/formats
 	// +kubebuilder:validation:Required
 	Format *string `json:"format" tf:"format,omitempty"`
 
+	// The IP or FQDN of the SIEM (Log Receiver) where logs will be forwarded to.
 	// Host of the LSS configuration
 	// +kubebuilder:validation:Required
 	LssHost *string `json:"lssHost" tf:"lss_host,omitempty"`
 
+	// The destination port of the SIEM (Log Receiver) where logs will be forwarded to.
 	// Port of the LSS configuration
 	// +kubebuilder:validation:Required
 	LssPort *string `json:"lssPort" tf:"lss_port,omitempty"`
@@ -92,6 +97,7 @@ type ConfigParameters struct {
 	// +kubebuilder:validation:Required
 	Name *string `json:"name" tf:"name,omitempty"`
 
+	// Refer to the log type documentation
 	// Log type of the LSS configuration
 	// +kubebuilder:validation:Required
 	SourceLogType *string `json:"sourceLogType" tf:"source_log_type,omitempty"`
@@ -114,10 +120,17 @@ type OperandsObservation struct {
 
 type OperandsParameters struct {
 
+	// This is for specifying the policy critiera. Supported values: APP, APP_GROUP, CLIENT_TYPE, TRUSTED_NETWORK, SAML, SCIM, SCIM_GROUP
 	// This is for specifying the policy critiera.
 	// +kubebuilder:validation:Required
 	ObjectType *string `json:"objectType" tf:"object_type,omitempty"`
 
+	// zpn_client_type_exporter
+	// - zpn_client_type_browser_isolation
+	// - zpn_client_type_machine_tunnel
+	// - zpn_client_type_ip_anchoring
+	// - zpn_client_type_edge_connector
+	// - zpn_client_type_zapp
 	// This denotes a list of values for the given object type. The value depend upon the key. If rhs is defined this list will be ignored
 	// +kubebuilder:validation:Optional
 	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
@@ -163,6 +176,7 @@ type PolicyRuleResourceParameters struct {
 	// +kubebuilder:validation:Required
 	Name *string `json:"name" tf:"name,omitempty"`
 
+	// Supported values are: AND or OR
 	// +kubebuilder:validation:Optional
 	Operator *string `json:"operator,omitempty" tf:"operator,omitempty"`
 
@@ -205,7 +219,7 @@ type ConfigControllerStatus struct {
 
 // +kubebuilder:object:root=true
 
-// ConfigController is the Schema for the ConfigControllers API. <no value>
+// ConfigController is the Schema for the ConfigControllers API. Creates and manages ZPA LSS Configuration.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

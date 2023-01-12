@@ -1,0 +1,38 @@
+apiVersion: zpaapplicationsegmentinspection.zpa.crossplane.io/v1alpha1
+kind: SegmentInspection
+metadata:
+  annotations:
+    meta.upbound.io/example-id: zpaapplicationsegmentinspection/v1alpha1/segmentinspection
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+spec:
+  forProvider:
+    bypassType: NEVER
+    commonAppsDto:
+    - appsConfig:
+      - appTypes:
+        - INSPECT
+        applicationPort: "443"
+        applicationProtocol: HTTPS
+        certificateId: ${data.zpa_ba_certificate.jenkins.id}
+        domain: jenkins.example.com
+        enabled: true
+        name: jenkins.example.com
+    description: ZPA_Inspection_Example
+    domainNames:
+    - jenkins.example.com
+    enabled: true
+    healthReporting: ON_ACCESS
+    isCnameEnabled: true
+    name: ZPA_Inspection_Example
+    segmentGroupId: ${zpa_segment_group.this.id}
+    serverGroups:
+    - id:
+      - ${zpa_server_group.this.id}
+    tcpPortRanges:
+    - "443"
+    - "443"
+
+---
+
