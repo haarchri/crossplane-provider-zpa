@@ -58,3 +58,48 @@ make build
 
 For filing bugs, suggesting improvements, or requesting new features, please
 open an [issue](https://github.com/zscaler/crossplane-provider-zpa/issues).
+
+## Support
+
+This template/solution are released under an as-is, best effort, support
+policy. These scripts should be seen as community supported and Zscaler
+Business Development Team will contribute our expertise as and when possible.
+We do not provide technical support or help in using or troubleshooting the components
+of the project through our normal support options such as Zscaler support teams,
+or ASC (Authorized Support Centers) partners and backline
+support options. The underlying product used (Zscaler Private Access API) but the
+scripts or templates are still supported, but the support is only for the
+product functionality and not for help in deploying or using the template or
+script itself. Unless explicitly tagged, all projects or work posted in our
+GitHub repository at (<https://github.com/zscaler>) or sites other
+than our official Downloads page on (<https://help.zscaler.com/login-tickets>)
+are provided under the best effort policy.
+
+
+License
+=========
+
+MIT License
+
+=======
+
+Copyright (c) 2023 [Zscaler](https://github.com/zscaler)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
