@@ -1,4 +1,4 @@
-# Provider ZPA
+# Crossplane Provider for Zscaler Private Access (ZPA)
 
 `crossplane-provider-zpa` is a [Crossplane](https://crossplane.io/) provider that
 is built using [Upjet](https://github.com/upbound/upjet) code
