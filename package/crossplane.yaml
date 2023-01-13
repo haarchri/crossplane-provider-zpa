@@ -1,4 +1,15 @@
 apiVersion: meta.pkg.crossplane.io/v1alpha1
 kind: Provider
 metadata:
-  name: crossplane-provider-zpa
+  name: provider-zpa
+  annotations:
+    meta.crossplane.io/maintainer: "Zscaler Partner Labs <zscaler-partner-labs@z-bd.com>"
+    meta.crossplane.io/source: "github.com/zscaler/crossplane-provider-zpa"
+    meta.crossplane.io/license: "MIT"
+    meta.crossplane.io/description: "Crossplane provider generated from https://github.com/zscaler/terraform-provider-zpa."
+    meta.crossplane.io/readme: |
+      # ZPA Provider
+
+      This provider is generated from https://github.com/zscaler/terraform-provider-zpa by https://github.com/upbound/upjet.
+
+      See the [examples directory in the source repository](https://github.com/zscaler/crossplane-provider-zpa/tree/main/examples/) for examples on how to use this provider.
