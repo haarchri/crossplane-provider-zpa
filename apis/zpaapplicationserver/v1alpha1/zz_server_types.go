@@ -19,6 +19,7 @@ type ServerObservation struct {
 
 type ServerParameters struct {
 
+	// Address. The address of the application server to be exported.
 	// This field defines the domain or IP address of the server.
 	// +kubebuilder:validation:Required
 	Address *string `json:"address" tf:"address,omitempty"`
@@ -31,6 +32,7 @@ type ServerParameters struct {
 	// +kubebuilder:validation:Optional
 	AppServerGroupIDSelector *v1.Selector `json:"appServerGroupIdSelector,omitempty" tf:"-"`
 
+	// This field defines the list of server group IDs.
 	// This field defines the list of server groups IDs.
 	// +crossplane:generate:reference:type=github.com/zscaler/crossplane-provider-zpa/apis/zpaservergroup/v1alpha1.Group
 	// +crossplane:generate:reference:refFieldName=AppServerGroupIDRefs
@@ -42,13 +44,16 @@ type ServerParameters struct {
 	ConfigSpace *string `json:"configSpace,omitempty" tf:"config_space,omitempty"`
 
 	// This field defines the description of the server.
+	// This field defines the description of the server.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// This field defines the status of the server.
+	// This field defines the status of the server.
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
+	// Name. The name of the application server to be exported.
 	// This field defines the name of the server.
 	// +kubebuilder:validation:Required
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -68,7 +73,7 @@ type ServerStatus struct {
 
 // +kubebuilder:object:root=true
 
-// Server is the Schema for the Servers API. <no value>
+// Server is the Schema for the Servers API. Creates and manages ZPA Application Servers.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

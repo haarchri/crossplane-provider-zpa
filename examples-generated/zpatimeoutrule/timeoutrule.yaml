@@ -1,0 +1,34 @@
+apiVersion: zpatimeoutrule.zpa.crossplane.io/v1alpha1
+kind: TimeoutRule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: zpatimeoutrule/v1alpha1/timeoutrule
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+spec:
+  forProvider:
+    action: RE_AUTH
+    conditions:
+    - negated: false
+      operands:
+      - lhs: id
+        objectType: CLIENT_TYPE
+        rhs: zpn_client_type_exporter
+      operator: OR
+    - negated: false
+      operands:
+      - lhs: ${data.zpa_idp_controller.idp_name.id}
+        objectType: SCIM_GROUP
+        rhs:
+        - ${data.zpa_scim_groups.engineering.id}
+      operator: OR
+    description: Example
+    name: Example
+    operator: AND
+    policySetId: ${data.zpa_policy_type.timeout_policy.id}
+    reauthIdleTimeout: "600"
+    reauthTimeout: "172800"
+
+---
+

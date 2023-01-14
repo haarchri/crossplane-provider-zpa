@@ -16,6 +16,7 @@ import (
 type ConditionsObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// Operands block must be repeated if multiple per object_type conditions are to be added to the rule.
 	// This signifies the various policy criteria.
 	// +kubebuilder:validation:Optional
 	Operands []OperandsObservation `json:"operands,omitempty" tf:"operands,omitempty"`
@@ -23,13 +24,16 @@ type ConditionsObservation struct {
 
 type ConditionsParameters struct {
 
+	// Supported values: true or false
 	// +kubebuilder:validation:Optional
 	Negated *bool `json:"negated,omitempty" tf:"negated,omitempty"`
 
+	// Operands block must be repeated if multiple per object_type conditions are to be added to the rule.
 	// This signifies the various policy criteria.
 	// +kubebuilder:validation:Optional
 	Operands []OperandsParameters `json:"operands,omitempty" tf:"operands,omitempty"`
 
+	// Supported values: AND, OR
 	// +kubebuilder:validation:Required
 	Operator *string `json:"operator" tf:"operator,omitempty"`
 }
@@ -46,9 +50,11 @@ type InspectionRuleObservation struct {
 type InspectionRuleParameters struct {
 
 	// This is for providing the rule action.
+	// This is for providing the rule action.
 	// +kubebuilder:validation:Optional
 	Action *string `json:"action,omitempty" tf:"action,omitempty"`
 
+	// This field defines the description of the server.
 	// This field defines the description of the server.
 	// +kubebuilder:validation:Optional
 	ActionID *string `json:"actionId,omitempty" tf:"action_id,omitempty"`
@@ -61,6 +67,7 @@ type InspectionRuleParameters struct {
 	Conditions []ConditionsParameters `json:"conditions,omitempty" tf:"conditions,omitempty"`
 
 	// This is for providing a customer message for the user.
+	// This is for providing a customer message for the user.
 	// +kubebuilder:validation:Optional
 	CustomMsg *string `json:"customMsg,omitempty" tf:"custom_msg,omitempty"`
 
@@ -68,6 +75,7 @@ type InspectionRuleParameters struct {
 	// +kubebuilder:validation:Optional
 	DefaultRule *bool `json:"defaultRule,omitempty" tf:"default_rule,omitempty"`
 
+	// This is the description of the access policy rule.
 	// This is the description of the access policy.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
@@ -75,16 +83,20 @@ type InspectionRuleParameters struct {
 	// +kubebuilder:validation:Optional
 	LssDefaultRule *bool `json:"lssDefaultRule,omitempty" tf:"lss_default_rule,omitempty"`
 
+	// This is the name of the policy inspection rule.
 	// This is the name of the policy.
 	// +kubebuilder:validation:Required
 	Name *string `json:"name" tf:"name,omitempty"`
 
+	// Supported values: AND, OR
 	// +kubebuilder:validation:Optional
 	Operator *string `json:"operator,omitempty" tf:"operator,omitempty"`
 
+	// Use zpa_policy_type data source to retrieve the necessary policy Set ID policy_set_id
 	// +kubebuilder:validation:Optional
 	PolicySetID *string `json:"policySetId,omitempty" tf:"policy_set_id,omitempty"`
 
+	// Supported values: INSPECTION_POLICY
 	// +kubebuilder:validation:Optional
 	PolicyType *string `json:"policyType,omitempty" tf:"policy_type,omitempty"`
 
@@ -103,6 +115,7 @@ type InspectionRuleParameters struct {
 	// +kubebuilder:validation:Optional
 	RuleOrder *string `json:"ruleOrder,omitempty" tf:"rule_order,omitempty"`
 
+	// An inspection profile is required if the action is set to INSPECT
 	// +kubebuilder:validation:Optional
 	ZpnInspectionProfileID *string `json:"zpnInspectionProfileId,omitempty" tf:"zpn_inspection_profile_id,omitempty"`
 }
@@ -116,17 +129,21 @@ type OperandsParameters struct {
 	// +kubebuilder:validation:Optional
 	IdpID *string `json:"idpId,omitempty" tf:"idp_id,omitempty"`
 
+	// LHS must always carry the string value id or the attribute ID of the resource being associated with the rule.
 	// This signifies the key for the object type. String ID example: id
 	// +kubebuilder:validation:Required
 	Lhs *string `json:"lhs" tf:"lhs,omitempty"`
 
+	// This is the name of the policy inspection rule.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// This is for specifying the policy critiera. Supported values: APP, APP_GROUP, SAML, IDP, CLIENT_TYPE, TRUSTED_NETWORK, POSTURE, SCIM, SCIM_GROUP, and CLOUD_CONNECTOR_GROUP. TRUSTED_NETWORK, and CLIENT_TYPE.
 	// This is for specifying the policy critiera.
 	// +kubebuilder:validation:Required
 	ObjectType *string `json:"objectType" tf:"object_type,omitempty"`
 
+	// RHS is either the ID attribute of a resource or fixed string value. Refer to the chart below for further details.
 	// This denotes the value for the given object type. Its value depends upon the key.
 	// +kubebuilder:validation:Optional
 	Rhs *string `json:"rhs,omitempty" tf:"rhs,omitempty"`
@@ -150,7 +167,7 @@ type InspectionRuleStatus struct {
 
 // +kubebuilder:object:root=true
 
-// InspectionRule is the Schema for the InspectionRules API. <no value>
+// InspectionRule is the Schema for the InspectionRules API. Creates and manages ZPA Policy Access Inspection Rule.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

@@ -1,0 +1,63 @@
+apiVersion: zpaforwardingrule.zpa.crossplane.io/v1alpha1
+kind: ForwardingRule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: zpaforwardingrule/v1alpha1/forwardingrule
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+spec:
+  forProvider:
+    action: BYPASS
+    conditions:
+    - negated: false
+      operands:
+      - lhs: id
+        objectType: APP
+        rhs:
+        - ${zpa_application_segment.this.id}
+      operator: OR
+    - negated: false
+      operands:
+      - lhs: ${data.zpa_idp_controller.idp_name.id}
+        objectType: SCIM_GROUP
+        rhs:
+        - ${data.zpa_scim_groups.engineering.id}
+      operator: OR
+    description: Example
+    name: Example
+    operator: AND
+    policySetId: ${data.zpa_policy_type.client_forwarding_policy.id}
+
+---
+
+apiVersion: zpaapplicationsegment.zpa.crossplane.io/v1alpha1
+kind: Segment
+metadata:
+  annotations:
+    meta.upbound.io/example-id: zpaforwardingrule/v1alpha1/forwardingrule
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+spec:
+  forProvider:
+    bypassType: NEVER
+    description: Example
+    domainNames:
+    - server.acme.com
+    enabled: true
+    healthReporting: ON_ACCESS
+    isCnameEnabled: true
+    name: Example
+    segmentGroupIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: test_segment_group
+    serverGroups:
+    - idRefs:
+      - name: test_server_group
+    tcpPortRanges:
+    - "8080"
+    - "8080"
+
+---
+

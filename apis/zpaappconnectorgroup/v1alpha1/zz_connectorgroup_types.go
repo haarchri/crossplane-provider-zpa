@@ -14,37 +14,47 @@ import (
 )
 
 type ConnectorGroupObservation struct {
+
+	// The ID of the Group Role Assignment.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type ConnectorGroupParameters struct {
 
+	// Whether Double Encryption is enabled or disabled for the app. i.e "San Jose, US"
 	// +kubebuilder:validation:Optional
 	CityCountry *string `json:"cityCountry,omitempty" tf:"city_country,omitempty"`
 
+	// i.e "US", "CA"
 	// +kubebuilder:validation:Optional
 	CountryCode *string `json:"countryCode,omitempty" tf:"country_code,omitempty"`
 
+	// Supported values are:
 	// Whether to enable IPv4 or IPv6, or both, for DNS resolution of all applications in the App Connector Group
 	// +kubebuilder:validation:Optional
 	DNSQueryType *string `json:"dnsQueryType,omitempty" tf:"dns_query_type,omitempty"`
 
+	// Description of the App Connector Group.
 	// Description of the App Connector Group
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// Whether this App Connector Group is enabled or not. Default value: true. Supported values: true, false
 	// Whether this App Connector Group is enabled or not
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
 	// Latitude of the App Connector Group. Integer or decimal. With values in the range of -90 to 90
+	// Latitude of the App Connector Group. Integer or decimal. With values in the range of -90 to 90
 	// +kubebuilder:validation:Required
 	Latitude *string `json:"latitude" tf:"latitude,omitempty"`
 
+	// Location of the App Connector Group. i.e "San Jose, CA, USA"
 	// Location of the App Connector Group
 	// +kubebuilder:validation:Required
 	Location *string `json:"location" tf:"location,omitempty"`
 
+	// Longitude of the App Connector Group. Integer or decimal. With values in the range of -180 to 180
 	// Longitude of the App Connector Group. Integer or decimal. With values in the range of -180 to 180
 	// +kubebuilder:validation:Required
 	Longitude *string `json:"longitude" tf:"longitude,omitempty"`
@@ -52,37 +62,46 @@ type ConnectorGroupParameters struct {
 	// +kubebuilder:validation:Optional
 	LssAppConnectorGroup *bool `json:"lssAppConnectorGroup,omitempty" tf:"lss_app_connector_group,omitempty"`
 
+	// Name of the App Connector Group.
 	// Name of the App Connector Group
 	// +kubebuilder:validation:Required
 	Name *string `json:"name" tf:"name,omitempty"`
 
+	// Whether the default version profile of the App Connector Group is applied or overridden. Default: false Supported values: true, false
 	// Whether the default version profile of the App Connector Group is applied or overridden. Supported values: true, false
 	// +kubebuilder:validation:Optional
 	OverrideVersionProfile *bool `json:"overrideVersionProfile,omitempty" tf:"override_version_profile,omitempty"`
 
+	// Whether TCP Quick Acknowledgement is enabled or disabled for the application. The tcpQuickAckApp, tcpQuickAckAssistant, and tcpQuickAckReadAssistant fields must all share the same value. Supported values: true, false
 	// Whether TCP Quick Acknowledgement is enabled or disabled for the application. The tcpQuickAckApp, tcpQuickAckAssistant, and tcpQuickAckReadAssistant fields must all share the same value.
 	// +kubebuilder:validation:Optional
 	TCPQuickAckApp *bool `json:"tcpQuickAckApp,omitempty" tf:"tcp_quick_ack_app,omitempty"`
 
+	// Whether TCP Quick Acknowledgement is enabled or disabled for the application. The tcpQuickAckApp, tcpQuickAckAssistant, and tcpQuickAckReadAssistant fields must all share the same value. Supported values: true, false
 	// Whether TCP Quick Acknowledgement is enabled or disabled for the application. The tcpQuickAckApp, tcpQuickAckAssistant, and tcpQuickAckReadAssistant fields must all share the same value.
 	// +kubebuilder:validation:Optional
 	TCPQuickAckAssistant *bool `json:"tcpQuickAckAssistant,omitempty" tf:"tcp_quick_ack_assistant,omitempty"`
 
+	// Whether TCP Quick Acknowledgement is enabled or disabled for the application. The tcpQuickAckApp, tcpQuickAckAssistant, and tcpQuickAckReadAssistant fields must all share the same value. Supported values: true, false
 	// Whether TCP Quick Acknowledgement is enabled or disabled for the application. The tcpQuickAckApp, tcpQuickAckAssistant, and tcpQuickAckReadAssistant fields must all share the same value.
 	// +kubebuilder:validation:Optional
 	TCPQuickAckReadAssistant *bool `json:"tcpQuickAckReadAssistant,omitempty" tf:"tcp_quick_ack_read_assistant,omitempty"`
 
+	// App Connectors in this group will attempt to update to a newer version of the software during this specified day i.e SUNDAY
 	// App Connectors in this group will attempt to update to a newer version of the software during this specified day. List of valid days (i.e., Sunday, Monday)
 	// +kubebuilder:validation:Optional
 	UpgradeDay *string `json:"upgradeDay,omitempty" tf:"upgrade_day,omitempty"`
 
+	// App Connectors in this group will attempt to update to a newer version of the software during this specified time. Default value: 66600. Integer in seconds (i.e., -66600). The integer should be greater than or equal to 0 and less than 86400, in 15 minute intervals
 	// App Connectors in this group will attempt to update to a newer version of the software during this specified time. Integer in seconds (i.e., -66600). The integer should be greater than or equal to 0 and less than 86400, in 15 minute intervals
 	// +kubebuilder:validation:Optional
 	UpgradeTimeInSecs *string `json:"upgradeTimeInSecs,omitempty" tf:"upgrade_time_in_secs,omitempty"`
 
+	// Supported values: true, false
 	// +kubebuilder:validation:Optional
 	UseInDrMode *bool `json:"useInDrMode,omitempty" tf:"use_in_dr_mode,omitempty"`
 
+	// ID of the version profile. To learn more, see Version Profile Use Cases. Supported values are:
 	// ID of the version profile. To learn more, see Version Profile Use Cases. This value is required, if the value for overrideVersionProfile is set to true
 	// +kubebuilder:validation:Optional
 	VersionProfileID *string `json:"versionProfileId,omitempty" tf:"version_profile_id,omitempty"`
@@ -106,7 +125,7 @@ type ConnectorGroupStatus struct {
 
 // +kubebuilder:object:root=true
 
-// ConnectorGroup is the Schema for the ConnectorGroups API. <no value>
+// ConnectorGroup is the Schema for the ConnectorGroups API. Creates and manages ZPA App Connector Groups.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

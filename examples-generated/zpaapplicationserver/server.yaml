@@ -1,0 +1,17 @@
+apiVersion: zpaapplicationserver.zpa.crossplane.io/v1alpha1
+kind: Server
+metadata:
+  annotations:
+    meta.upbound.io/example-id: zpaapplicationserver/v1alpha1/server
+  labels:
+    testing.upbound.io/example-name: test_app_server
+  name: test-app-server
+spec:
+  forProvider:
+    address: 192.168.1.1
+    description: test1-app-server
+    enabled: true
+    name: test1-app-server
+
+---
+

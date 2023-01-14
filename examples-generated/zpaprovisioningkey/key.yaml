@@ -1,0 +1,44 @@
+apiVersion: zpaprovisioningkey.zpa.crossplane.io/v1alpha1
+kind: Key
+metadata:
+  annotations:
+    meta.upbound.io/example-id: zpaprovisioningkey/v1alpha1/key
+  labels:
+    testing.upbound.io/example-name: test_provisioning_key
+  name: test-provisioning-key
+spec:
+  forProvider:
+    associationType: CONNECTOR_GRP
+    enrollmentCertId: ${data.zpa_enrollment_cert.connector.id}
+    maxUsage: "10"
+    name: ${test_provisioning_key}
+    zcomponentId: ${zpa_app_connector_group.canada_connector_group.id}
+
+---
+
+apiVersion: zpaappconnectorgroup.zpa.crossplane.io/v1alpha1
+kind: ConnectorGroup
+metadata:
+  annotations:
+    meta.upbound.io/example-id: zpaprovisioningkey/v1alpha1/key
+  labels:
+    testing.upbound.io/example-name: usa_connector_group
+  name: usa-connector-group
+spec:
+  forProvider:
+    cityCountry: San Jose, CA
+    countryCode: CA
+    description: USA Connector Group
+    dnsQueryType: IPV4
+    enabled: true
+    latitude: "43.6532"
+    location: San Jose, CA, USA
+    longitude: "79.3832"
+    name: USA Connector Group
+    overrideVersionProfile: true
+    upgradeDay: SUNDAY
+    upgradeTimeInSecs: "66600"
+    versionProfileId: 0
+
+---
+

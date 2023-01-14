@@ -1,0 +1,36 @@
+apiVersion: zpainspectioncustomcontrols.zpa.crossplane.io/v1alpha1
+kind: CustomControls
+metadata:
+  annotations:
+    meta.upbound.io/example-id: zpainspectioncustomcontrols/v1alpha1/customcontrols
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+spec:
+  forProvider:
+    action: PASS
+    associatedInspectionProfileNames:
+    - id:
+      - ${data.zpa_inspection_profile.this.id}
+    defaultAction: PASS
+    description: Example
+    name: Example
+    paranoiaLevel: "1"
+    rules:
+    - conditions:
+      - lhs: SIZE
+        op: GE
+        rhs: "1000"
+      names:
+      - this
+      type: RESPONSE_HEADERS
+    - conditions:
+      - lhs: SIZE
+        op: GE
+        rhs: "1000"
+      type: RESPONSE_BODY
+    severity: CRITICAL
+    type: RESPONSE
+
+---
+

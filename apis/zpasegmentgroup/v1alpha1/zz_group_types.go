@@ -34,14 +34,17 @@ type GroupParameters struct {
 	// +kubebuilder:validation:Optional
 	ConfigSpace *string `json:"configSpace,omitempty" tf:"config_space,omitempty"`
 
+	// Description of the segment group.
 	// Description of the app group.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// Whether this segment group is enabled or not.
 	// Whether this app group is enabled or not.
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
+	// Name of the segment group.
 	// Name of the app group.
 	// +kubebuilder:validation:Required
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -67,7 +70,7 @@ type GroupStatus struct {
 
 // +kubebuilder:object:root=true
 
-// Group is the Schema for the Groups API. <no value>
+// Group is the Schema for the Groups API. Creates and manages ZPA Segment Group resource
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

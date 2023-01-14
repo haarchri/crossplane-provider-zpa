@@ -36,7 +36,7 @@ spec:
     schema:
       openAPIV3Schema:
         description: ConfigController is the Schema for the ConfigControllers API.
-          <no value>
+          Creates and manages ZPA LSS Configuration.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -83,20 +83,24 @@ spec:
                             type: string
                           type: array
                         format:
-                          description: 'Format of the log type. Format given by the
-                            following API to get formats: /mgmtconfig/v2/admin/lssConfig/logType/formats'
+                          description: 'The format of the LSS resource. The supported
+                            formats are: JSON, CSV, and TSV Format of the log type.
+                            Format given by the following API to get formats: /mgmtconfig/v2/admin/lssConfig/logType/formats'
                           type: string
                         lssHost:
-                          description: Host of the LSS configuration
+                          description: The IP or FQDN of the SIEM (Log Receiver) where
+                            logs will be forwarded to. Host of the LSS configuration
                           type: string
                         lssPort:
-                          description: Port of the LSS configuration
+                          description: The destination port of the SIEM (Log Receiver)
+                            where logs will be forwarded to. Port of the LSS configuration
                           type: string
                         name:
                           description: Name of the LSS configuration
                           type: string
                         sourceLogType:
-                          description: Log type of the LSS configuration
+                          description: Refer to the log type documentation Log type
+                            of the LSS configuration
                           type: string
                         useTls:
                           type: boolean
@@ -109,7 +113,9 @@ spec:
                       type: object
                     type: array
                   connectorGroups:
-                    description: App Connector Group(s) to be added to the LSS configuration
+                    description: '- id -  - App Connector Group ID(s) where logs will
+                      be forwarded to. App Connector Group(s) to be added to the LSS
+                      configuration'
                     items:
                       properties:
                         id:
@@ -141,14 +147,19 @@ spec:
                                 items:
                                   properties:
                                     objectType:
-                                      description: This is for specifying the policy
-                                        critiera.
+                                      description: 'This is for specifying the policy
+                                        critiera. Supported values: APP, APP_GROUP,
+                                        CLIENT_TYPE, TRUSTED_NETWORK, SAML, SCIM,
+                                        SCIM_GROUP This is for specifying the policy
+                                        critiera.'
                                       type: string
                                     values:
-                                      description: This denotes a list of values for
-                                        the given object type. The value depend upon
-                                        the key. If rhs is defined this list will
-                                        be ignored
+                                      description: zpn_client_type_exporter - zpn_client_type_browser_isolation
+                                        - zpn_client_type_machine_tunnel - zpn_client_type_ip_anchoring
+                                        - zpn_client_type_edge_connector - zpn_client_type_zapp
+                                        This denotes a list of values for the given
+                                        object type. The value depend upon the key.
+                                        If rhs is defined this list will be ignored
                                       items:
                                         type: string
                                       type: array
@@ -157,6 +168,7 @@ spec:
                                   type: object
                                 type: array
                               operator:
+                                description: 'Supported values are: AND or OR'
                                 type: string
                             required:
                             - operator
@@ -179,6 +191,7 @@ spec:
                           description: This is the name of the policy.
                           type: string
                         operator:
+                          description: 'Supported values are: AND or OR'
                           type: string
                         policySetId:
                           type: string

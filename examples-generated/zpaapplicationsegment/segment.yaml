@@ -1,0 +1,92 @@
+apiVersion: zpaapplicationsegment.zpa.crossplane.io/v1alpha1
+kind: Segment
+metadata:
+  annotations:
+    meta.upbound.io/example-id: zpaapplicationsegment/v1alpha1/segment
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+spec:
+  forProvider:
+    bypassType: NEVER
+    description: Example
+    domainNames:
+    - server.acme.com
+    enabled: true
+    healthReporting: ON_ACCESS
+    isCnameEnabled: true
+    name: Example
+    segmentGroupIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: this
+    serverGroups:
+    - idRefs:
+      - name: this
+    tcpPortRanges:
+    - "8080"
+    - "8080"
+
+---
+
+apiVersion: zpaappconnectorgroup.zpa.crossplane.io/v1alpha1
+kind: ConnectorGroup
+metadata:
+  annotations:
+    meta.upbound.io/example-id: zpaapplicationsegment/v1alpha1/segment
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+spec:
+  forProvider:
+    cityCountry: San Jose, CA
+    countryCode: US
+    description: Example
+    dnsQueryType: IPV4
+    enabled: true
+    latitude: "37.338"
+    location: San Jose, CA, US
+    longitude: "-121.8863"
+    name: Example
+    overrideVersionProfile: true
+    upgradeDay: SUNDAY
+    upgradeTimeInSecs: "66600"
+    versionProfileId: 0
+
+---
+
+apiVersion: zpasegmentgroup.zpa.crossplane.io/v1alpha1
+kind: Group
+metadata:
+  annotations:
+    meta.upbound.io/example-id: zpaapplicationsegment/v1alpha1/segment
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+spec:
+  forProvider:
+    description: Example
+    enabled: true
+    name: Example
+
+---
+
+apiVersion: zpaservergroup.zpa.crossplane.io/v1alpha1
+kind: Group
+metadata:
+  annotations:
+    meta.upbound.io/example-id: zpaapplicationsegment/v1alpha1/segment
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+spec:
+  forProvider:
+    appConnectorGroups:
+    - idRefs:
+      - name: this
+    description: Example
+    dynamicDiscovery: false
+    enabled: true
+    name: Example
+
+---
+

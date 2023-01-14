@@ -35,7 +35,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Group is the Schema for the Groups API. <no value>
+        description: Group is the Schema for the Groups API. Creates and manages ZPA
+          Server Group resource
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -68,6 +69,7 @@ spec:
                     items:
                       properties:
                         id:
+                          description: The ID of this resource.
                           items:
                             type: string
                           type: array
@@ -160,6 +162,7 @@ spec:
                     items:
                       properties:
                         id:
+                          description: The ID of this resource.
                           items:
                             type: string
                           type: array
@@ -169,27 +172,36 @@ spec:
                     type: string
                   description:
                     description: This field is the description of the server group.
+                      This field is the description of the server group.
                     type: string
                   dynamicDiscovery:
                     description: This field controls dynamic discovery of the servers.
+                      This field controls dynamic discovery of the servers.
                     type: boolean
                   enabled:
                     description: This field defines if the server group is enabled
+                      or disabled. This field defines if the server group is enabled
                       or disabled.
                     type: boolean
                   ipAnchored:
                     type: boolean
                   name:
                     description: This field defines the name of the server group.
+                      This field defines the name of the server group.
                     type: string
                   servers:
-                    description: This field is a list of servers that are applicable
-                      only when dynamic discovery is disabled. Server name is required
-                      only in cases where the new servers need to be created in this
-                      API. For existing servers, pass only the serverId.
+                    description: (Block List) This field is a list of servers that
+                      are applicable only when dynamic discovery is disabled. Server
+                      name is required only in cases where the new servers need to
+                      be created in this API. This field is a list of servers that
+                      are applicable only when dynamic discovery is disabled. Server
+                      name is required only in cases where the new servers need to
+                      be created in this API. For existing servers, pass only the
+                      serverId.
                     items:
                       properties:
                         id:
+                          description: The ID of this resource.
                           items:
                             type: string
                           type: array
@@ -375,6 +387,7 @@ spec:
               atProvider:
                 properties:
                   id:
+                    description: The ID of this resource.
                     type: string
                 type: object
               conditions:

@@ -35,7 +35,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Key is the Schema for the Keys API. <no value>
+        description: Key is the Schema for the Keys API. Creates and manages ZPA Provisioning
+          Key for Service Edge and/or App Connector Groups.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -68,7 +69,9 @@ spec:
                   associationType:
                     description: Specifies the provisioning key type for App Connectors
                       or ZPA Private Service Edges. The supported values are CONNECTOR_GRP
-                      and SERVICE_EDGE_GRP.
+                      and SERVICE_EDGE_GRP Specifies the provisioning key type for
+                      App Connectors or ZPA Private Service Edges. The supported values
+                      are CONNECTOR_GRP and SERVICE_EDGE_GRP.
                     type: string
                   enabled:
                     description: 'Whether the provisioning key is enabled or not.
@@ -76,7 +79,9 @@ spec:
                     type: boolean
                   enrollmentCertId:
                     description: ID of the enrollment certificate that can be used
-                      for this provisioning key.
+                      for this provisioning key. ID of the existing enrollment certificate
+                      that has the private key ID of the enrollment certificate that
+                      can be used for this provisioning key.
                     type: string
                   ipAcl:
                     items:
@@ -85,9 +90,12 @@ spec:
                   maxUsage:
                     description: The maximum number of instances where this provisioning
                       key can be used for enrolling an App Connector or Service Edge.
+                      The maximum number of instances where this provisioning key
+                      can be used for enrolling an App Connector or Service Edge.
                     type: string
                   name:
-                    description: Name of the provisioning key.
+                    description: Name of the provisioning key. Name of the provisioning
+                      key.
                     type: string
                   uiConfig:
                     type: string
@@ -96,11 +104,11 @@ spec:
                     type: string
                   zcomponentId:
                     description: ID of the existing App Connector or Service Edge
-                      Group.
+                      Group. ID of the existing App Connector or Service Edge Group.
                     type: string
                   zcomponentName:
-                    description: Read only property. Applicable only for GET calls,
-                      ignored in PUT/POST calls.
+                    description: Name of the provisioning key. Read only property.
+                      Applicable only for GET calls, ignored in PUT/POST calls.
                     type: string
                 required:
                 - associationType
@@ -286,12 +294,12 @@ spec:
               atProvider:
                 properties:
                   appConnectorGroupName:
-                    description: Read only property. Applicable only for GET calls,
-                      ignored in PUT/POST calls.
+                    description: Name of the provisioning key. Read only property.
+                      Applicable only for GET calls, ignored in PUT/POST calls.
                     type: string
                   enrollmentCertName:
-                    description: Read only property. Applicable only for GET calls,
-                      ignored in PUT/POST calls.
+                    description: Name of the provisioning key. Read only property.
+                      Applicable only for GET calls, ignored in PUT/POST calls.
                     type: string
                   id:
                     type: string

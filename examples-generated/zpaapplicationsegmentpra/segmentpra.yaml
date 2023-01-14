@@ -1,0 +1,48 @@
+apiVersion: zpaapplicationsegmentpra.zpa.crossplane.io/v1alpha1
+kind: SegmentPra
+metadata:
+  annotations:
+    meta.upbound.io/example-id: zpaapplicationsegmentpra/v1alpha1/segmentpra
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+spec:
+  forProvider:
+    bypassType: NEVER
+    commonAppsDto:
+    - appsConfig:
+      - appTypes:
+        - SECURE_REMOTE_ACCESS
+        applicationPort: "22"
+        applicationProtocol: SSH
+        domain: ssh_pra.example.com
+        enabled: true
+        name: ssh_pra
+      - appTypes:
+        - SECURE_REMOTE_ACCESS
+        applicationPort: "3389"
+        applicationProtocol: RDP
+        connectionSecurity: ANY
+        domain: rdp_pra.example.com
+        enabled: true
+        name: rdp_pra
+    description: PRA_Example
+    domainNames:
+    - ssh_pra.example.com
+    - rdp_pra.example.com
+    enabled: true
+    healthReporting: ON_ACCESS
+    isCnameEnabled: true
+    name: PRA_Example
+    segmentGroupId: ${zpa_segment_group.this.id}
+    serverGroups:
+    - id:
+      - ${zpa_server_group.this.id}
+    tcpPortRanges:
+    - "22"
+    - "22"
+    - "3389"
+    - "3389"
+
+---
+

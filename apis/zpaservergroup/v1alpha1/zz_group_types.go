@@ -18,6 +18,7 @@ type AppConnectorGroupsObservation struct {
 
 type AppConnectorGroupsParameters struct {
 
+	// The ID of this resource.
 	// +crossplane:generate:reference:type=github.com/zscaler/crossplane-provider-zpa/apis/zpaappconnectorgroup/v1alpha1.ConnectorGroup
 	// +kubebuilder:validation:Optional
 	ID []*string `json:"id,omitempty" tf:"id,omitempty"`
@@ -36,11 +37,14 @@ type ApplicationsObservation struct {
 
 type ApplicationsParameters struct {
 
+	// The ID of this resource.
 	// +kubebuilder:validation:Optional
 	ID []*string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type GroupObservation struct {
+
+	// The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
@@ -58,13 +62,16 @@ type GroupParameters struct {
 	ConfigSpace *string `json:"configSpace,omitempty" tf:"config_space,omitempty"`
 
 	// This field is the description of the server group.
+	// This field is the description of the server group.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// This field controls dynamic discovery of the servers.
+	// This field controls dynamic discovery of the servers.
 	// +kubebuilder:validation:Optional
 	DynamicDiscovery *bool `json:"dynamicDiscovery,omitempty" tf:"dynamic_discovery,omitempty"`
 
+	// This field defines if the server group is enabled or disabled.
 	// This field defines if the server group is enabled or disabled.
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
@@ -73,9 +80,11 @@ type GroupParameters struct {
 	IPAnchored *bool `json:"ipAnchored,omitempty" tf:"ip_anchored,omitempty"`
 
 	// This field defines the name of the server group.
+	// This field defines the name of the server group.
 	// +kubebuilder:validation:Required
 	Name *string `json:"name" tf:"name,omitempty"`
 
+	// (Block List) This field is a list of servers that are applicable only when dynamic discovery is disabled. Server name is required only in cases where the new servers need to be created in this API.
 	// This field is a list of servers that are applicable only when dynamic discovery is disabled. Server name is required only in cases where the new servers need to be created in this API. For existing servers, pass only the serverId.
 	// +kubebuilder:validation:Optional
 	Servers []ServersParameters `json:"servers,omitempty" tf:"servers,omitempty"`
@@ -86,6 +95,7 @@ type ServersObservation struct {
 
 type ServersParameters struct {
 
+	// The ID of this resource.
 	// +kubebuilder:validation:Optional
 	ID []*string `json:"id,omitempty" tf:"id,omitempty"`
 }
@@ -104,7 +114,7 @@ type GroupStatus struct {
 
 // +kubebuilder:object:root=true
 
-// Group is the Schema for the Groups API. <no value>
+// Group is the Schema for the Groups API. Creates and manages ZPA Server Group resource
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

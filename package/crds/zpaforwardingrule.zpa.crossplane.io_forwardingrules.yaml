@@ -35,8 +35,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: ForwardingRule is the Schema for the ForwardingRules API. <no
-          value>
+        description: ForwardingRule is the Schema for the ForwardingRules API. Creates
+          and manages ZPA Policy Access Forwarding Rule.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -65,7 +65,8 @@ spec:
               forProvider:
                 properties:
                   action:
-                    description: This is for providing the rule action.
+                    description: This is for providing the rule action. This is for
+                      providing the rule action.
                     type: string
                   actionId:
                     description: This field defines the description of the server.
@@ -78,25 +79,39 @@ spec:
                     items:
                       properties:
                         negated:
+                          description: 'Supported values: true or false'
                           type: boolean
                         operands:
-                          description: This signifies the various policy criteria.
+                          description: Operands block must be repeated if multiple
+                            per object_type conditions are to be added to the rule.
+                            This signifies the various policy criteria.
                           items:
                             properties:
                               idpId:
                                 type: string
                               lhs:
-                                description: 'This signifies the key for the object
+                                description: 'LHS must always carry the string value
+                                  id or the attribute ID of the resource being associated
+                                  with the rule. This signifies the key for the object
                                   type. String ID example: id'
                                 type: string
                               name:
+                                description: This is the name of the forwarding policy
+                                  rule.
                                 type: string
                               objectType:
-                                description: This is for specifying the policy critiera.
+                                description: 'This is for specifying the policy critiera.
+                                  Supported values: APP, APP_GROUP, SAML, IDP, CLIENT_TYPE,
+                                  TRUSTED_NETWORK, POSTURE, SCIM, SCIM_GROUP, and
+                                  CLOUD_CONNECTOR_GROUP. TRUSTED_NETWORK, and CLIENT_TYPE.
+                                  This is for specifying the policy critiera.'
                                 type: string
                               rhs:
-                                description: This denotes the value for the given
-                                  object type. Its value depends upon the key.
+                                description: RHS is either the ID attribute of a resource
+                                  or fixed string value. Refer to the chart below
+                                  for further details. This denotes the value for
+                                  the given object type. Its value depends upon the
+                                  key.
                                 type: string
                               rhsList:
                                 description: This denotes a list of values for the
@@ -111,6 +126,7 @@ spec:
                             type: object
                           type: array
                         operator:
+                          description: 'Supported values: AND, OR'
                           type: string
                       required:
                       - operator
@@ -118,25 +134,31 @@ spec:
                     type: array
                   customMsg:
                     description: This is for providing a customer message for the
-                      user.
+                      user. This is for providing a customer message for the user.
                     type: string
                   defaultRule:
                     description: This is for providing a customer message for the
                       user.
                     type: boolean
                   description:
-                    description: This is the description of the access policy.
+                    description: This is the description of the access policy rule.
+                      This is the description of the access policy.
                     type: string
                   lssDefaultRule:
                     type: boolean
                   name:
-                    description: This is the name of the policy.
+                    description: This is the name of the forwarding policy rule. This
+                      is the name of the policy.
                     type: string
                   operator:
+                    description: 'Supported values: AND, OR'
                     type: string
                   policySetId:
+                    description: Use zpa_policy_type data source to retrieve the necessary
+                      policy Set ID policy_set_id
                     type: string
                   policyType:
+                    description: 'Supported values: CLIENT_FORWARDING_POLICY or BYPASS_POLICY'
                     type: string
                   priority:
                     type: string
@@ -337,7 +359,9 @@ spec:
                         id:
                           type: string
                         operands:
-                          description: This signifies the various policy criteria.
+                          description: Operands block must be repeated if multiple
+                            per object_type conditions are to be added to the rule.
+                            This signifies the various policy criteria.
                           items:
                             properties:
                               id:

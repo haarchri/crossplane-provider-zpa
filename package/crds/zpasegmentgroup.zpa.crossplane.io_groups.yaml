@@ -35,7 +35,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Group is the Schema for the Groups API. <no value>
+        description: Group is the Schema for the Groups API. Creates and manages ZPA
+          Segment Group resource
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -73,13 +74,15 @@ spec:
                   configSpace:
                     type: string
                   description:
-                    description: Description of the app group.
+                    description: Description of the segment group. Description of
+                      the app group.
                     type: string
                   enabled:
-                    description: Whether this app group is enabled or not.
+                    description: Whether this segment group is enabled or not. Whether
+                      this app group is enabled or not.
                     type: boolean
                   name:
-                    description: Name of the app group.
+                    description: Name of the segment group. Name of the app group.
                     type: string
                   policyMigrated:
                     type: boolean

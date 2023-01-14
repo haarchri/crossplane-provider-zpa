@@ -1,0 +1,26 @@
+apiVersion: zpaaccessrule.zpa.crossplane.io/v1alpha1
+kind: AccessRule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: zpaaccessrule/v1alpha1/accessrule
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+spec:
+  forProvider:
+    action: ALLOW
+    conditions:
+    - negated: false
+      operands:
+      - lhs: ${data.zpa_trusted_network.corp_trusted_network.network_id}
+        objectType: TRUSTED_NETWORK
+        rhs: true
+      operator: OR
+    description: Example
+    name: Example
+    operator: AND
+    policySetId: ${data.zpa_policy_type.access_policy.id}
+    ruleOrder: 1
+
+---
+

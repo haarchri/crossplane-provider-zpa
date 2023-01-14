@@ -35,7 +35,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Profile is the Schema for the Profiles API. <no value>
+        description: Profile is the Schema for the Profiles API. Creates and manages
+          Inspection Profile in Zscaler Private Access cloud.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -70,22 +71,33 @@ spec:
                       type: string
                     type: object
                   controlsInfo:
+                    description: Types for custom controls
                     items:
                       properties:
                         controlType:
+                          description: 'Control types. Supported Values: CUSTOM, PREDEFINED,
+                            ZSCALER'
                           type: string
                         count:
+                          description: Control information counts Long
                           type: string
                       type: object
                     type: array
                   customControls:
+                    description: Types for custom controls
                     items:
                       properties:
                         action:
+                          description: 'The action of the predefined control. Supported
+                            values: PASS, BLOCK and REDIRECT'
                           type: string
                         actionValue:
+                          description: Value for the predefined controls action. This
+                            field is only required if the action is set to REDIRECT.
+                            This field is only required if the action is set to REDIRECT.
                           type: string
                         id:
+                          description: ID of the predefined control
                           type: string
                       required:
                       - action
@@ -93,6 +105,7 @@ spec:
                       type: object
                     type: array
                   description:
+                    description: Description of the inspection profile.
                     type: string
                   globalControlActions:
                     items:
@@ -101,17 +114,30 @@ spec:
                   incarnationNumber:
                     type: string
                   name:
+                    description: The name of the inspection profile.
                     type: string
                   paranoiaLevel:
+                    description: 'OWASP Predefined Paranoia Level. Range: [1-4], inclusive'
                     type: string
                   predefinedControls:
+                    description: The predefined controls. The default predefined control
+                      Preprocessors are mandatory and injected in the request by default.
+                      Individual predefined_controls can be set by using the data
+                      source data_source_zpa_predefined_controls or by group using
+                      the data source zpa_inspection_all_predefined_controls.
                     items:
                       properties:
                         action:
+                          description: 'The action of the predefined control. Supported
+                            values: PASS, BLOCK and REDIRECT'
                           type: string
                         actionValue:
+                          description: Value for the predefined controls action. This
+                            field is only required if the action is set to REDIRECT.
+                            This field is only required if the action is set to REDIRECT.
                           type: string
                         id:
+                          description: ID of the predefined control
                           type: string
                       required:
                       - action
@@ -119,6 +145,7 @@ spec:
                       type: object
                     type: array
                   predefinedControlsVersion:
+                    description: = "OWASP_CRS/3.3.0"
                     type: string
                 type: object
               providerConfigRef:
@@ -298,6 +325,7 @@ spec:
               atProvider:
                 properties:
                   id:
+                    description: ID of the predefined control
                     type: string
                 type: object
               conditions:

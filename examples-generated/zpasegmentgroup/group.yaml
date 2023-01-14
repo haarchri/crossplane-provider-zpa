@@ -1,0 +1,17 @@
+apiVersion: zpasegmentgroup.zpa.crossplane.io/v1alpha1
+kind: Group
+metadata:
+  annotations:
+    meta.upbound.io/example-id: zpasegmentgroup/v1alpha1/group
+  labels:
+    testing.upbound.io/example-name: test_segment_group
+  name: test-segment-group
+spec:
+  forProvider:
+    description: test1-segment-group
+    enabled: true
+    name: test1-segment-group
+    tcpKeepAliveEnabled: "1"
+
+---
+

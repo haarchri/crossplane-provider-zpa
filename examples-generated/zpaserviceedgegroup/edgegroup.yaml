@@ -1,0 +1,26 @@
+apiVersion: zpaserviceedgegroup.zpa.crossplane.io/v1alpha1
+kind: EdgeGroup
+metadata:
+  annotations:
+    meta.upbound.io/example-id: zpaserviceedgegroup/v1alpha1/edgegroup
+  labels:
+    testing.upbound.io/example-name: service_edge_group_sjc
+  name: service-edge-group-sjc
+spec:
+  forProvider:
+    description: Service Edge Group in San Jose
+    enabled: true
+    isPublic: true
+    latitude: "37.3382082"
+    location: San Jose, CA, USA
+    longitude: "-121.8863286"
+    name: Service Edge Group San Jose
+    trustedNetworks:
+    - id:
+      - ${data.zpa_trusted_network.example.id}
+    upgradeDay: SUNDAY
+    upgradeTimeInSecs: "66600"
+    versionProfileName: New Release
+
+---
+

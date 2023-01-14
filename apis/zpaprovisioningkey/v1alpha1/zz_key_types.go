@@ -15,9 +15,11 @@ import (
 
 type KeyObservation struct {
 
+	// Name of the provisioning key.
 	// Read only property. Applicable only for GET calls, ignored in PUT/POST calls.
 	AppConnectorGroupName *string `json:"appConnectorGroupName,omitempty" tf:"app_connector_group_name,omitempty"`
 
+	// Name of the provisioning key.
 	// Read only property. Applicable only for GET calls, ignored in PUT/POST calls.
 	EnrollmentCertName *string `json:"enrollmentCertName,omitempty" tf:"enrollment_cert_name,omitempty"`
 
@@ -29,6 +31,7 @@ type KeyParameters struct {
 	// +kubebuilder:validation:Optional
 	AppConnectorGroupID *string `json:"appConnectorGroupId,omitempty" tf:"app_connector_group_id,omitempty"`
 
+	// Specifies the provisioning key type for App Connectors or ZPA Private Service Edges. The supported values are CONNECTOR_GRP and SERVICE_EDGE_GRP
 	// Specifies the provisioning key type for App Connectors or ZPA Private Service Edges. The supported values are CONNECTOR_GRP and SERVICE_EDGE_GRP.
 	// +kubebuilder:validation:Required
 	AssociationType *string `json:"associationType" tf:"association_type,omitempty"`
@@ -37,6 +40,7 @@ type KeyParameters struct {
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
+	// ID of the enrollment certificate that can be used for this provisioning key. ID of the existing enrollment certificate that has the private key
 	// ID of the enrollment certificate that can be used for this provisioning key.
 	// +kubebuilder:validation:Required
 	EnrollmentCertID *string `json:"enrollmentCertId" tf:"enrollment_cert_id,omitempty"`
@@ -45,9 +49,11 @@ type KeyParameters struct {
 	IPACL []*string `json:"ipAcl,omitempty" tf:"ip_acl,omitempty"`
 
 	// The maximum number of instances where this provisioning key can be used for enrolling an App Connector or Service Edge.
+	// The maximum number of instances where this provisioning key can be used for enrolling an App Connector or Service Edge.
 	// +kubebuilder:validation:Required
 	MaxUsage *string `json:"maxUsage" tf:"max_usage,omitempty"`
 
+	// Name of the provisioning key.
 	// Name of the provisioning key.
 	// +kubebuilder:validation:Required
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -60,9 +66,11 @@ type KeyParameters struct {
 	UsageCount *string `json:"usageCount,omitempty" tf:"usage_count,omitempty"`
 
 	// ID of the existing App Connector or Service Edge Group.
+	// ID of the existing App Connector or Service Edge Group.
 	// +kubebuilder:validation:Required
 	ZcomponentID *string `json:"zcomponentId" tf:"zcomponent_id,omitempty"`
 
+	// Name of the provisioning key.
 	// Read only property. Applicable only for GET calls, ignored in PUT/POST calls.
 	// +kubebuilder:validation:Optional
 	ZcomponentName *string `json:"zcomponentName,omitempty" tf:"zcomponent_name,omitempty"`
@@ -82,7 +90,7 @@ type KeyStatus struct {
 
 // +kubebuilder:object:root=true
 
-// Key is the Schema for the Keys API. <no value>
+// Key is the Schema for the Keys API. Creates and manages ZPA Provisioning Key for Service Edge and/or App Connector Groups.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
