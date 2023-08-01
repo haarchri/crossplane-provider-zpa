@@ -87,6 +87,3 @@ spec:
     dynamicDiscovery: false
     enabled: true
     name: Example
-
----
-

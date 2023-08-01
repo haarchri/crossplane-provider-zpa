@@ -24,6 +24,3 @@ spec:
     connectorGroups:
     - id:
       - ${zpa_app_connector_group.example.id}
-
----
-

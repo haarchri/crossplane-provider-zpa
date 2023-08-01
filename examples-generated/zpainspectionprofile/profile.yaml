@@ -33,6 +33,3 @@ spec:
     - action: BLOCK
       id: ${data.zpa_inspection_predefined_controls.this.id}
     predefinedControlsVersion: OWASP_CRS/3.3.0
-
----
-

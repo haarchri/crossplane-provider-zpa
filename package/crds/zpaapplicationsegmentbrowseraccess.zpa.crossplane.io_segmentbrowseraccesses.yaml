@@ -3,8 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.8.0
-  creationTimestamp: null
+    controller-gen.kubebuilder.io/version: v0.12.1
   name: segmentbrowseraccesses.zpaapplicationsegmentbrowseraccess.zpa.crossplane.io
 spec:
   group: zpaapplicationsegmentbrowseraccess.zpa.crossplane.io
@@ -55,9 +54,13 @@ spec:
             properties:
               deletionPolicy:
                 default: Delete
-                description: DeletionPolicy specifies what will happen to the underlying
+                description: 'DeletionPolicy specifies what will happen to the underlying
                   external when this managed resource is deleted - either "Delete"
-                  or "Orphan" the external resource.
+                  or "Orphan" the external resource. This field is planned to be deprecated
+                  in favor of the ManagementPolicies field in a future release. Currently,
+                  both could be set independently and non-default values would be
+                  honored if the feature flag is enabled. See the design doc for more
+                  information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223'
                 enum:
                 - Orphan
                 - Delete
@@ -120,11 +123,6 @@ spec:
                           description: Indicates whether Use Untrusted Certificates
                             is enabled or disabled for a BA app.
                           type: boolean
-                      required:
-                      - applicationPort
-                      - applicationProtocol
-                      - certificateId
-                      - name
                       type: object
                     type: array
                   configSpace:
@@ -168,6 +166,9 @@ spec:
                       Indicates if the Zscaler Client Connector (formerly Zscaler
                       App or Z App) receives CNAME DNS records from the connectors.
                     type: boolean
+                  isIncompleteDrConfig:
+                    description: 'Supported values: true, false'
+                    type: boolean
                   name:
                     description: Name of the application. Name of the application.
                     type: string
@@ -180,6 +181,9 @@ spec:
                   segmentGroupName:
                     description: Name of the application.
                     type: string
+                  selectConnectorCloseToApp:
+                    description: 'Supported values: true, false'
+                    type: boolean
                   serverGroups:
                     description: List of Server Group IDs List of the server group
                       IDs.
@@ -189,10 +193,11 @@ spec:
                           items:
                             type: string
                           type: array
-                      required:
-                      - id
                       type: object
                     type: array
+                  tcpKeepAlive:
+                    description: 'Supported values: 1 for Enabled and 0 for Disabled'
+                    type: string
                   tcpPortRange:
                     description: tcp port range
                     items:
@@ -225,13 +230,216 @@ spec:
                     items:
                       type: string
                     type: array
-                required:
-                - clientlessApps
-                - domainNames
-                - name
-                - segmentGroupId
-                - serverGroups
+                  useInDrMode:
+                    description: 'Supported values: true, false'
+                    type: boolean
                 type: object
+              initProvider:
+                description: THIS IS AN ALPHA FIELD. Do not use it in production.
+                  It is not honored unless the relevant Crossplane feature flag is
+                  enabled, and may be changed or removed without notice. InitProvider
+                  holds the same fields as ForProvider, with the exception of Identifier
+                  and other resource reference fields. The fields that are in InitProvider
+                  are merged into ForProvider when the resource is created. The same
+                  fields are also added to the terraform ignore_changes hook, to avoid
+                  updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after
+                  creation, for example because of an external controller is managing
+                  them, like an autoscaler.
+                properties:
+                  bypassType:
+                    description: 'Indicates whether users can bypass ZPA to access
+                      applications. Default value is: NEVER and supported values are:
+                      ALWAYS, NEVER and ON_NET. The value NEVER indicates the use
+                      of the client forwarding policy. Indicates whether users can
+                      bypass ZPA to access applications. Default: NEVER. Supported
+                      values: ALWAYS, NEVER, ON_NET. The value NEVER indicates the
+                      use of the client forwarding policy.'
+                    type: string
+                  clientlessApps:
+                    items:
+                      properties:
+                        allowOptions:
+                          description: '- If you want ZPA to forward unauthenticated
+                            HTTP preflight OPTIONS requests from the browser to the
+                            app.. Supported values: true and false If you want ZPA
+                            to forward unauthenticated HTTP preflight OPTIONS requests
+                            from the browser to the app.'
+                          type: boolean
+                        applicationPort:
+                          description: '- Port for the BA app. Port for the BA app.'
+                          type: string
+                        applicationProtocol:
+                          description: '- Protocol for the BA app. Supported values:
+                            HTTP and HTTPS Protocol for the BA app.'
+                          type: string
+                        certificateId:
+                          description: '- ID of the BA certificate. Refer to the data
+                            source documentation for zpa_ba_certificate ID of the
+                            BA certificate.'
+                          type: string
+                        cname:
+                          type: string
+                        description:
+                          description: Description of the application.
+                          type: string
+                        domain:
+                          description: '- Domain name or IP address of the BA app.
+                            Domain name or IP address of the BA app.'
+                          type: string
+                        enabled:
+                          description: Whether this app is enabled or not.
+                          type: boolean
+                        hidden:
+                          type: boolean
+                        localDomain:
+                          type: string
+                        name:
+                          description: Name of the application.
+                          type: string
+                        path:
+                          type: string
+                        trustUntrustedCert:
+                          description: Indicates whether Use Untrusted Certificates
+                            is enabled or disabled for a BA app.
+                          type: boolean
+                      type: object
+                    type: array
+                  configSpace:
+                    description: 'Default: DEFAULT. Supported values: DEFAULT, SIEM'
+                    type: string
+                  description:
+                    description: Description of the application. Description of the
+                      application.
+                    type: string
+                  domainNames:
+                    description: List of domains and IPs. List of domains and IPs.
+                    items:
+                      type: string
+                    type: array
+                  doubleEncrypt:
+                    description: Whether Double Encryption is enabled or disabled
+                      for the app. Whether Double Encryption is enabled or disabled
+                      for the app.
+                    type: boolean
+                  enabled:
+                    description: Whether this app is enabled or not.
+                    type: boolean
+                  healthCheckType:
+                    description: 'Default: DEFAULT. Supported values: DEFAULT, NONE'
+                    type: string
+                  healthReporting:
+                    description: 'Whether health reporting for the app is Continuous
+                      or On Access. Supported values: NONE, ON_ACCESS, CONTINUOUS.
+                      Whether health reporting for the app is Continuous or On Access.
+                      Supported values: NONE, ON_ACCESS, CONTINUOUS.'
+                    type: string
+                  icmpAccessType:
+                    type: string
+                  ipAnchored:
+                    description: If Source IP Anchoring for use with ZIA, is enabled
+                      or disabled for the app. Supported values are true and false
+                    type: boolean
+                  isCnameEnabled:
+                    description: Indicates if the Zscaler Client Connector (formerly
+                      Zscaler App or Z App) receives CNAME DNS records from the connectors.
+                      Indicates if the Zscaler Client Connector (formerly Zscaler
+                      App or Z App) receives CNAME DNS records from the connectors.
+                    type: boolean
+                  isIncompleteDrConfig:
+                    description: 'Supported values: true, false'
+                    type: boolean
+                  name:
+                    description: Name of the application. Name of the application.
+                    type: string
+                  passiveHealthEnabled:
+                    description: Whether this app is enabled or not.
+                    type: boolean
+                  segmentGroupId:
+                    description: List of Segment Group IDs
+                    type: string
+                  segmentGroupName:
+                    description: Name of the application.
+                    type: string
+                  selectConnectorCloseToApp:
+                    description: 'Supported values: true, false'
+                    type: boolean
+                  serverGroups:
+                    description: List of Server Group IDs List of the server group
+                      IDs.
+                    items:
+                      properties:
+                        id:
+                          items:
+                            type: string
+                          type: array
+                      type: object
+                    type: array
+                  tcpKeepAlive:
+                    description: 'Supported values: 1 for Enabled and 0 for Disabled'
+                    type: string
+                  tcpPortRange:
+                    description: tcp port range
+                    items:
+                      properties:
+                        from:
+                          type: string
+                        to:
+                          type: string
+                      type: object
+                    type: array
+                  tcpPortRanges:
+                    description: TCP port ranges used to access the app. TCP port
+                      ranges used to access the app.
+                    items:
+                      type: string
+                    type: array
+                  udpPortRange:
+                    description: udp port range
+                    items:
+                      properties:
+                        from:
+                          type: string
+                        to:
+                          type: string
+                      type: object
+                    type: array
+                  udpPortRanges:
+                    description: UDP port ranges used to access the app. UDP port
+                      ranges used to access the app.
+                    items:
+                      type: string
+                    type: array
+                  useInDrMode:
+                    description: 'Supported values: true, false'
+                    type: boolean
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: 'THIS IS AN ALPHA FIELD. Do not use it in production.
+                  It is not honored unless the relevant Crossplane feature flag is
+                  enabled, and may be changed or removed without notice. ManagementPolicies
+                  specify the array of actions Crossplane is allowed to take on the
+                  managed and external resources. This field is planned to replace
+                  the DeletionPolicy field in a future release. Currently, both could
+                  be set independently and non-default values would be honored if
+                  the feature flag is enabled. If both are custom, the DeletionPolicy
+                  field will be ignored. See the design doc for more information:
+                  https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md'
+                items:
+                  description: A ManagementAction represents an action that the Crossplane
+                    controllers can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
               providerConfigRef:
                 default:
                   name: default
@@ -403,21 +611,199 @@ spec:
             required:
             - forProvider
             type: object
+            x-kubernetes-validations:
+            - message: clientlessApps is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.clientlessApps)
+                || has(self.initProvider.clientlessApps)'
+            - message: domainNames is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.domainNames)
+                || has(self.initProvider.domainNames)'
+            - message: name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || has(self.initProvider.name)'
+            - message: segmentGroupId is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.segmentGroupId)
+                || has(self.initProvider.segmentGroupId)'
           status:
             description: SegmentBrowserAccessStatus defines the observed state of
               SegmentBrowserAccess.
             properties:
               atProvider:
                 properties:
+                  bypassType:
+                    description: 'Indicates whether users can bypass ZPA to access
+                      applications. Default value is: NEVER and supported values are:
+                      ALWAYS, NEVER and ON_NET. The value NEVER indicates the use
+                      of the client forwarding policy. Indicates whether users can
+                      bypass ZPA to access applications. Default: NEVER. Supported
+                      values: ALWAYS, NEVER, ON_NET. The value NEVER indicates the
+                      use of the client forwarding policy.'
+                    type: string
                   clientlessApps:
                     items:
                       properties:
+                        allowOptions:
+                          description: '- If you want ZPA to forward unauthenticated
+                            HTTP preflight OPTIONS requests from the browser to the
+                            app.. Supported values: true and false If you want ZPA
+                            to forward unauthenticated HTTP preflight OPTIONS requests
+                            from the browser to the app.'
+                          type: boolean
+                        applicationPort:
+                          description: '- Port for the BA app. Port for the BA app.'
+                          type: string
+                        applicationProtocol:
+                          description: '- Protocol for the BA app. Supported values:
+                            HTTP and HTTPS Protocol for the BA app.'
+                          type: string
+                        certificateId:
+                          description: '- ID of the BA certificate. Refer to the data
+                            source documentation for zpa_ba_certificate ID of the
+                            BA certificate.'
+                          type: string
+                        cname:
+                          type: string
+                        description:
+                          description: Description of the application.
+                          type: string
+                        domain:
+                          description: '- Domain name or IP address of the BA app.
+                            Domain name or IP address of the BA app.'
+                          type: string
+                        enabled:
+                          description: Whether this app is enabled or not.
+                          type: boolean
+                        hidden:
+                          type: boolean
                         id:
+                          type: string
+                        localDomain:
+                          type: string
+                        name:
+                          description: Name of the application.
+                          type: string
+                        path:
+                          type: string
+                        trustUntrustedCert:
+                          description: Indicates whether Use Untrusted Certificates
+                            is enabled or disabled for a BA app.
+                          type: boolean
+                      type: object
+                    type: array
+                  configSpace:
+                    description: 'Default: DEFAULT. Supported values: DEFAULT, SIEM'
+                    type: string
+                  description:
+                    description: Description of the application. Description of the
+                      application.
+                    type: string
+                  domainNames:
+                    description: List of domains and IPs. List of domains and IPs.
+                    items:
+                      type: string
+                    type: array
+                  doubleEncrypt:
+                    description: Whether Double Encryption is enabled or disabled
+                      for the app. Whether Double Encryption is enabled or disabled
+                      for the app.
+                    type: boolean
+                  enabled:
+                    description: Whether this app is enabled or not.
+                    type: boolean
+                  healthCheckType:
+                    description: 'Default: DEFAULT. Supported values: DEFAULT, NONE'
+                    type: string
+                  healthReporting:
+                    description: 'Whether health reporting for the app is Continuous
+                      or On Access. Supported values: NONE, ON_ACCESS, CONTINUOUS.
+                      Whether health reporting for the app is Continuous or On Access.
+                      Supported values: NONE, ON_ACCESS, CONTINUOUS.'
+                    type: string
+                  icmpAccessType:
+                    type: string
+                  id:
+                    type: string
+                  ipAnchored:
+                    description: If Source IP Anchoring for use with ZIA, is enabled
+                      or disabled for the app. Supported values are true and false
+                    type: boolean
+                  isCnameEnabled:
+                    description: Indicates if the Zscaler Client Connector (formerly
+                      Zscaler App or Z App) receives CNAME DNS records from the connectors.
+                      Indicates if the Zscaler Client Connector (formerly Zscaler
+                      App or Z App) receives CNAME DNS records from the connectors.
+                    type: boolean
+                  isIncompleteDrConfig:
+                    description: 'Supported values: true, false'
+                    type: boolean
+                  name:
+                    description: Name of the application. Name of the application.
+                    type: string
+                  passiveHealthEnabled:
+                    description: Whether this app is enabled or not.
+                    type: boolean
+                  segmentGroupId:
+                    description: List of Segment Group IDs
+                    type: string
+                  segmentGroupName:
+                    description: Name of the application.
+                    type: string
+                  selectConnectorCloseToApp:
+                    description: 'Supported values: true, false'
+                    type: boolean
+                  serverGroups:
+                    description: List of Server Group IDs List of the server group
+                      IDs.
+                    items:
+                      properties:
+                        id:
+                          items:
+                            type: string
+                          type: array
+                      type: object
+                    type: array
+                  tcpKeepAlive:
+                    description: 'Supported values: 1 for Enabled and 0 for Disabled'
+                    type: string
+                  tcpPortRange:
+                    description: tcp port range
+                    items:
+                      properties:
+                        from:
+                          type: string
+                        to:
                           type: string
                       type: object
                     type: array
-                  id:
-                    type: string
+                  tcpPortRanges:
+                    description: TCP port ranges used to access the app. TCP port
+                      ranges used to access the app.
+                    items:
+                      type: string
+                    type: array
+                  udpPortRange:
+                    description: udp port range
+                    items:
+                      properties:
+                        from:
+                          type: string
+                        to:
+                          type: string
+                      type: object
+                    type: array
+                  udpPortRanges:
+                    description: UDP port ranges used to access the app. UDP port
+                      ranges used to access the app.
+                    items:
+                      type: string
+                    type: array
+                  useInDrMode:
+                    description: 'Supported values: true, false'
+                    type: boolean
                 type: object
               conditions:
                 description: Conditions of the resource.
@@ -460,9 +846,3 @@ spec:
     storage: true
     subresources:
       status: {}
-status:
-  acceptedNames:
-    kind: ""
-    plural: ""
-  conditions: []
-  storedVersions: []

@@ -21,6 +21,3 @@ spec:
     operator: AND
     policySetId: ${data.zpa_policy_type.access_policy.id}
     ruleOrder: 1
-
----
-

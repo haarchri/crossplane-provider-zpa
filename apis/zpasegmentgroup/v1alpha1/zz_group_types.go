@@ -13,7 +13,12 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type ApplicationsInitParameters struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+}
+
 type ApplicationsObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type ApplicationsParameters struct {
@@ -22,17 +27,52 @@ type ApplicationsParameters struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
+type GroupInitParameters struct {
+	Applications []ApplicationsInitParameters `json:"applications,omitempty" tf:"applications,omitempty"`
+
+	// Description of the segment group.
+	// Description of the app group.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// Whether this segment group is enabled or not.
+	// Whether this app group is enabled or not.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// Name of the segment group.
+	// Name of the app group.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	PolicyMigrated *bool `json:"policyMigrated,omitempty" tf:"policy_migrated,omitempty"`
+
+	TCPKeepAliveEnabled *string `json:"tcpKeepAliveEnabled,omitempty" tf:"tcp_keep_alive_enabled,omitempty"`
+}
+
 type GroupObservation struct {
+	Applications []ApplicationsObservation `json:"applications,omitempty" tf:"applications,omitempty"`
+
+	// Description of the segment group.
+	// Description of the app group.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// Whether this segment group is enabled or not.
+	// Whether this app group is enabled or not.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Name of the segment group.
+	// Name of the app group.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	PolicyMigrated *bool `json:"policyMigrated,omitempty" tf:"policy_migrated,omitempty"`
+
+	TCPKeepAliveEnabled *string `json:"tcpKeepAliveEnabled,omitempty" tf:"tcp_keep_alive_enabled,omitempty"`
 }
 
 type GroupParameters struct {
 
 	// +kubebuilder:validation:Optional
 	Applications []ApplicationsParameters `json:"applications,omitempty" tf:"applications,omitempty"`
-
-	// +kubebuilder:validation:Optional
-	ConfigSpace *string `json:"configSpace,omitempty" tf:"config_space,omitempty"`
 
 	// Description of the segment group.
 	// Description of the app group.
@@ -46,8 +86,8 @@ type GroupParameters struct {
 
 	// Name of the segment group.
 	// Name of the app group.
-	// +kubebuilder:validation:Required
-	Name *string `json:"name" tf:"name,omitempty"`
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	PolicyMigrated *bool `json:"policyMigrated,omitempty" tf:"policy_migrated,omitempty"`
@@ -60,6 +100,18 @@ type GroupParameters struct {
 type GroupSpec struct {
 	v1.ResourceSpec `json:",inline"`
 	ForProvider     GroupParameters `json:"forProvider"`
+	// THIS IS AN ALPHA FIELD. Do not use it in production. It is not honored
+	// unless the relevant Crossplane feature flag is enabled, and may be
+	// changed or removed without notice.
+	// InitProvider holds the same fields as ForProvider, with the exception
+	// of Identifier and other resource reference fields. The fields that are
+	// in InitProvider are merged into ForProvider when the resource is created.
+	// The same fields are also added to the terraform ignore_changes hook, to
+	// avoid updating them after creation. This is useful for fields that are
+	// required on creation, but we do not desire to update them after creation,
+	// for example because of an external controller is managing them, like an
+	// autoscaler.
+	InitProvider GroupInitParameters `json:"initProvider,omitempty"`
 }
 
 // GroupStatus defines the observed state of Group.
@@ -80,8 +132,9 @@ type GroupStatus struct {
 type Group struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              GroupSpec   `json:"spec"`
-	Status            GroupStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || has(self.initProvider.name)",message="name is a required parameter"
+	Spec   GroupSpec   `json:"spec"`
+	Status GroupStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

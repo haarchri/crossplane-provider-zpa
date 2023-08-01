@@ -8,9 +8,9 @@ export TERRAFORM_VERSION := 1.3.3
 
 export TERRAFORM_PROVIDER_SOURCE := zscaler/zpa
 export TERRAFORM_PROVIDER_REPO := https://github.com/zscaler/terraform-provider-zpa
-export TERRAFORM_PROVIDER_VERSION := 2.5.3
+export TERRAFORM_PROVIDER_VERSION := 2.8.0
 export TERRAFORM_PROVIDER_DOWNLOAD_NAME := terraform-provider-zpa
-export TERRAFORM_NATIVE_PROVIDER_BINARY := terraform-provider-zpa_v2.5.3
+export TERRAFORM_NATIVE_PROVIDER_BINARY := terraform-provider-zpa_v2.8.0
 export TERRAFORM_DOCS_PATH := docs/resources
 
 PLATFORMS ?= linux_amd64 linux_arm64

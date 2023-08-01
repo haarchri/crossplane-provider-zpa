@@ -13,12 +13,27 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type ControlsInfoInitParameters struct {
+
+	// (string) Control types. Supported Values: WEBSOCKET_PREDEFINED, WEBSOCKET_CUSTOM, CUSTOM, PREDEFINED, ZSCALER
+	ControlType *string `json:"controlType,omitempty" tf:"control_type,omitempty"`
+
+	// Control information counts Long
+	Count *string `json:"count,omitempty" tf:"count,omitempty"`
+}
+
 type ControlsInfoObservation struct {
+
+	// (string) Control types. Supported Values: WEBSOCKET_PREDEFINED, WEBSOCKET_CUSTOM, CUSTOM, PREDEFINED, ZSCALER
+	ControlType *string `json:"controlType,omitempty" tf:"control_type,omitempty"`
+
+	// Control information counts Long
+	Count *string `json:"count,omitempty" tf:"count,omitempty"`
 }
 
 type ControlsInfoParameters struct {
 
-	// Control types. Supported Values: CUSTOM, PREDEFINED, ZSCALER
+	// (string) Control types. Supported Values: WEBSOCKET_PREDEFINED, WEBSOCKET_CUSTOM, CUSTOM, PREDEFINED, ZSCALER
 	// +kubebuilder:validation:Optional
 	ControlType *string `json:"controlType,omitempty" tf:"control_type,omitempty"`
 
@@ -27,46 +42,173 @@ type ControlsInfoParameters struct {
 	Count *string `json:"count,omitempty" tf:"count,omitempty"`
 }
 
+type CustomControlsInitParameters struct {
+
+	// The action of the predefined control. Supported values: PASS, BLOCK and REDIRECT
+	Action *string `json:"action,omitempty" tf:"action,omitempty"`
+
+	// Value for the predefined controls action. This field is only required if the action is set to REDIRECT. This field is only required if the action is set to REDIRECT.
+	ActionValue *string `json:"actionValue,omitempty" tf:"action_value,omitempty"`
+
+	// ID of the predefined control
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+}
+
 type CustomControlsObservation struct {
+
+	// The action of the predefined control. Supported values: PASS, BLOCK and REDIRECT
+	Action *string `json:"action,omitempty" tf:"action,omitempty"`
+
+	// Value for the predefined controls action. This field is only required if the action is set to REDIRECT. This field is only required if the action is set to REDIRECT.
+	ActionValue *string `json:"actionValue,omitempty" tf:"action_value,omitempty"`
+
+	// ID of the predefined control
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type CustomControlsParameters struct {
 
 	// The action of the predefined control. Supported values: PASS, BLOCK and REDIRECT
-	// +kubebuilder:validation:Required
-	Action *string `json:"action" tf:"action,omitempty"`
+	// +kubebuilder:validation:Optional
+	Action *string `json:"action,omitempty" tf:"action,omitempty"`
 
 	// Value for the predefined controls action. This field is only required if the action is set to REDIRECT. This field is only required if the action is set to REDIRECT.
 	// +kubebuilder:validation:Optional
 	ActionValue *string `json:"actionValue,omitempty" tf:"action_value,omitempty"`
 
 	// ID of the predefined control
-	// +kubebuilder:validation:Required
-	ID *string `json:"id" tf:"id,omitempty"`
+	// +kubebuilder:validation:Optional
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+}
+
+type PredefinedControlsInitParameters struct {
+
+	// The action of the predefined control. Supported values: PASS, BLOCK and REDIRECT
+	Action *string `json:"action,omitempty" tf:"action,omitempty"`
+
+	// Value for the predefined controls action. This field is only required if the action is set to REDIRECT. This field is only required if the action is set to REDIRECT.
+	ActionValue *string `json:"actionValue,omitempty" tf:"action_value,omitempty"`
+
+	// (string) Control types. Supported Values: WEBSOCKET_PREDEFINED, WEBSOCKET_CUSTOM, CUSTOM, PREDEFINED, ZSCALER
+	ControlType *string `json:"controlType,omitempty" tf:"control_type,omitempty"`
+
+	// ID of the predefined control
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Types for custom controls
+	ProtocolType *string `json:"protocolType,omitempty" tf:"protocol_type,omitempty"`
 }
 
 type PredefinedControlsObservation struct {
+
+	// The action of the predefined control. Supported values: PASS, BLOCK and REDIRECT
+	Action *string `json:"action,omitempty" tf:"action,omitempty"`
+
+	// Value for the predefined controls action. This field is only required if the action is set to REDIRECT. This field is only required if the action is set to REDIRECT.
+	ActionValue *string `json:"actionValue,omitempty" tf:"action_value,omitempty"`
+
+	// (string) Control types. Supported Values: WEBSOCKET_PREDEFINED, WEBSOCKET_CUSTOM, CUSTOM, PREDEFINED, ZSCALER
+	ControlType *string `json:"controlType,omitempty" tf:"control_type,omitempty"`
+
+	// ID of the predefined control
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Types for custom controls
+	ProtocolType *string `json:"protocolType,omitempty" tf:"protocol_type,omitempty"`
 }
 
 type PredefinedControlsParameters struct {
 
 	// The action of the predefined control. Supported values: PASS, BLOCK and REDIRECT
-	// +kubebuilder:validation:Required
-	Action *string `json:"action" tf:"action,omitempty"`
+	// +kubebuilder:validation:Optional
+	Action *string `json:"action,omitempty" tf:"action,omitempty"`
 
 	// Value for the predefined controls action. This field is only required if the action is set to REDIRECT. This field is only required if the action is set to REDIRECT.
 	// +kubebuilder:validation:Optional
 	ActionValue *string `json:"actionValue,omitempty" tf:"action_value,omitempty"`
 
+	// (string) Control types. Supported Values: WEBSOCKET_PREDEFINED, WEBSOCKET_CUSTOM, CUSTOM, PREDEFINED, ZSCALER
+	// +kubebuilder:validation:Optional
+	ControlType *string `json:"controlType,omitempty" tf:"control_type,omitempty"`
+
 	// ID of the predefined control
-	// +kubebuilder:validation:Required
-	ID *string `json:"id" tf:"id,omitempty"`
+	// +kubebuilder:validation:Optional
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Types for custom controls
+	// +kubebuilder:validation:Optional
+	ProtocolType *string `json:"protocolType,omitempty" tf:"protocol_type,omitempty"`
+}
+
+type ProfileInitParameters struct {
+	AssociateAllControls *bool `json:"associateAllControls,omitempty" tf:"associate_all_controls,omitempty"`
+
+	CommonGlobalOverrideActionsConfig map[string]*string `json:"commonGlobalOverrideActionsConfig,omitempty" tf:"common_global_override_actions_config,omitempty"`
+
+	// Types for custom controls
+	ControlsInfo []ControlsInfoInitParameters `json:"controlsInfo,omitempty" tf:"controls_info,omitempty"`
+
+	// Types for custom controls
+	CustomControls []CustomControlsInitParameters `json:"customControls,omitempty" tf:"custom_controls,omitempty"`
+
+	// Description of the inspection profile.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	GlobalControlActions []*string `json:"globalControlActions,omitempty" tf:"global_control_actions,omitempty"`
+
+	IncarnationNumber *string `json:"incarnationNumber,omitempty" tf:"incarnation_number,omitempty"`
+
+	// The name of the inspection profile.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// OWASP Predefined Paranoia Level. Range: [1-4], inclusive
+	ParanoiaLevel *string `json:"paranoiaLevel,omitempty" tf:"paranoia_level,omitempty"`
+
+	// The predefined controls. The default predefined control Preprocessors are mandatory and injected in the request by default. Individual predefined_controls can be set by using the data source data_source_zpa_predefined_controls or by group using the data source zpa_inspection_all_predefined_controls.
+	PredefinedControls []PredefinedControlsInitParameters `json:"predefinedControls,omitempty" tf:"predefined_controls,omitempty"`
+
+	// = "OWASP_CRS/3.3.0"
+	PredefinedControlsVersion *string `json:"predefinedControlsVersion,omitempty" tf:"predefined_controls_version,omitempty"`
+
+	// (string)
+	WebSocketControls []WebSocketControlsInitParameters `json:"webSocketControls,omitempty" tf:"web_socket_controls,omitempty"`
 }
 
 type ProfileObservation struct {
+	AssociateAllControls *bool `json:"associateAllControls,omitempty" tf:"associate_all_controls,omitempty"`
+
+	CommonGlobalOverrideActionsConfig map[string]*string `json:"commonGlobalOverrideActionsConfig,omitempty" tf:"common_global_override_actions_config,omitempty"`
+
+	// Types for custom controls
+	ControlsInfo []ControlsInfoObservation `json:"controlsInfo,omitempty" tf:"controls_info,omitempty"`
+
+	// Types for custom controls
+	CustomControls []CustomControlsObservation `json:"customControls,omitempty" tf:"custom_controls,omitempty"`
+
+	// Description of the inspection profile.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	GlobalControlActions []*string `json:"globalControlActions,omitempty" tf:"global_control_actions,omitempty"`
 
 	// ID of the predefined control
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	IncarnationNumber *string `json:"incarnationNumber,omitempty" tf:"incarnation_number,omitempty"`
+
+	// The name of the inspection profile.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// OWASP Predefined Paranoia Level. Range: [1-4], inclusive
+	ParanoiaLevel *string `json:"paranoiaLevel,omitempty" tf:"paranoia_level,omitempty"`
+
+	// The predefined controls. The default predefined control Preprocessors are mandatory and injected in the request by default. Individual predefined_controls can be set by using the data source data_source_zpa_predefined_controls or by group using the data source zpa_inspection_all_predefined_controls.
+	PredefinedControls []PredefinedControlsObservation `json:"predefinedControls,omitempty" tf:"predefined_controls,omitempty"`
+
+	// = "OWASP_CRS/3.3.0"
+	PredefinedControlsVersion *string `json:"predefinedControlsVersion,omitempty" tf:"predefined_controls_version,omitempty"`
+
+	// (string)
+	WebSocketControls []WebSocketControlsObservation `json:"webSocketControls,omitempty" tf:"web_socket_controls,omitempty"`
 }
 
 type ProfileParameters struct {
@@ -110,12 +252,87 @@ type ProfileParameters struct {
 	// = "OWASP_CRS/3.3.0"
 	// +kubebuilder:validation:Optional
 	PredefinedControlsVersion *string `json:"predefinedControlsVersion,omitempty" tf:"predefined_controls_version,omitempty"`
+
+	// (string)
+	// +kubebuilder:validation:Optional
+	WebSocketControls []WebSocketControlsParameters `json:"webSocketControls,omitempty" tf:"web_socket_controls,omitempty"`
+}
+
+type WebSocketControlsInitParameters struct {
+
+	// The action of the predefined control. Supported values: PASS, BLOCK and REDIRECT
+	Action *string `json:"action,omitempty" tf:"action,omitempty"`
+
+	// Value for the predefined controls action. This field is only required if the action is set to REDIRECT. This field is only required if the action is set to REDIRECT.
+	ActionValue *string `json:"actionValue,omitempty" tf:"action_value,omitempty"`
+
+	// (string) Control types. Supported Values: WEBSOCKET_PREDEFINED, WEBSOCKET_CUSTOM, CUSTOM, PREDEFINED, ZSCALER
+	ControlType *string `json:"controlType,omitempty" tf:"control_type,omitempty"`
+
+	// ID of the predefined control
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Types for custom controls
+	ProtocolType *string `json:"protocolType,omitempty" tf:"protocol_type,omitempty"`
+}
+
+type WebSocketControlsObservation struct {
+
+	// The action of the predefined control. Supported values: PASS, BLOCK and REDIRECT
+	Action *string `json:"action,omitempty" tf:"action,omitempty"`
+
+	// Value for the predefined controls action. This field is only required if the action is set to REDIRECT. This field is only required if the action is set to REDIRECT.
+	ActionValue *string `json:"actionValue,omitempty" tf:"action_value,omitempty"`
+
+	// (string) Control types. Supported Values: WEBSOCKET_PREDEFINED, WEBSOCKET_CUSTOM, CUSTOM, PREDEFINED, ZSCALER
+	ControlType *string `json:"controlType,omitempty" tf:"control_type,omitempty"`
+
+	// ID of the predefined control
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Types for custom controls
+	ProtocolType *string `json:"protocolType,omitempty" tf:"protocol_type,omitempty"`
+}
+
+type WebSocketControlsParameters struct {
+
+	// The action of the predefined control. Supported values: PASS, BLOCK and REDIRECT
+	// +kubebuilder:validation:Optional
+	Action *string `json:"action,omitempty" tf:"action,omitempty"`
+
+	// Value for the predefined controls action. This field is only required if the action is set to REDIRECT. This field is only required if the action is set to REDIRECT.
+	// +kubebuilder:validation:Optional
+	ActionValue *string `json:"actionValue,omitempty" tf:"action_value,omitempty"`
+
+	// (string) Control types. Supported Values: WEBSOCKET_PREDEFINED, WEBSOCKET_CUSTOM, CUSTOM, PREDEFINED, ZSCALER
+	// +kubebuilder:validation:Optional
+	ControlType *string `json:"controlType,omitempty" tf:"control_type,omitempty"`
+
+	// ID of the predefined control
+	// +kubebuilder:validation:Optional
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Types for custom controls
+	// +kubebuilder:validation:Optional
+	ProtocolType *string `json:"protocolType,omitempty" tf:"protocol_type,omitempty"`
 }
 
 // ProfileSpec defines the desired state of Profile
 type ProfileSpec struct {
 	v1.ResourceSpec `json:",inline"`
 	ForProvider     ProfileParameters `json:"forProvider"`
+	// THIS IS AN ALPHA FIELD. Do not use it in production. It is not honored
+	// unless the relevant Crossplane feature flag is enabled, and may be
+	// changed or removed without notice.
+	// InitProvider holds the same fields as ForProvider, with the exception
+	// of Identifier and other resource reference fields. The fields that are
+	// in InitProvider are merged into ForProvider when the resource is created.
+	// The same fields are also added to the terraform ignore_changes hook, to
+	// avoid updating them after creation. This is useful for fields that are
+	// required on creation, but we do not desire to update them after creation,
+	// for example because of an external controller is managing them, like an
+	// autoscaler.
+	InitProvider ProfileInitParameters `json:"initProvider,omitempty"`
 }
 
 // ProfileStatus defines the observed state of Profile.

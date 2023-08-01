@@ -66,6 +66,3 @@ spec:
     dynamicDiscovery: true
     enabled: true
     name: Example
-
----
-

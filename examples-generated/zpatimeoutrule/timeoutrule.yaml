@@ -29,6 +29,3 @@ spec:
     policySetId: ${data.zpa_policy_type.timeout_policy.id}
     reauthIdleTimeout: "600"
     reauthTimeout: "172800"
-
----
-

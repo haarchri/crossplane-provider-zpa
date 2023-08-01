@@ -13,8 +13,171 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type SegmentInitParameters struct {
+
+	// Indicates whether users can bypass ZPA to access applications.
+	// Indicates whether users can bypass ZPA to access applications.
+	BypassType *string `json:"bypassType,omitempty" tf:"bypass_type,omitempty"`
+
+	ConfigSpace *string `json:"configSpace,omitempty" tf:"config_space,omitempty"`
+
+	// Description of the application.
+	// Description of the application.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// List of domains and IPs.
+	// List of domains and IPs.
+	DomainNames []*string `json:"domainNames,omitempty" tf:"domain_names,omitempty"`
+
+	// Whether Double Encryption is enabled or disabled for the app.
+	// Whether Double Encryption is enabled or disabled for the app.
+	DoubleEncrypt *bool `json:"doubleEncrypt,omitempty" tf:"double_encrypt,omitempty"`
+
+	// Whether this application is enabled or not.
+	// Whether this application is enabled or not.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	HealthCheckType *string `json:"healthCheckType,omitempty" tf:"health_check_type,omitempty"`
+
+	// Whether health reporting for the app is Continuous or On Access. Supported values: NONE, ON_ACCESS, CONTINUOUS.
+	// Whether health reporting for the app is Continuous or On Access. Supported values: NONE, ON_ACCESS, CONTINUOUS.
+	HealthReporting *string `json:"healthReporting,omitempty" tf:"health_reporting,omitempty"`
+
+	IPAnchored *bool `json:"ipAnchored,omitempty" tf:"ip_anchored,omitempty"`
+
+	IcmpAccessType *string `json:"icmpAccessType,omitempty" tf:"icmp_access_type,omitempty"`
+
+	// Indicates if the Zscaler Client Connector (formerly Zscaler App or Z App) receives CNAME DNS records from the connectors.
+	// Indicates if the Zscaler Client Connector (formerly Zscaler App or Z App) receives CNAME DNS records from the connectors.
+	IsCnameEnabled *bool `json:"isCnameEnabled,omitempty" tf:"is_cname_enabled,omitempty"`
+
+	// Supported values: true, false
+	IsIncompleteDrConfig *bool `json:"isIncompleteDrConfig,omitempty" tf:"is_incomplete_dr_config,omitempty"`
+
+	// Name. The name of the App Connector Group to be exported.
+	// Name of the application.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Supported values: true, false
+	PassiveHealthEnabled *bool `json:"passiveHealthEnabled,omitempty" tf:"passive_health_enabled,omitempty"`
+
+	// Name. The name of the App Connector Group to be exported.
+	SegmentGroupName *string `json:"segmentGroupName,omitempty" tf:"segment_group_name,omitempty"`
+
+	// Supported values: true, false
+	SelectConnectorCloseToApp *bool `json:"selectConnectorCloseToApp,omitempty" tf:"select_connector_close_to_app,omitempty"`
+
+	// List of Server Group IDs
+	// List of the server group IDs.
+	ServerGroups []ServerGroupsInitParameters `json:"serverGroups,omitempty" tf:"server_groups,omitempty"`
+
+	// Supported values: 1 for Enabled and 0 for Disabled
+	TCPKeepAlive *string `json:"tcpKeepAlive,omitempty" tf:"tcp_keep_alive,omitempty"`
+
+	// TCP port ranges used to access the app.
+	// tcp port range
+	TCPPortRange []TCPPortRangeInitParameters `json:"tcpPortRange,omitempty" tf:"tcp_port_range,omitempty"`
+
+	// TCP port ranges used to access the app.
+	// TCP port ranges used to access the app.
+	TCPPortRanges []*string `json:"tcpPortRanges,omitempty" tf:"tcp_port_ranges,omitempty"`
+
+	// UDP port ranges used to access the app.
+	// udp port range
+	UDPPortRange []UDPPortRangeInitParameters `json:"udpPortRange,omitempty" tf:"udp_port_range,omitempty"`
+
+	// UDP port ranges used to access the app.
+	// UDP port ranges used to access the app.
+	UDPPortRanges []*string `json:"udpPortRanges,omitempty" tf:"udp_port_ranges,omitempty"`
+
+	// Supported values: true, false
+	UseInDrMode *bool `json:"useInDrMode,omitempty" tf:"use_in_dr_mode,omitempty"`
+}
+
 type SegmentObservation struct {
+
+	// Indicates whether users can bypass ZPA to access applications.
+	// Indicates whether users can bypass ZPA to access applications.
+	BypassType *string `json:"bypassType,omitempty" tf:"bypass_type,omitempty"`
+
+	ConfigSpace *string `json:"configSpace,omitempty" tf:"config_space,omitempty"`
+
+	// Description of the application.
+	// Description of the application.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// List of domains and IPs.
+	// List of domains and IPs.
+	DomainNames []*string `json:"domainNames,omitempty" tf:"domain_names,omitempty"`
+
+	// Whether Double Encryption is enabled or disabled for the app.
+	// Whether Double Encryption is enabled or disabled for the app.
+	DoubleEncrypt *bool `json:"doubleEncrypt,omitempty" tf:"double_encrypt,omitempty"`
+
+	// Whether this application is enabled or not.
+	// Whether this application is enabled or not.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	HealthCheckType *string `json:"healthCheckType,omitempty" tf:"health_check_type,omitempty"`
+
+	// Whether health reporting for the app is Continuous or On Access. Supported values: NONE, ON_ACCESS, CONTINUOUS.
+	// Whether health reporting for the app is Continuous or On Access. Supported values: NONE, ON_ACCESS, CONTINUOUS.
+	HealthReporting *string `json:"healthReporting,omitempty" tf:"health_reporting,omitempty"`
+
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	IPAnchored *bool `json:"ipAnchored,omitempty" tf:"ip_anchored,omitempty"`
+
+	IcmpAccessType *string `json:"icmpAccessType,omitempty" tf:"icmp_access_type,omitempty"`
+
+	// Indicates if the Zscaler Client Connector (formerly Zscaler App or Z App) receives CNAME DNS records from the connectors.
+	// Indicates if the Zscaler Client Connector (formerly Zscaler App or Z App) receives CNAME DNS records from the connectors.
+	IsCnameEnabled *bool `json:"isCnameEnabled,omitempty" tf:"is_cname_enabled,omitempty"`
+
+	// Supported values: true, false
+	IsIncompleteDrConfig *bool `json:"isIncompleteDrConfig,omitempty" tf:"is_incomplete_dr_config,omitempty"`
+
+	// Name. The name of the App Connector Group to be exported.
+	// Name of the application.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Supported values: true, false
+	PassiveHealthEnabled *bool `json:"passiveHealthEnabled,omitempty" tf:"passive_health_enabled,omitempty"`
+
+	// List of Segment Group IDs
+	SegmentGroupID *string `json:"segmentGroupId,omitempty" tf:"segment_group_id,omitempty"`
+
+	// Name. The name of the App Connector Group to be exported.
+	SegmentGroupName *string `json:"segmentGroupName,omitempty" tf:"segment_group_name,omitempty"`
+
+	// Supported values: true, false
+	SelectConnectorCloseToApp *bool `json:"selectConnectorCloseToApp,omitempty" tf:"select_connector_close_to_app,omitempty"`
+
+	// List of Server Group IDs
+	// List of the server group IDs.
+	ServerGroups []ServerGroupsObservation `json:"serverGroups,omitempty" tf:"server_groups,omitempty"`
+
+	// Supported values: 1 for Enabled and 0 for Disabled
+	TCPKeepAlive *string `json:"tcpKeepAlive,omitempty" tf:"tcp_keep_alive,omitempty"`
+
+	// TCP port ranges used to access the app.
+	// tcp port range
+	TCPPortRange []TCPPortRangeObservation `json:"tcpPortRange,omitempty" tf:"tcp_port_range,omitempty"`
+
+	// TCP port ranges used to access the app.
+	// TCP port ranges used to access the app.
+	TCPPortRanges []*string `json:"tcpPortRanges,omitempty" tf:"tcp_port_ranges,omitempty"`
+
+	// UDP port ranges used to access the app.
+	// udp port range
+	UDPPortRange []UDPPortRangeObservation `json:"udpPortRange,omitempty" tf:"udp_port_range,omitempty"`
+
+	// UDP port ranges used to access the app.
+	// UDP port ranges used to access the app.
+	UDPPortRanges []*string `json:"udpPortRanges,omitempty" tf:"udp_port_ranges,omitempty"`
+
+	// Supported values: true, false
+	UseInDrMode *bool `json:"useInDrMode,omitempty" tf:"use_in_dr_mode,omitempty"`
 }
 
 type SegmentParameters struct {
@@ -27,9 +190,6 @@ type SegmentParameters struct {
 	// +kubebuilder:validation:Optional
 	ConfigSpace *string `json:"configSpace,omitempty" tf:"config_space,omitempty"`
 
-	// +kubebuilder:validation:Optional
-	DefaultIdleTimeout *string `json:"defaultIdleTimeout,omitempty" tf:"default_idle_timeout,omitempty"`
-
 	// Description of the application.
 	// Description of the application.
 	// +kubebuilder:validation:Optional
@@ -37,8 +197,8 @@ type SegmentParameters struct {
 
 	// List of domains and IPs.
 	// List of domains and IPs.
-	// +kubebuilder:validation:Required
-	DomainNames []*string `json:"domainNames" tf:"domain_names,omitempty"`
+	// +kubebuilder:validation:Optional
+	DomainNames []*string `json:"domainNames,omitempty" tf:"domain_names,omitempty"`
 
 	// Whether Double Encryption is enabled or disabled for the app.
 	// Whether Double Encryption is enabled or disabled for the app.
@@ -69,11 +229,16 @@ type SegmentParameters struct {
 	// +kubebuilder:validation:Optional
 	IsCnameEnabled *bool `json:"isCnameEnabled,omitempty" tf:"is_cname_enabled,omitempty"`
 
+	// Supported values: true, false
+	// +kubebuilder:validation:Optional
+	IsIncompleteDrConfig *bool `json:"isIncompleteDrConfig,omitempty" tf:"is_incomplete_dr_config,omitempty"`
+
 	// Name. The name of the App Connector Group to be exported.
 	// Name of the application.
-	// +kubebuilder:validation:Required
-	Name *string `json:"name" tf:"name,omitempty"`
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// Supported values: true, false
 	// +kubebuilder:validation:Optional
 	PassiveHealthEnabled *bool `json:"passiveHealthEnabled,omitempty" tf:"passive_health_enabled,omitempty"`
 
@@ -94,10 +259,18 @@ type SegmentParameters struct {
 	// +kubebuilder:validation:Optional
 	SegmentGroupName *string `json:"segmentGroupName,omitempty" tf:"segment_group_name,omitempty"`
 
+	// Supported values: true, false
+	// +kubebuilder:validation:Optional
+	SelectConnectorCloseToApp *bool `json:"selectConnectorCloseToApp,omitempty" tf:"select_connector_close_to_app,omitempty"`
+
 	// List of Server Group IDs
 	// List of the server group IDs.
-	// +kubebuilder:validation:Required
-	ServerGroups []ServerGroupsParameters `json:"serverGroups" tf:"server_groups,omitempty"`
+	// +kubebuilder:validation:Optional
+	ServerGroups []ServerGroupsParameters `json:"serverGroups,omitempty" tf:"server_groups,omitempty"`
+
+	// Supported values: 1 for Enabled and 0 for Disabled
+	// +kubebuilder:validation:Optional
+	TCPKeepAlive *string `json:"tcpKeepAlive,omitempty" tf:"tcp_keep_alive,omitempty"`
 
 	// TCP port ranges used to access the app.
 	// tcp port range
@@ -118,9 +291,17 @@ type SegmentParameters struct {
 	// UDP port ranges used to access the app.
 	// +kubebuilder:validation:Optional
 	UDPPortRanges []*string `json:"udpPortRanges,omitempty" tf:"udp_port_ranges,omitempty"`
+
+	// Supported values: true, false
+	// +kubebuilder:validation:Optional
+	UseInDrMode *bool `json:"useInDrMode,omitempty" tf:"use_in_dr_mode,omitempty"`
+}
+
+type ServerGroupsInitParameters struct {
 }
 
 type ServerGroupsObservation struct {
+	ID []*string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type ServerGroupsParameters struct {
@@ -138,7 +319,16 @@ type ServerGroupsParameters struct {
 	IDSelector *v1.Selector `json:"idSelector,omitempty" tf:"-"`
 }
 
+type TCPPortRangeInitParameters struct {
+	From *string `json:"from,omitempty" tf:"from"`
+
+	To *string `json:"to,omitempty" tf:"to"`
+}
+
 type TCPPortRangeObservation struct {
+	From *string `json:"from,omitempty" tf:"from,omitempty"`
+
+	To *string `json:"to,omitempty" tf:"to,omitempty"`
 }
 
 type TCPPortRangeParameters struct {
@@ -150,7 +340,16 @@ type TCPPortRangeParameters struct {
 	To *string `json:"to,omitempty" tf:"to"`
 }
 
+type UDPPortRangeInitParameters struct {
+	From *string `json:"from,omitempty" tf:"from"`
+
+	To *string `json:"to,omitempty" tf:"to"`
+}
+
 type UDPPortRangeObservation struct {
+	From *string `json:"from,omitempty" tf:"from,omitempty"`
+
+	To *string `json:"to,omitempty" tf:"to,omitempty"`
 }
 
 type UDPPortRangeParameters struct {
@@ -166,6 +365,18 @@ type UDPPortRangeParameters struct {
 type SegmentSpec struct {
 	v1.ResourceSpec `json:",inline"`
 	ForProvider     SegmentParameters `json:"forProvider"`
+	// THIS IS AN ALPHA FIELD. Do not use it in production. It is not honored
+	// unless the relevant Crossplane feature flag is enabled, and may be
+	// changed or removed without notice.
+	// InitProvider holds the same fields as ForProvider, with the exception
+	// of Identifier and other resource reference fields. The fields that are
+	// in InitProvider are merged into ForProvider when the resource is created.
+	// The same fields are also added to the terraform ignore_changes hook, to
+	// avoid updating them after creation. This is useful for fields that are
+	// required on creation, but we do not desire to update them after creation,
+	// for example because of an external controller is managing them, like an
+	// autoscaler.
+	InitProvider SegmentInitParameters `json:"initProvider,omitempty"`
 }
 
 // SegmentStatus defines the observed state of Segment.
@@ -186,8 +397,10 @@ type SegmentStatus struct {
 type Segment struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              SegmentSpec   `json:"spec"`
-	Status            SegmentStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.domainNames) || has(self.initProvider.domainNames)",message="domainNames is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || has(self.initProvider.name)",message="name is a required parameter"
+	Spec   SegmentSpec   `json:"spec"`
+	Status SegmentStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

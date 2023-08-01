@@ -3,8 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.8.0
-  creationTimestamp: null
+    controller-gen.kubebuilder.io/version: v0.12.1
   name: customcontrols.zpainspectioncustomcontrols.zpa.crossplane.io
 spec:
   group: zpainspectioncustomcontrols.zpa.crossplane.io
@@ -55,9 +54,13 @@ spec:
             properties:
               deletionPolicy:
                 default: Delete
-                description: DeletionPolicy specifies what will happen to the underlying
+                description: 'DeletionPolicy specifies what will happen to the underlying
                   external when this managed resource is deleted - either "Delete"
-                  or "Orphan" the external resource.
+                  or "Orphan" the external resource. This field is planned to be deprecated
+                  in favor of the ManagementPolicies field in a future release. Currently,
+                  both could be set independently and non-default values would be
+                  honored if the feature flag is enabled. See the design doc for more
+                  information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223'
                 enum:
                 - Orphan
                 - Delete
@@ -90,6 +93,10 @@ spec:
                       in JSON format that has the conditions and type of control for
                       the inspection control
                     type: string
+                  controlType:
+                    description: '(string) Returned values: WEBSOCKET_PREDEFINED,
+                      WEBSOCKET_CUSTOM, ZSCALER, CUSTOM, PREDEFINED'
+                    type: string
                   defaultAction:
                     description: 'The performed action. Supported values: PASS, BLOCK
                       and REDIRECT The performed action'
@@ -109,6 +116,10 @@ spec:
                   paranoiaLevel:
                     description: 'OWASP Predefined Paranoia Level. OWASP Predefined
                       Paranoia Level. Range: [1-4], inclusive'
+                    type: string
+                  protocolType:
+                    description: '(string) Returned values: HTTP, HTTPS, FTP, RDP,
+                      SSH, WEBSOCKET'
                     type: string
                   rules:
                     description: Rules of the custom controls applied as conditions
@@ -169,12 +180,160 @@ spec:
                     description: 'The version of the predefined control, the default
                       is: OWASP_CRS/3.3.0'
                     type: string
-                required:
-                - defaultAction
-                - name
-                - severity
-                - type
                 type: object
+              initProvider:
+                description: THIS IS AN ALPHA FIELD. Do not use it in production.
+                  It is not honored unless the relevant Crossplane feature flag is
+                  enabled, and may be changed or removed without notice. InitProvider
+                  holds the same fields as ForProvider, with the exception of Identifier
+                  and other resource reference fields. The fields that are in InitProvider
+                  are merged into ForProvider when the resource is created. The same
+                  fields are also added to the terraform ignore_changes hook, to avoid
+                  updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after
+                  creation, for example because of an external controller is managing
+                  them, like an autoscaler.
+                properties:
+                  action:
+                    description: 'The performed action. Supported values: PASS, BLOCK
+                      and REDIRECT The performed action'
+                    type: string
+                  actionValue:
+                    description: Denotes the action
+                    type: string
+                  associatedInspectionProfileNames:
+                    description: Name of the inspection profile Name of the inspection
+                      profile
+                    items:
+                      properties:
+                        id:
+                          items:
+                            type: string
+                          type: array
+                      type: object
+                    type: array
+                  controlNumber:
+                    type: string
+                  controlRuleJson:
+                    description: The control rule in JSON format that has the conditions
+                      and type of control for the inspection control The control rule
+                      in JSON format that has the conditions and type of control for
+                      the inspection control
+                    type: string
+                  controlType:
+                    description: '(string) Returned values: WEBSOCKET_PREDEFINED,
+                      WEBSOCKET_CUSTOM, ZSCALER, CUSTOM, PREDEFINED'
+                    type: string
+                  defaultAction:
+                    description: 'The performed action. Supported values: PASS, BLOCK
+                      and REDIRECT The performed action'
+                    type: string
+                  defaultActionValue:
+                    description: This is used to provide the redirect URL if the default
+                      action is set to REDIRECT This is used to provide the redirect
+                      URL if the default action is set to REDIRECT
+                    type: string
+                  description:
+                    description: Description of the custom control Description of
+                      the custom control
+                    type: string
+                  name:
+                    description: The name of the predefined control.
+                    type: string
+                  paranoiaLevel:
+                    description: 'OWASP Predefined Paranoia Level. OWASP Predefined
+                      Paranoia Level. Range: [1-4], inclusive'
+                    type: string
+                  protocolType:
+                    description: '(string) Returned values: HTTP, HTTPS, FTP, RDP,
+                      SSH, WEBSOCKET'
+                    type: string
+                  rules:
+                    description: Rules of the custom controls applied as conditions
+                      JSON Rules of the custom controls applied as conditions (JSON)
+                    items:
+                      properties:
+                        conditions:
+                          items:
+                            properties:
+                              lhs:
+                                description: 'Signifies the key for the object type
+                                  Supported values: SIZE, VALUE Signifies the key
+                                  for the object type'
+                                type: string
+                              op:
+                                description: 'If lhs is set to SIZE, then the user
+                                  may pass one of the following: EQ: Equals, LE: Less
+                                  than or equal to, GE: Greater than or equal to.
+                                  If the lhs is set to VALUE, then the user may pass
+                                  one of the following: CONTAINS, STARTS_WITH, ENDS_WITH,
+                                  RX. Denotes the operation type.'
+                                type: string
+                              rhs:
+                                description: 'Denotes the value for the given object
+                                  type. Its value depends on the key. If rules.type
+                                  is set to REQUEST_METHOD, the conditions.rhs field
+                                  must have one of the following values: GET,HEAD,
+                                  POST, OPTIONS, PUT, DELETE, TRACE Denotes the value
+                                  for the given object type. Its value depends on
+                                  the key.'
+                                type: string
+                            type: object
+                          type: array
+                        names:
+                          description: Name of the rules. If rules.type is set to
+                            REQUEST_HEADERS, REQUEST_COOKIES, or RESPONSE_HEADERS,
+                            the rules.name field is required. Name of the rules. If
+                            rules.type is set to REQUEST_HEADERS, REQUEST_COOKIES,
+                            or RESPONSE_HEADERS, the rules.name field is required.
+                          items:
+                            type: string
+                          type: array
+                        type:
+                          description: Rules to be applied to the request or response
+                            type Type value for the rules.
+                          type: string
+                      type: object
+                    type: array
+                  severity:
+                    description: 'Severity of the control number. Supported values:
+                      CRITICAL, ERROR, WARNING, INFO Severity of the control number'
+                    type: string
+                  type:
+                    description: Rules to be applied to the request or response type
+                      Rules to be applied to the request or response type
+                    type: string
+                  version:
+                    description: 'The version of the predefined control, the default
+                      is: OWASP_CRS/3.3.0'
+                    type: string
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: 'THIS IS AN ALPHA FIELD. Do not use it in production.
+                  It is not honored unless the relevant Crossplane feature flag is
+                  enabled, and may be changed or removed without notice. ManagementPolicies
+                  specify the array of actions Crossplane is allowed to take on the
+                  managed and external resources. This field is planned to replace
+                  the DeletionPolicy field in a future release. Currently, both could
+                  be set independently and non-default values would be honored if
+                  the feature flag is enabled. If both are custom, the DeletionPolicy
+                  field will be ignored. See the design doc for more information:
+                  https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md'
+                items:
+                  description: A ManagementAction represents an action that the Crossplane
+                    controllers can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
               providerConfigRef:
                 default:
                   name: default
@@ -346,12 +505,142 @@ spec:
             required:
             - forProvider
             type: object
+            x-kubernetes-validations:
+            - message: defaultAction is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.defaultAction)
+                || has(self.initProvider.defaultAction)'
+            - message: name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || has(self.initProvider.name)'
+            - message: severity is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.severity)
+                || has(self.initProvider.severity)'
+            - message: type is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.type)
+                || has(self.initProvider.type)'
           status:
             description: CustomControlsStatus defines the observed state of CustomControls.
             properties:
               atProvider:
                 properties:
+                  action:
+                    description: 'The performed action. Supported values: PASS, BLOCK
+                      and REDIRECT The performed action'
+                    type: string
+                  actionValue:
+                    description: Denotes the action
+                    type: string
+                  associatedInspectionProfileNames:
+                    description: Name of the inspection profile Name of the inspection
+                      profile
+                    items:
+                      properties:
+                        id:
+                          items:
+                            type: string
+                          type: array
+                      type: object
+                    type: array
+                  controlNumber:
+                    type: string
+                  controlRuleJson:
+                    description: The control rule in JSON format that has the conditions
+                      and type of control for the inspection control The control rule
+                      in JSON format that has the conditions and type of control for
+                      the inspection control
+                    type: string
+                  controlType:
+                    description: '(string) Returned values: WEBSOCKET_PREDEFINED,
+                      WEBSOCKET_CUSTOM, ZSCALER, CUSTOM, PREDEFINED'
+                    type: string
+                  defaultAction:
+                    description: 'The performed action. Supported values: PASS, BLOCK
+                      and REDIRECT The performed action'
+                    type: string
+                  defaultActionValue:
+                    description: This is used to provide the redirect URL if the default
+                      action is set to REDIRECT This is used to provide the redirect
+                      URL if the default action is set to REDIRECT
+                    type: string
+                  description:
+                    description: Description of the custom control Description of
+                      the custom control
+                    type: string
                   id:
+                    type: string
+                  name:
+                    description: The name of the predefined control.
+                    type: string
+                  paranoiaLevel:
+                    description: 'OWASP Predefined Paranoia Level. OWASP Predefined
+                      Paranoia Level. Range: [1-4], inclusive'
+                    type: string
+                  protocolType:
+                    description: '(string) Returned values: HTTP, HTTPS, FTP, RDP,
+                      SSH, WEBSOCKET'
+                    type: string
+                  rules:
+                    description: Rules of the custom controls applied as conditions
+                      JSON Rules of the custom controls applied as conditions (JSON)
+                    items:
+                      properties:
+                        conditions:
+                          items:
+                            properties:
+                              lhs:
+                                description: 'Signifies the key for the object type
+                                  Supported values: SIZE, VALUE Signifies the key
+                                  for the object type'
+                                type: string
+                              op:
+                                description: 'If lhs is set to SIZE, then the user
+                                  may pass one of the following: EQ: Equals, LE: Less
+                                  than or equal to, GE: Greater than or equal to.
+                                  If the lhs is set to VALUE, then the user may pass
+                                  one of the following: CONTAINS, STARTS_WITH, ENDS_WITH,
+                                  RX. Denotes the operation type.'
+                                type: string
+                              rhs:
+                                description: 'Denotes the value for the given object
+                                  type. Its value depends on the key. If rules.type
+                                  is set to REQUEST_METHOD, the conditions.rhs field
+                                  must have one of the following values: GET,HEAD,
+                                  POST, OPTIONS, PUT, DELETE, TRACE Denotes the value
+                                  for the given object type. Its value depends on
+                                  the key.'
+                                type: string
+                            type: object
+                          type: array
+                        names:
+                          description: Name of the rules. If rules.type is set to
+                            REQUEST_HEADERS, REQUEST_COOKIES, or RESPONSE_HEADERS,
+                            the rules.name field is required. Name of the rules. If
+                            rules.type is set to REQUEST_HEADERS, REQUEST_COOKIES,
+                            or RESPONSE_HEADERS, the rules.name field is required.
+                          items:
+                            type: string
+                          type: array
+                        type:
+                          description: Rules to be applied to the request or response
+                            type Type value for the rules.
+                          type: string
+                      type: object
+                    type: array
+                  severity:
+                    description: 'Severity of the control number. Supported values:
+                      CRITICAL, ERROR, WARNING, INFO Severity of the control number'
+                    type: string
+                  type:
+                    description: Rules to be applied to the request or response type
+                      Rules to be applied to the request or response type
+                    type: string
+                  version:
+                    description: 'The version of the predefined control, the default
+                      is: OWASP_CRS/3.3.0'
                     type: string
                 type: object
               conditions:
@@ -395,9 +684,3 @@ spec:
     storage: true
     subresources:
       status: {}
-status:
-  acceptedNames:
-    kind: ""
-    plural: ""
-  conditions: []
-  storedVersions: []

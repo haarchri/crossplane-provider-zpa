@@ -20,7 +20,5 @@ spec:
     overrideVersionProfile: true
     upgradeDay: SUNDAY
     upgradeTimeInSecs: "66600"
+    useInDrMode: true
     versionProfileName: New Release
-
----
-

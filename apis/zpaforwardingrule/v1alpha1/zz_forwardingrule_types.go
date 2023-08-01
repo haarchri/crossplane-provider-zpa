@@ -13,13 +13,31 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
-type ConditionsObservation struct {
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+type ConditionsInitParameters struct {
+
+	// Supported values: true or false
+	Negated *bool `json:"negated,omitempty" tf:"negated,omitempty"`
 
 	// Operands block must be repeated if multiple per object_type conditions are to be added to the rule.
 	// This signifies the various policy criteria.
-	// +kubebuilder:validation:Optional
+	Operands []OperandsInitParameters `json:"operands,omitempty" tf:"operands,omitempty"`
+
+	// Supported values: AND, OR
+	Operator *string `json:"operator,omitempty" tf:"operator,omitempty"`
+}
+
+type ConditionsObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Supported values: true or false
+	Negated *bool `json:"negated,omitempty" tf:"negated,omitempty"`
+
+	// Operands block must be repeated if multiple per object_type conditions are to be added to the rule.
+	// This signifies the various policy criteria.
 	Operands []OperandsObservation `json:"operands,omitempty" tf:"operands,omitempty"`
+
+	// Supported values: AND, OR
+	Operator *string `json:"operator,omitempty" tf:"operator,omitempty"`
 }
 
 type ConditionsParameters struct {
@@ -34,17 +52,124 @@ type ConditionsParameters struct {
 	Operands []OperandsParameters `json:"operands,omitempty" tf:"operands,omitempty"`
 
 	// Supported values: AND, OR
-	// +kubebuilder:validation:Required
-	Operator *string `json:"operator" tf:"operator,omitempty"`
+	// +kubebuilder:validation:Optional
+	Operator *string `json:"operator,omitempty" tf:"operator,omitempty"`
+}
+
+type ForwardingRuleInitParameters struct {
+
+	// This is for providing the rule action.
+	// This is for providing the rule action.
+	Action *string `json:"action,omitempty" tf:"action,omitempty"`
+
+	// This field defines the description of the server.
+	ActionID *string `json:"actionId,omitempty" tf:"action_id,omitempty"`
+
+	BypassDefaultRule *bool `json:"bypassDefaultRule,omitempty" tf:"bypass_default_rule,omitempty"`
+
+	// This is for proviidng the set of conditions for the policy.
+	Conditions []ConditionsInitParameters `json:"conditions,omitempty" tf:"conditions,omitempty"`
+
+	// This is for providing a customer message for the user.
+	// This is for providing a customer message for the user.
+	CustomMsg *string `json:"customMsg,omitempty" tf:"custom_msg,omitempty"`
+
+	// This is for providing a customer message for the user.
+	DefaultRule *bool `json:"defaultRule,omitempty" tf:"default_rule,omitempty"`
+
+	// This is the description of the access policy rule.
+	// This is the description of the access policy.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	LssDefaultRule *bool `json:"lssDefaultRule,omitempty" tf:"lss_default_rule,omitempty"`
+
+	// This is the name of the forwarding policy rule.
+	// This is the name of the policy.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Supported values: AND, OR
+	Operator *string `json:"operator,omitempty" tf:"operator,omitempty"`
+
+	// Use zpa_policy_type data source to retrieve the necessary policy Set ID policy_set_id
+	PolicySetID *string `json:"policySetId,omitempty" tf:"policy_set_id,omitempty"`
+
+	// Supported values: CLIENT_FORWARDING_POLICY or BYPASS_POLICY
+	PolicyType *string `json:"policyType,omitempty" tf:"policy_type,omitempty"`
+
+	Priority *string `json:"priority,omitempty" tf:"priority,omitempty"`
+
+	ReauthDefaultRule *bool `json:"reauthDefaultRule,omitempty" tf:"reauth_default_rule,omitempty"`
+
+	ReauthIdleTimeout *string `json:"reauthIdleTimeout,omitempty" tf:"reauth_idle_timeout,omitempty"`
+
+	ReauthTimeout *string `json:"reauthTimeout,omitempty" tf:"reauth_timeout,omitempty"`
+
+	RuleOrder *string `json:"ruleOrder,omitempty" tf:"rule_order,omitempty"`
+
+	ZpnCbiProfileID *string `json:"zpnCbiProfileId,omitempty" tf:"zpn_cbi_profile_id,omitempty"`
+
+	ZpnInspectionProfileID *string `json:"zpnInspectionProfileId,omitempty" tf:"zpn_inspection_profile_id,omitempty"`
+
+	ZpnIsolationProfileID *string `json:"zpnIsolationProfileId,omitempty" tf:"zpn_isolation_profile_id,omitempty"`
 }
 
 type ForwardingRuleObservation struct {
 
+	// This is for providing the rule action.
+	// This is for providing the rule action.
+	Action *string `json:"action,omitempty" tf:"action,omitempty"`
+
+	// This field defines the description of the server.
+	ActionID *string `json:"actionId,omitempty" tf:"action_id,omitempty"`
+
+	BypassDefaultRule *bool `json:"bypassDefaultRule,omitempty" tf:"bypass_default_rule,omitempty"`
+
 	// This is for proviidng the set of conditions for the policy.
-	// +kubebuilder:validation:Optional
 	Conditions []ConditionsObservation `json:"conditions,omitempty" tf:"conditions,omitempty"`
 
+	// This is for providing a customer message for the user.
+	// This is for providing a customer message for the user.
+	CustomMsg *string `json:"customMsg,omitempty" tf:"custom_msg,omitempty"`
+
+	// This is for providing a customer message for the user.
+	DefaultRule *bool `json:"defaultRule,omitempty" tf:"default_rule,omitempty"`
+
+	// This is the description of the access policy rule.
+	// This is the description of the access policy.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	LssDefaultRule *bool `json:"lssDefaultRule,omitempty" tf:"lss_default_rule,omitempty"`
+
+	// This is the name of the forwarding policy rule.
+	// This is the name of the policy.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Supported values: AND, OR
+	Operator *string `json:"operator,omitempty" tf:"operator,omitempty"`
+
+	// Use zpa_policy_type data source to retrieve the necessary policy Set ID policy_set_id
+	PolicySetID *string `json:"policySetId,omitempty" tf:"policy_set_id,omitempty"`
+
+	// Supported values: CLIENT_FORWARDING_POLICY or BYPASS_POLICY
+	PolicyType *string `json:"policyType,omitempty" tf:"policy_type,omitempty"`
+
+	Priority *string `json:"priority,omitempty" tf:"priority,omitempty"`
+
+	ReauthDefaultRule *bool `json:"reauthDefaultRule,omitempty" tf:"reauth_default_rule,omitempty"`
+
+	ReauthIdleTimeout *string `json:"reauthIdleTimeout,omitempty" tf:"reauth_idle_timeout,omitempty"`
+
+	ReauthTimeout *string `json:"reauthTimeout,omitempty" tf:"reauth_timeout,omitempty"`
+
+	RuleOrder *string `json:"ruleOrder,omitempty" tf:"rule_order,omitempty"`
+
+	ZpnCbiProfileID *string `json:"zpnCbiProfileId,omitempty" tf:"zpn_cbi_profile_id,omitempty"`
+
+	ZpnInspectionProfileID *string `json:"zpnInspectionProfileId,omitempty" tf:"zpn_inspection_profile_id,omitempty"`
+
+	ZpnIsolationProfileID *string `json:"zpnIsolationProfileId,omitempty" tf:"zpn_isolation_profile_id,omitempty"`
 }
 
 type ForwardingRuleParameters struct {
@@ -84,8 +209,8 @@ type ForwardingRuleParameters struct {
 
 	// This is the name of the forwarding policy rule.
 	// This is the name of the policy.
-	// +kubebuilder:validation:Required
-	Name *string `json:"name" tf:"name,omitempty"`
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Supported values: AND, OR
 	// +kubebuilder:validation:Optional
@@ -115,11 +240,59 @@ type ForwardingRuleParameters struct {
 	RuleOrder *string `json:"ruleOrder,omitempty" tf:"rule_order,omitempty"`
 
 	// +kubebuilder:validation:Optional
+	ZpnCbiProfileID *string `json:"zpnCbiProfileId,omitempty" tf:"zpn_cbi_profile_id,omitempty"`
+
+	// +kubebuilder:validation:Optional
 	ZpnInspectionProfileID *string `json:"zpnInspectionProfileId,omitempty" tf:"zpn_inspection_profile_id,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ZpnIsolationProfileID *string `json:"zpnIsolationProfileId,omitempty" tf:"zpn_isolation_profile_id,omitempty"`
+}
+
+type OperandsInitParameters struct {
+	IdpID *string `json:"idpId,omitempty" tf:"idp_id,omitempty"`
+
+	// LHS must always carry the string value id or the attribute ID of the resource being associated with the rule.
+	// This signifies the key for the object type. String ID example: id
+	Lhs *string `json:"lhs,omitempty" tf:"lhs,omitempty"`
+
+	// This is the name of the forwarding policy rule.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// This is for specifying the policy critiera. Supported values: APP, APP_GROUP, SAML, IDP, CLIENT_TYPE, TRUSTED_NETWORK, POSTURE, SCIM, SCIM_GROUP, and CLOUD_CONNECTOR_GROUP. TRUSTED_NETWORK, and CLIENT_TYPE.
+	// This is for specifying the policy critiera.
+	ObjectType *string `json:"objectType,omitempty" tf:"object_type,omitempty"`
+
+	// RHS is either the ID attribute of a resource or fixed string value. Refer to the chart below for further details.
+	// This denotes the value for the given object type. Its value depends upon the key.
+	Rhs *string `json:"rhs,omitempty" tf:"rhs,omitempty"`
+
+	// This denotes a list of values for the given object type. The value depend upon the key. If rhs is defined this list will be ignored
+	RhsList []*string `json:"rhsList,omitempty" tf:"rhs_list,omitempty"`
 }
 
 type OperandsObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	IdpID *string `json:"idpId,omitempty" tf:"idp_id,omitempty"`
+
+	// LHS must always carry the string value id or the attribute ID of the resource being associated with the rule.
+	// This signifies the key for the object type. String ID example: id
+	Lhs *string `json:"lhs,omitempty" tf:"lhs,omitempty"`
+
+	// This is the name of the forwarding policy rule.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// This is for specifying the policy critiera. Supported values: APP, APP_GROUP, SAML, IDP, CLIENT_TYPE, TRUSTED_NETWORK, POSTURE, SCIM, SCIM_GROUP, and CLOUD_CONNECTOR_GROUP. TRUSTED_NETWORK, and CLIENT_TYPE.
+	// This is for specifying the policy critiera.
+	ObjectType *string `json:"objectType,omitempty" tf:"object_type,omitempty"`
+
+	// RHS is either the ID attribute of a resource or fixed string value. Refer to the chart below for further details.
+	// This denotes the value for the given object type. Its value depends upon the key.
+	Rhs *string `json:"rhs,omitempty" tf:"rhs,omitempty"`
+
+	// This denotes a list of values for the given object type. The value depend upon the key. If rhs is defined this list will be ignored
+	RhsList []*string `json:"rhsList,omitempty" tf:"rhs_list,omitempty"`
 }
 
 type OperandsParameters struct {
@@ -129,8 +302,8 @@ type OperandsParameters struct {
 
 	// LHS must always carry the string value id or the attribute ID of the resource being associated with the rule.
 	// This signifies the key for the object type. String ID example: id
-	// +kubebuilder:validation:Required
-	Lhs *string `json:"lhs" tf:"lhs,omitempty"`
+	// +kubebuilder:validation:Optional
+	Lhs *string `json:"lhs,omitempty" tf:"lhs,omitempty"`
 
 	// This is the name of the forwarding policy rule.
 	// +kubebuilder:validation:Optional
@@ -138,8 +311,8 @@ type OperandsParameters struct {
 
 	// This is for specifying the policy critiera. Supported values: APP, APP_GROUP, SAML, IDP, CLIENT_TYPE, TRUSTED_NETWORK, POSTURE, SCIM, SCIM_GROUP, and CLOUD_CONNECTOR_GROUP. TRUSTED_NETWORK, and CLIENT_TYPE.
 	// This is for specifying the policy critiera.
-	// +kubebuilder:validation:Required
-	ObjectType *string `json:"objectType" tf:"object_type,omitempty"`
+	// +kubebuilder:validation:Optional
+	ObjectType *string `json:"objectType,omitempty" tf:"object_type,omitempty"`
 
 	// RHS is either the ID attribute of a resource or fixed string value. Refer to the chart below for further details.
 	// This denotes the value for the given object type. Its value depends upon the key.
@@ -155,6 +328,18 @@ type OperandsParameters struct {
 type ForwardingRuleSpec struct {
 	v1.ResourceSpec `json:",inline"`
 	ForProvider     ForwardingRuleParameters `json:"forProvider"`
+	// THIS IS AN ALPHA FIELD. Do not use it in production. It is not honored
+	// unless the relevant Crossplane feature flag is enabled, and may be
+	// changed or removed without notice.
+	// InitProvider holds the same fields as ForProvider, with the exception
+	// of Identifier and other resource reference fields. The fields that are
+	// in InitProvider are merged into ForProvider when the resource is created.
+	// The same fields are also added to the terraform ignore_changes hook, to
+	// avoid updating them after creation. This is useful for fields that are
+	// required on creation, but we do not desire to update them after creation,
+	// for example because of an external controller is managing them, like an
+	// autoscaler.
+	InitProvider ForwardingRuleInitParameters `json:"initProvider,omitempty"`
 }
 
 // ForwardingRuleStatus defines the observed state of ForwardingRule.
@@ -175,8 +360,9 @@ type ForwardingRuleStatus struct {
 type ForwardingRule struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              ForwardingRuleSpec   `json:"spec"`
-	Status            ForwardingRuleStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || has(self.initProvider.name)",message="name is a required parameter"
+	Spec   ForwardingRuleSpec   `json:"spec"`
+	Status ForwardingRuleStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -13,17 +13,90 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type KeyInitParameters struct {
+	AppConnectorGroupID *string `json:"appConnectorGroupId,omitempty" tf:"app_connector_group_id,omitempty"`
+
+	// Specifies the provisioning key type for App Connectors or ZPA Private Service Edges. The supported values are CONNECTOR_GRP and SERVICE_EDGE_GRP
+	// Specifies the provisioning key type for App Connectors or ZPA Private Service Edges. The supported values are CONNECTOR_GRP and SERVICE_EDGE_GRP.
+	AssociationType *string `json:"associationType,omitempty" tf:"association_type,omitempty"`
+
+	// Whether the provisioning key is enabled or not. Supported values: true, false
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// ID of the enrollment certificate that can be used for this provisioning key. ID of the existing enrollment certificate that has the private key
+	// ID of the enrollment certificate that can be used for this provisioning key.
+	EnrollmentCertID *string `json:"enrollmentCertId,omitempty" tf:"enrollment_cert_id,omitempty"`
+
+	IPACL []*string `json:"ipAcl,omitempty" tf:"ip_acl,omitempty"`
+
+	// The maximum number of instances where this provisioning key can be used for enrolling an App Connector or Service Edge.
+	// The maximum number of instances where this provisioning key can be used for enrolling an App Connector or Service Edge.
+	MaxUsage *string `json:"maxUsage,omitempty" tf:"max_usage,omitempty"`
+
+	// Name of the provisioning key.
+	// Name of the provisioning key.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	UIConfig *string `json:"uiConfig,omitempty" tf:"ui_config,omitempty"`
+
+	// The provisioning key utilization count.
+	UsageCount *string `json:"usageCount,omitempty" tf:"usage_count,omitempty"`
+
+	// ID of the existing App Connector or Service Edge Group.
+	// ID of the existing App Connector or Service Edge Group.
+	ZcomponentID *string `json:"zcomponentId,omitempty" tf:"zcomponent_id,omitempty"`
+
+	// Name of the provisioning key.
+	// Read only property. Applicable only for GET calls, ignored in PUT/POST calls.
+	ZcomponentName *string `json:"zcomponentName,omitempty" tf:"zcomponent_name,omitempty"`
+}
+
 type KeyObservation struct {
+	AppConnectorGroupID *string `json:"appConnectorGroupId,omitempty" tf:"app_connector_group_id,omitempty"`
 
 	// Name of the provisioning key.
 	// Read only property. Applicable only for GET calls, ignored in PUT/POST calls.
 	AppConnectorGroupName *string `json:"appConnectorGroupName,omitempty" tf:"app_connector_group_name,omitempty"`
+
+	// Specifies the provisioning key type for App Connectors or ZPA Private Service Edges. The supported values are CONNECTOR_GRP and SERVICE_EDGE_GRP
+	// Specifies the provisioning key type for App Connectors or ZPA Private Service Edges. The supported values are CONNECTOR_GRP and SERVICE_EDGE_GRP.
+	AssociationType *string `json:"associationType,omitempty" tf:"association_type,omitempty"`
+
+	// Whether the provisioning key is enabled or not. Supported values: true, false
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// ID of the enrollment certificate that can be used for this provisioning key. ID of the existing enrollment certificate that has the private key
+	// ID of the enrollment certificate that can be used for this provisioning key.
+	EnrollmentCertID *string `json:"enrollmentCertId,omitempty" tf:"enrollment_cert_id,omitempty"`
 
 	// Name of the provisioning key.
 	// Read only property. Applicable only for GET calls, ignored in PUT/POST calls.
 	EnrollmentCertName *string `json:"enrollmentCertName,omitempty" tf:"enrollment_cert_name,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	IPACL []*string `json:"ipAcl,omitempty" tf:"ip_acl,omitempty"`
+
+	// The maximum number of instances where this provisioning key can be used for enrolling an App Connector or Service Edge.
+	// The maximum number of instances where this provisioning key can be used for enrolling an App Connector or Service Edge.
+	MaxUsage *string `json:"maxUsage,omitempty" tf:"max_usage,omitempty"`
+
+	// Name of the provisioning key.
+	// Name of the provisioning key.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	UIConfig *string `json:"uiConfig,omitempty" tf:"ui_config,omitempty"`
+
+	// The provisioning key utilization count.
+	UsageCount *string `json:"usageCount,omitempty" tf:"usage_count,omitempty"`
+
+	// ID of the existing App Connector or Service Edge Group.
+	// ID of the existing App Connector or Service Edge Group.
+	ZcomponentID *string `json:"zcomponentId,omitempty" tf:"zcomponent_id,omitempty"`
+
+	// Name of the provisioning key.
+	// Read only property. Applicable only for GET calls, ignored in PUT/POST calls.
+	ZcomponentName *string `json:"zcomponentName,omitempty" tf:"zcomponent_name,omitempty"`
 }
 
 type KeyParameters struct {
@@ -33,8 +106,8 @@ type KeyParameters struct {
 
 	// Specifies the provisioning key type for App Connectors or ZPA Private Service Edges. The supported values are CONNECTOR_GRP and SERVICE_EDGE_GRP
 	// Specifies the provisioning key type for App Connectors or ZPA Private Service Edges. The supported values are CONNECTOR_GRP and SERVICE_EDGE_GRP.
-	// +kubebuilder:validation:Required
-	AssociationType *string `json:"associationType" tf:"association_type,omitempty"`
+	// +kubebuilder:validation:Optional
+	AssociationType *string `json:"associationType,omitempty" tf:"association_type,omitempty"`
 
 	// Whether the provisioning key is enabled or not. Supported values: true, false
 	// +kubebuilder:validation:Optional
@@ -42,21 +115,21 @@ type KeyParameters struct {
 
 	// ID of the enrollment certificate that can be used for this provisioning key. ID of the existing enrollment certificate that has the private key
 	// ID of the enrollment certificate that can be used for this provisioning key.
-	// +kubebuilder:validation:Required
-	EnrollmentCertID *string `json:"enrollmentCertId" tf:"enrollment_cert_id,omitempty"`
+	// +kubebuilder:validation:Optional
+	EnrollmentCertID *string `json:"enrollmentCertId,omitempty" tf:"enrollment_cert_id,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	IPACL []*string `json:"ipAcl,omitempty" tf:"ip_acl,omitempty"`
 
 	// The maximum number of instances where this provisioning key can be used for enrolling an App Connector or Service Edge.
 	// The maximum number of instances where this provisioning key can be used for enrolling an App Connector or Service Edge.
-	// +kubebuilder:validation:Required
-	MaxUsage *string `json:"maxUsage" tf:"max_usage,omitempty"`
+	// +kubebuilder:validation:Optional
+	MaxUsage *string `json:"maxUsage,omitempty" tf:"max_usage,omitempty"`
 
 	// Name of the provisioning key.
 	// Name of the provisioning key.
-	// +kubebuilder:validation:Required
-	Name *string `json:"name" tf:"name,omitempty"`
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	UIConfig *string `json:"uiConfig,omitempty" tf:"ui_config,omitempty"`
@@ -67,8 +140,8 @@ type KeyParameters struct {
 
 	// ID of the existing App Connector or Service Edge Group.
 	// ID of the existing App Connector or Service Edge Group.
-	// +kubebuilder:validation:Required
-	ZcomponentID *string `json:"zcomponentId" tf:"zcomponent_id,omitempty"`
+	// +kubebuilder:validation:Optional
+	ZcomponentID *string `json:"zcomponentId,omitempty" tf:"zcomponent_id,omitempty"`
 
 	// Name of the provisioning key.
 	// Read only property. Applicable only for GET calls, ignored in PUT/POST calls.
@@ -80,6 +153,18 @@ type KeyParameters struct {
 type KeySpec struct {
 	v1.ResourceSpec `json:",inline"`
 	ForProvider     KeyParameters `json:"forProvider"`
+	// THIS IS AN ALPHA FIELD. Do not use it in production. It is not honored
+	// unless the relevant Crossplane feature flag is enabled, and may be
+	// changed or removed without notice.
+	// InitProvider holds the same fields as ForProvider, with the exception
+	// of Identifier and other resource reference fields. The fields that are
+	// in InitProvider are merged into ForProvider when the resource is created.
+	// The same fields are also added to the terraform ignore_changes hook, to
+	// avoid updating them after creation. This is useful for fields that are
+	// required on creation, but we do not desire to update them after creation,
+	// for example because of an external controller is managing them, like an
+	// autoscaler.
+	InitProvider KeyInitParameters `json:"initProvider,omitempty"`
 }
 
 // KeyStatus defines the observed state of Key.
@@ -100,8 +185,13 @@ type KeyStatus struct {
 type Key struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              KeySpec   `json:"spec"`
-	Status            KeyStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.associationType) || has(self.initProvider.associationType)",message="associationType is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.enrollmentCertId) || has(self.initProvider.enrollmentCertId)",message="enrollmentCertId is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.maxUsage) || has(self.initProvider.maxUsage)",message="maxUsage is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || has(self.initProvider.name)",message="name is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.zcomponentId) || has(self.initProvider.zcomponentId)",message="zcomponentId is a required parameter"
+	Spec   KeySpec   `json:"spec"`
+	Status KeyStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

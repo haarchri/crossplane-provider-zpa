@@ -13,10 +13,165 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type ConnectorGroupInitParameters struct {
+
+	// Whether Double Encryption is enabled or disabled for the app. i.e "San Jose, US"
+	CityCountry *string `json:"cityCountry,omitempty" tf:"city_country,omitempty"`
+
+	// i.e "US", "CA"
+	CountryCode *string `json:"countryCode,omitempty" tf:"country_code,omitempty"`
+
+	// Supported values are:
+	// Whether to enable IPv4 or IPv6, or both, for DNS resolution of all applications in the App Connector Group
+	DNSQueryType *string `json:"dnsQueryType,omitempty" tf:"dns_query_type,omitempty"`
+
+	// Description of the App Connector Group.
+	// Description of the App Connector Group
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// Whether this App Connector Group is enabled or not. Default value: true. Supported values: true, false
+	// Whether this App Connector Group is enabled or not
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// Latitude of the App Connector Group. Integer or decimal. With values in the range of -90 to 90
+	// Latitude of the App Connector Group. Integer or decimal. With values in the range of -90 to 90
+	Latitude *string `json:"latitude,omitempty" tf:"latitude,omitempty"`
+
+	// Location of the App Connector Group. i.e "San Jose, CA, USA"
+	// Location of the App Connector Group
+	Location *string `json:"location,omitempty" tf:"location,omitempty"`
+
+	// Longitude of the App Connector Group. Integer or decimal. With values in the range of -180 to 180
+	// Longitude of the App Connector Group. Integer or decimal. With values in the range of -180 to 180
+	Longitude *string `json:"longitude,omitempty" tf:"longitude,omitempty"`
+
+	LssAppConnectorGroup *bool `json:"lssAppConnectorGroup,omitempty" tf:"lss_app_connector_group,omitempty"`
+
+	// Name of the App Connector Group.
+	// Name of the App Connector Group
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Whether the default version profile of the App Connector Group is applied or overridden. Default: false Supported values: true, false
+	// Whether the default version profile of the App Connector Group is applied or overridden. Supported values: true, false
+	OverrideVersionProfile *bool `json:"overrideVersionProfile,omitempty" tf:"override_version_profile,omitempty"`
+
+	// Supported values: true, false
+	PraEnabled *bool `json:"praEnabled,omitempty" tf:"pra_enabled,omitempty"`
+
+	// Whether TCP Quick Acknowledgement is enabled or disabled for the application. The tcpQuickAckApp, tcpQuickAckAssistant, and tcpQuickAckReadAssistant fields must all share the same value. Supported values: true, false
+	// Whether TCP Quick Acknowledgement is enabled or disabled for the application. The tcpQuickAckApp, tcpQuickAckAssistant, and tcpQuickAckReadAssistant fields must all share the same value.
+	TCPQuickAckApp *bool `json:"tcpQuickAckApp,omitempty" tf:"tcp_quick_ack_app,omitempty"`
+
+	// Whether TCP Quick Acknowledgement is enabled or disabled for the application. The tcpQuickAckApp, tcpQuickAckAssistant, and tcpQuickAckReadAssistant fields must all share the same value. Supported values: true, false
+	// Whether TCP Quick Acknowledgement is enabled or disabled for the application. The tcpQuickAckApp, tcpQuickAckAssistant, and tcpQuickAckReadAssistant fields must all share the same value.
+	TCPQuickAckAssistant *bool `json:"tcpQuickAckAssistant,omitempty" tf:"tcp_quick_ack_assistant,omitempty"`
+
+	// Whether TCP Quick Acknowledgement is enabled or disabled for the application. The tcpQuickAckApp, tcpQuickAckAssistant, and tcpQuickAckReadAssistant fields must all share the same value. Supported values: true, false
+	// Whether TCP Quick Acknowledgement is enabled or disabled for the application. The tcpQuickAckApp, tcpQuickAckAssistant, and tcpQuickAckReadAssistant fields must all share the same value.
+	TCPQuickAckReadAssistant *bool `json:"tcpQuickAckReadAssistant,omitempty" tf:"tcp_quick_ack_read_assistant,omitempty"`
+
+	// App Connectors in this group will attempt to update to a newer version of the software during this specified day i.e SUNDAY
+	// App Connectors in this group will attempt to update to a newer version of the software during this specified day. List of valid days (i.e., Sunday, Monday)
+	UpgradeDay *string `json:"upgradeDay,omitempty" tf:"upgrade_day,omitempty"`
+
+	// App Connectors in this group will attempt to update to a newer version of the software during this specified time. Default value: 66600. Integer in seconds (i.e., -66600). The integer should be greater than or equal to 0 and less than 86400, in 15 minute intervals
+	// App Connectors in this group will attempt to update to a newer version of the software during this specified time. Integer in seconds (i.e., -66600). The integer should be greater than or equal to 0 and less than 86400, in 15 minute intervals
+	UpgradeTimeInSecs *string `json:"upgradeTimeInSecs,omitempty" tf:"upgrade_time_in_secs,omitempty"`
+
+	// Supported values: true, false
+	UseInDrMode *bool `json:"useInDrMode,omitempty" tf:"use_in_dr_mode,omitempty"`
+
+	// ID of the version profile. To learn more, see Version Profile Use Cases. Supported values are:
+	// ID of the version profile. To learn more, see Version Profile Use Cases. This value is required, if the value for overrideVersionProfile is set to true
+	VersionProfileID *string `json:"versionProfileId,omitempty" tf:"version_profile_id,omitempty"`
+
+	// Name of the version profile. To learn more, see Version Profile Use Cases. This value is required, if the value for overrideVersionProfile is set to true
+	VersionProfileName *string `json:"versionProfileName,omitempty" tf:"version_profile_name,omitempty"`
+
+	// Supported values: true, false
+	WafDisabled *bool `json:"wafDisabled,omitempty" tf:"waf_disabled,omitempty"`
+}
+
 type ConnectorGroupObservation struct {
+
+	// Whether Double Encryption is enabled or disabled for the app. i.e "San Jose, US"
+	CityCountry *string `json:"cityCountry,omitempty" tf:"city_country,omitempty"`
+
+	// i.e "US", "CA"
+	CountryCode *string `json:"countryCode,omitempty" tf:"country_code,omitempty"`
+
+	// Supported values are:
+	// Whether to enable IPv4 or IPv6, or both, for DNS resolution of all applications in the App Connector Group
+	DNSQueryType *string `json:"dnsQueryType,omitempty" tf:"dns_query_type,omitempty"`
+
+	// Description of the App Connector Group.
+	// Description of the App Connector Group
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// Whether this App Connector Group is enabled or not. Default value: true. Supported values: true, false
+	// Whether this App Connector Group is enabled or not
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
 	// The ID of the Group Role Assignment.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Latitude of the App Connector Group. Integer or decimal. With values in the range of -90 to 90
+	// Latitude of the App Connector Group. Integer or decimal. With values in the range of -90 to 90
+	Latitude *string `json:"latitude,omitempty" tf:"latitude,omitempty"`
+
+	// Location of the App Connector Group. i.e "San Jose, CA, USA"
+	// Location of the App Connector Group
+	Location *string `json:"location,omitempty" tf:"location,omitempty"`
+
+	// Longitude of the App Connector Group. Integer or decimal. With values in the range of -180 to 180
+	// Longitude of the App Connector Group. Integer or decimal. With values in the range of -180 to 180
+	Longitude *string `json:"longitude,omitempty" tf:"longitude,omitempty"`
+
+	LssAppConnectorGroup *bool `json:"lssAppConnectorGroup,omitempty" tf:"lss_app_connector_group,omitempty"`
+
+	// Name of the App Connector Group.
+	// Name of the App Connector Group
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Whether the default version profile of the App Connector Group is applied or overridden. Default: false Supported values: true, false
+	// Whether the default version profile of the App Connector Group is applied or overridden. Supported values: true, false
+	OverrideVersionProfile *bool `json:"overrideVersionProfile,omitempty" tf:"override_version_profile,omitempty"`
+
+	// Supported values: true, false
+	PraEnabled *bool `json:"praEnabled,omitempty" tf:"pra_enabled,omitempty"`
+
+	// Whether TCP Quick Acknowledgement is enabled or disabled for the application. The tcpQuickAckApp, tcpQuickAckAssistant, and tcpQuickAckReadAssistant fields must all share the same value. Supported values: true, false
+	// Whether TCP Quick Acknowledgement is enabled or disabled for the application. The tcpQuickAckApp, tcpQuickAckAssistant, and tcpQuickAckReadAssistant fields must all share the same value.
+	TCPQuickAckApp *bool `json:"tcpQuickAckApp,omitempty" tf:"tcp_quick_ack_app,omitempty"`
+
+	// Whether TCP Quick Acknowledgement is enabled or disabled for the application. The tcpQuickAckApp, tcpQuickAckAssistant, and tcpQuickAckReadAssistant fields must all share the same value. Supported values: true, false
+	// Whether TCP Quick Acknowledgement is enabled or disabled for the application. The tcpQuickAckApp, tcpQuickAckAssistant, and tcpQuickAckReadAssistant fields must all share the same value.
+	TCPQuickAckAssistant *bool `json:"tcpQuickAckAssistant,omitempty" tf:"tcp_quick_ack_assistant,omitempty"`
+
+	// Whether TCP Quick Acknowledgement is enabled or disabled for the application. The tcpQuickAckApp, tcpQuickAckAssistant, and tcpQuickAckReadAssistant fields must all share the same value. Supported values: true, false
+	// Whether TCP Quick Acknowledgement is enabled or disabled for the application. The tcpQuickAckApp, tcpQuickAckAssistant, and tcpQuickAckReadAssistant fields must all share the same value.
+	TCPQuickAckReadAssistant *bool `json:"tcpQuickAckReadAssistant,omitempty" tf:"tcp_quick_ack_read_assistant,omitempty"`
+
+	// App Connectors in this group will attempt to update to a newer version of the software during this specified day i.e SUNDAY
+	// App Connectors in this group will attempt to update to a newer version of the software during this specified day. List of valid days (i.e., Sunday, Monday)
+	UpgradeDay *string `json:"upgradeDay,omitempty" tf:"upgrade_day,omitempty"`
+
+	// App Connectors in this group will attempt to update to a newer version of the software during this specified time. Default value: 66600. Integer in seconds (i.e., -66600). The integer should be greater than or equal to 0 and less than 86400, in 15 minute intervals
+	// App Connectors in this group will attempt to update to a newer version of the software during this specified time. Integer in seconds (i.e., -66600). The integer should be greater than or equal to 0 and less than 86400, in 15 minute intervals
+	UpgradeTimeInSecs *string `json:"upgradeTimeInSecs,omitempty" tf:"upgrade_time_in_secs,omitempty"`
+
+	// Supported values: true, false
+	UseInDrMode *bool `json:"useInDrMode,omitempty" tf:"use_in_dr_mode,omitempty"`
+
+	// ID of the version profile. To learn more, see Version Profile Use Cases. Supported values are:
+	// ID of the version profile. To learn more, see Version Profile Use Cases. This value is required, if the value for overrideVersionProfile is set to true
+	VersionProfileID *string `json:"versionProfileId,omitempty" tf:"version_profile_id,omitempty"`
+
+	// Name of the version profile. To learn more, see Version Profile Use Cases. This value is required, if the value for overrideVersionProfile is set to true
+	VersionProfileName *string `json:"versionProfileName,omitempty" tf:"version_profile_name,omitempty"`
+
+	// Supported values: true, false
+	WafDisabled *bool `json:"wafDisabled,omitempty" tf:"waf_disabled,omitempty"`
 }
 
 type ConnectorGroupParameters struct {
@@ -46,31 +201,35 @@ type ConnectorGroupParameters struct {
 
 	// Latitude of the App Connector Group. Integer or decimal. With values in the range of -90 to 90
 	// Latitude of the App Connector Group. Integer or decimal. With values in the range of -90 to 90
-	// +kubebuilder:validation:Required
-	Latitude *string `json:"latitude" tf:"latitude,omitempty"`
+	// +kubebuilder:validation:Optional
+	Latitude *string `json:"latitude,omitempty" tf:"latitude,omitempty"`
 
 	// Location of the App Connector Group. i.e "San Jose, CA, USA"
 	// Location of the App Connector Group
-	// +kubebuilder:validation:Required
-	Location *string `json:"location" tf:"location,omitempty"`
+	// +kubebuilder:validation:Optional
+	Location *string `json:"location,omitempty" tf:"location,omitempty"`
 
 	// Longitude of the App Connector Group. Integer or decimal. With values in the range of -180 to 180
 	// Longitude of the App Connector Group. Integer or decimal. With values in the range of -180 to 180
-	// +kubebuilder:validation:Required
-	Longitude *string `json:"longitude" tf:"longitude,omitempty"`
+	// +kubebuilder:validation:Optional
+	Longitude *string `json:"longitude,omitempty" tf:"longitude,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	LssAppConnectorGroup *bool `json:"lssAppConnectorGroup,omitempty" tf:"lss_app_connector_group,omitempty"`
 
 	// Name of the App Connector Group.
 	// Name of the App Connector Group
-	// +kubebuilder:validation:Required
-	Name *string `json:"name" tf:"name,omitempty"`
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Whether the default version profile of the App Connector Group is applied or overridden. Default: false Supported values: true, false
 	// Whether the default version profile of the App Connector Group is applied or overridden. Supported values: true, false
 	// +kubebuilder:validation:Optional
 	OverrideVersionProfile *bool `json:"overrideVersionProfile,omitempty" tf:"override_version_profile,omitempty"`
+
+	// Supported values: true, false
+	// +kubebuilder:validation:Optional
+	PraEnabled *bool `json:"praEnabled,omitempty" tf:"pra_enabled,omitempty"`
 
 	// Whether TCP Quick Acknowledgement is enabled or disabled for the application. The tcpQuickAckApp, tcpQuickAckAssistant, and tcpQuickAckReadAssistant fields must all share the same value. Supported values: true, false
 	// Whether TCP Quick Acknowledgement is enabled or disabled for the application. The tcpQuickAckApp, tcpQuickAckAssistant, and tcpQuickAckReadAssistant fields must all share the same value.
@@ -109,12 +268,28 @@ type ConnectorGroupParameters struct {
 	// Name of the version profile. To learn more, see Version Profile Use Cases. This value is required, if the value for overrideVersionProfile is set to true
 	// +kubebuilder:validation:Optional
 	VersionProfileName *string `json:"versionProfileName,omitempty" tf:"version_profile_name,omitempty"`
+
+	// Supported values: true, false
+	// +kubebuilder:validation:Optional
+	WafDisabled *bool `json:"wafDisabled,omitempty" tf:"waf_disabled,omitempty"`
 }
 
 // ConnectorGroupSpec defines the desired state of ConnectorGroup
 type ConnectorGroupSpec struct {
 	v1.ResourceSpec `json:",inline"`
 	ForProvider     ConnectorGroupParameters `json:"forProvider"`
+	// THIS IS AN ALPHA FIELD. Do not use it in production. It is not honored
+	// unless the relevant Crossplane feature flag is enabled, and may be
+	// changed or removed without notice.
+	// InitProvider holds the same fields as ForProvider, with the exception
+	// of Identifier and other resource reference fields. The fields that are
+	// in InitProvider are merged into ForProvider when the resource is created.
+	// The same fields are also added to the terraform ignore_changes hook, to
+	// avoid updating them after creation. This is useful for fields that are
+	// required on creation, but we do not desire to update them after creation,
+	// for example because of an external controller is managing them, like an
+	// autoscaler.
+	InitProvider ConnectorGroupInitParameters `json:"initProvider,omitempty"`
 }
 
 // ConnectorGroupStatus defines the observed state of ConnectorGroup.
@@ -135,8 +310,12 @@ type ConnectorGroupStatus struct {
 type ConnectorGroup struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              ConnectorGroupSpec   `json:"spec"`
-	Status            ConnectorGroupStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.latitude) || has(self.initProvider.latitude)",message="latitude is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.location) || has(self.initProvider.location)",message="location is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.longitude) || has(self.initProvider.longitude)",message="longitude is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || has(self.initProvider.name)",message="name is a required parameter"
+	Spec   ConnectorGroupSpec   `json:"spec"`
+	Status ConnectorGroupStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

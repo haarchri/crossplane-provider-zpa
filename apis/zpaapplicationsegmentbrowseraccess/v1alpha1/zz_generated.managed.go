@@ -17,6 +17,11 @@ func (mg *SegmentBrowserAccess) GetDeletionPolicy() xpv1.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
 }
 
+// GetManagementPolicies of this SegmentBrowserAccess.
+func (mg *SegmentBrowserAccess) GetManagementPolicies() xpv1.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
 // GetProviderConfigReference of this SegmentBrowserAccess.
 func (mg *SegmentBrowserAccess) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
@@ -48,6 +53,11 @@ func (mg *SegmentBrowserAccess) SetConditions(c ...xpv1.Condition) {
 // SetDeletionPolicy of this SegmentBrowserAccess.
 func (mg *SegmentBrowserAccess) SetDeletionPolicy(r xpv1.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
+}
+
+// SetManagementPolicies of this SegmentBrowserAccess.
+func (mg *SegmentBrowserAccess) SetManagementPolicies(r xpv1.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this SegmentBrowserAccess.

@@ -13,16 +13,60 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type ServerInitParameters struct {
+
+	// Address. The address of the application server to be exported.
+	// This field defines the domain or IP address of the server.
+	Address *string `json:"address,omitempty" tf:"address,omitempty"`
+
+	ConfigSpace *string `json:"configSpace,omitempty" tf:"config_space,omitempty"`
+
+	// This field defines the description of the server.
+	// This field defines the description of the server.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// This field defines the status of the server.
+	// This field defines the status of the server.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// Name. The name of the application server to be exported.
+	// This field defines the name of the server.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
 type ServerObservation struct {
+
+	// Address. The address of the application server to be exported.
+	// This field defines the domain or IP address of the server.
+	Address *string `json:"address,omitempty" tf:"address,omitempty"`
+
+	// This field defines the list of server group IDs.
+	// This field defines the list of server groups IDs.
+	AppServerGroupIds []*string `json:"appServerGroupIds,omitempty" tf:"app_server_group_ids,omitempty"`
+
+	ConfigSpace *string `json:"configSpace,omitempty" tf:"config_space,omitempty"`
+
+	// This field defines the description of the server.
+	// This field defines the description of the server.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// This field defines the status of the server.
+	// This field defines the status of the server.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Name. The name of the application server to be exported.
+	// This field defines the name of the server.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type ServerParameters struct {
 
 	// Address. The address of the application server to be exported.
 	// This field defines the domain or IP address of the server.
-	// +kubebuilder:validation:Required
-	Address *string `json:"address" tf:"address,omitempty"`
+	// +kubebuilder:validation:Optional
+	Address *string `json:"address,omitempty" tf:"address,omitempty"`
 
 	// References to Group in zpaservergroup to populate appServerGroupIds.
 	// +kubebuilder:validation:Optional
@@ -55,14 +99,26 @@ type ServerParameters struct {
 
 	// Name. The name of the application server to be exported.
 	// This field defines the name of the server.
-	// +kubebuilder:validation:Required
-	Name *string `json:"name" tf:"name,omitempty"`
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 // ServerSpec defines the desired state of Server
 type ServerSpec struct {
 	v1.ResourceSpec `json:",inline"`
 	ForProvider     ServerParameters `json:"forProvider"`
+	// THIS IS AN ALPHA FIELD. Do not use it in production. It is not honored
+	// unless the relevant Crossplane feature flag is enabled, and may be
+	// changed or removed without notice.
+	// InitProvider holds the same fields as ForProvider, with the exception
+	// of Identifier and other resource reference fields. The fields that are
+	// in InitProvider are merged into ForProvider when the resource is created.
+	// The same fields are also added to the terraform ignore_changes hook, to
+	// avoid updating them after creation. This is useful for fields that are
+	// required on creation, but we do not desire to update them after creation,
+	// for example because of an external controller is managing them, like an
+	// autoscaler.
+	InitProvider ServerInitParameters `json:"initProvider,omitempty"`
 }
 
 // ServerStatus defines the observed state of Server.
@@ -83,8 +139,10 @@ type ServerStatus struct {
 type Server struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              ServerSpec   `json:"spec"`
-	Status            ServerStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.address) || has(self.initProvider.address)",message="address is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || has(self.initProvider.name)",message="name is a required parameter"
+	Spec   ServerSpec   `json:"spec"`
+	Status ServerStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

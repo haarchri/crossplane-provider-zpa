@@ -12,6 +12,3 @@ spec:
     description: test1-app-server
     enabled: true
     name: test1-app-server
-
----
-

@@ -31,6 +31,3 @@ spec:
       type: RESPONSE_BODY
     severity: CRITICAL
     type: RESPONSE
-
----
-

@@ -13,7 +13,13 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type AppConnectorGroupsInitParameters struct {
+}
+
 type AppConnectorGroupsObservation struct {
+
+	// The ID of this resource.
+	ID []*string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type AppConnectorGroupsParameters struct {
@@ -32,7 +38,16 @@ type AppConnectorGroupsParameters struct {
 	IDSelector *v1.Selector `json:"idSelector,omitempty" tf:"-"`
 }
 
+type ApplicationsInitParameters struct {
+
+	// The ID of this resource.
+	ID []*string `json:"id,omitempty" tf:"id,omitempty"`
+}
+
 type ApplicationsObservation struct {
+
+	// The ID of this resource.
+	ID []*string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type ApplicationsParameters struct {
@@ -42,10 +57,73 @@ type ApplicationsParameters struct {
 	ID []*string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
+type GroupInitParameters struct {
+
+	// List of app-connector IDs.
+	AppConnectorGroups []AppConnectorGroupsInitParameters `json:"appConnectorGroups,omitempty" tf:"app_connector_groups,omitempty"`
+
+	// This field is a json array of app-connector-id only.
+	Applications []ApplicationsInitParameters `json:"applications,omitempty" tf:"applications,omitempty"`
+
+	ConfigSpace *string `json:"configSpace,omitempty" tf:"config_space,omitempty"`
+
+	// This field is the description of the server group.
+	// This field is the description of the server group.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// This field controls dynamic discovery of the servers.
+	// This field controls dynamic discovery of the servers.
+	DynamicDiscovery *bool `json:"dynamicDiscovery,omitempty" tf:"dynamic_discovery,omitempty"`
+
+	// This field defines if the server group is enabled or disabled.
+	// This field defines if the server group is enabled or disabled.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	IPAnchored *bool `json:"ipAnchored,omitempty" tf:"ip_anchored,omitempty"`
+
+	// This field defines the name of the server group.
+	// This field defines the name of the server group.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Block List) This field is a list of servers that are applicable only when dynamic discovery is disabled. Server name is required only in cases where the new servers need to be created in this API.
+	// This field is a list of servers that are applicable only when dynamic discovery is disabled. Server name is required only in cases where the new servers need to be created in this API. For existing servers, pass only the serverId.
+	Servers []ServersInitParameters `json:"servers,omitempty" tf:"servers,omitempty"`
+}
+
 type GroupObservation struct {
+
+	// List of app-connector IDs.
+	AppConnectorGroups []AppConnectorGroupsObservation `json:"appConnectorGroups,omitempty" tf:"app_connector_groups,omitempty"`
+
+	// This field is a json array of app-connector-id only.
+	Applications []ApplicationsObservation `json:"applications,omitempty" tf:"applications,omitempty"`
+
+	ConfigSpace *string `json:"configSpace,omitempty" tf:"config_space,omitempty"`
+
+	// This field is the description of the server group.
+	// This field is the description of the server group.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// This field controls dynamic discovery of the servers.
+	// This field controls dynamic discovery of the servers.
+	DynamicDiscovery *bool `json:"dynamicDiscovery,omitempty" tf:"dynamic_discovery,omitempty"`
+
+	// This field defines if the server group is enabled or disabled.
+	// This field defines if the server group is enabled or disabled.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
 	// The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	IPAnchored *bool `json:"ipAnchored,omitempty" tf:"ip_anchored,omitempty"`
+
+	// This field defines the name of the server group.
+	// This field defines the name of the server group.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Block List) This field is a list of servers that are applicable only when dynamic discovery is disabled. Server name is required only in cases where the new servers need to be created in this API.
+	// This field is a list of servers that are applicable only when dynamic discovery is disabled. Server name is required only in cases where the new servers need to be created in this API. For existing servers, pass only the serverId.
+	Servers []ServersObservation `json:"servers,omitempty" tf:"servers,omitempty"`
 }
 
 type GroupParameters struct {
@@ -81,8 +159,8 @@ type GroupParameters struct {
 
 	// This field defines the name of the server group.
 	// This field defines the name of the server group.
-	// +kubebuilder:validation:Required
-	Name *string `json:"name" tf:"name,omitempty"`
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List) This field is a list of servers that are applicable only when dynamic discovery is disabled. Server name is required only in cases where the new servers need to be created in this API.
 	// This field is a list of servers that are applicable only when dynamic discovery is disabled. Server name is required only in cases where the new servers need to be created in this API. For existing servers, pass only the serverId.
@@ -90,7 +168,16 @@ type GroupParameters struct {
 	Servers []ServersParameters `json:"servers,omitempty" tf:"servers,omitempty"`
 }
 
+type ServersInitParameters struct {
+
+	// The ID of this resource.
+	ID []*string `json:"id,omitempty" tf:"id,omitempty"`
+}
+
 type ServersObservation struct {
+
+	// The ID of this resource.
+	ID []*string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type ServersParameters struct {
@@ -104,6 +191,18 @@ type ServersParameters struct {
 type GroupSpec struct {
 	v1.ResourceSpec `json:",inline"`
 	ForProvider     GroupParameters `json:"forProvider"`
+	// THIS IS AN ALPHA FIELD. Do not use it in production. It is not honored
+	// unless the relevant Crossplane feature flag is enabled, and may be
+	// changed or removed without notice.
+	// InitProvider holds the same fields as ForProvider, with the exception
+	// of Identifier and other resource reference fields. The fields that are
+	// in InitProvider are merged into ForProvider when the resource is created.
+	// The same fields are also added to the terraform ignore_changes hook, to
+	// avoid updating them after creation. This is useful for fields that are
+	// required on creation, but we do not desire to update them after creation,
+	// for example because of an external controller is managing them, like an
+	// autoscaler.
+	InitProvider GroupInitParameters `json:"initProvider,omitempty"`
 }
 
 // GroupStatus defines the observed state of Group.
@@ -124,8 +223,9 @@ type GroupStatus struct {
 type Group struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              GroupSpec   `json:"spec"`
-	Status            GroupStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || has(self.initProvider.name)",message="name is a required parameter"
+	Spec   GroupSpec   `json:"spec"`
+	Status GroupStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

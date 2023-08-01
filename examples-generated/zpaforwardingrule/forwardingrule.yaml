@@ -58,6 +58,3 @@ spec:
     tcpPortRanges:
     - "8080"
     - "8080"
-
----
-

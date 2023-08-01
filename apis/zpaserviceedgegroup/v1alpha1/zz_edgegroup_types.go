@@ -13,8 +13,130 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type EdgeGroupInitParameters struct {
+
+	// This field controls dynamic discovery of the servers.
+	CityCountry *string `json:"cityCountry,omitempty" tf:"city_country,omitempty"`
+
+	// This field is an array of app-connector-id only.
+	CountryCode *string `json:"countryCode,omitempty" tf:"country_code,omitempty"`
+
+	// Description of the Service Edge Group.
+	// Description of the Service Edge Group.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// Whether this Service Edge Group is enabled or not. Default value: true Supported values: true, false
+	// Whether this Service Edge Group is enabled or not.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// Enable or disable public access for the Service Edge Group. Default value: false Supported values: true, false
+	// Enable or disable public access for the Service Edge Group.
+	IsPublic *bool `json:"isPublic,omitempty" tf:"is_public,omitempty"`
+
+	// Latitude for the Service Edge Group. Integer or decimal with values in the range of -90 to 90
+	// Latitude for the Service Edge Group.
+	Latitude *string `json:"latitude,omitempty" tf:"latitude,omitempty"`
+
+	// Location for the Service Edge Group.
+	// Location for the Service Edge Group.
+	Location *string `json:"location,omitempty" tf:"location,omitempty"`
+
+	// Longitude for the Service Edge Group. Integer or decimal with values in the range of -180 to 180
+	// Longitude for the Service Edge Group.
+	Longitude *string `json:"longitude,omitempty" tf:"longitude,omitempty"`
+
+	// Name of the Service Edge Group.
+	// Name of the Service Edge Group.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Whether the default version profile of the App Connector Group is applied or overridden. Default: false Supported values: true, false
+	// Whether the default version profile of the App Connector Group is applied or overridden.
+	OverrideVersionProfile *bool `json:"overrideVersionProfile,omitempty" tf:"override_version_profile,omitempty"`
+
+	ServiceEdges []ServiceEdgesInitParameters `json:"serviceEdges,omitempty" tf:"service_edges,omitempty"`
+
+	// Trusted networks for this Service Edge Group. List of trusted network objects
+	// List of trusted network IDs.
+	TrustedNetworks []TrustedNetworksInitParameters `json:"trustedNetworks,omitempty" tf:"trusted_networks,omitempty"`
+
+	// Service Edges in this group will attempt to update to a newer version of the software during this specified day. Default value: SUNDAY List of valid days (i.e., Sunday, Monday)
+	// Service Edges in this group will attempt to update to a newer version of the software during this specified day.
+	UpgradeDay *string `json:"upgradeDay,omitempty" tf:"upgrade_day,omitempty"`
+
+	// Service Edges in this group will attempt to update to a newer version of the software during this specified time. Default value: 66600 Integer in seconds (i..e, 66600). The integer must be greater than or equal to 0 and less than 86400, in 15 minute intervals
+	// Service Edges in this group will attempt to update to a newer version of the software during this specified time.
+	UpgradeTimeInSecs *string `json:"upgradeTimeInSecs,omitempty" tf:"upgrade_time_in_secs,omitempty"`
+
+	// ID of the version profile. To learn more, see Version Profile Use Cases. Supported values are:
+	// ID of the version profile.
+	VersionProfileID *string `json:"versionProfileId,omitempty" tf:"version_profile_id,omitempty"`
+
+	// ID of the version profile.
+	VersionProfileName *string `json:"versionProfileName,omitempty" tf:"version_profile_name,omitempty"`
+}
+
 type EdgeGroupObservation struct {
+
+	// This field controls dynamic discovery of the servers.
+	CityCountry *string `json:"cityCountry,omitempty" tf:"city_country,omitempty"`
+
+	// This field is an array of app-connector-id only.
+	CountryCode *string `json:"countryCode,omitempty" tf:"country_code,omitempty"`
+
+	// Description of the Service Edge Group.
+	// Description of the Service Edge Group.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// Whether this Service Edge Group is enabled or not. Default value: true Supported values: true, false
+	// Whether this Service Edge Group is enabled or not.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Enable or disable public access for the Service Edge Group. Default value: false Supported values: true, false
+	// Enable or disable public access for the Service Edge Group.
+	IsPublic *bool `json:"isPublic,omitempty" tf:"is_public,omitempty"`
+
+	// Latitude for the Service Edge Group. Integer or decimal with values in the range of -90 to 90
+	// Latitude for the Service Edge Group.
+	Latitude *string `json:"latitude,omitempty" tf:"latitude,omitempty"`
+
+	// Location for the Service Edge Group.
+	// Location for the Service Edge Group.
+	Location *string `json:"location,omitempty" tf:"location,omitempty"`
+
+	// Longitude for the Service Edge Group. Integer or decimal with values in the range of -180 to 180
+	// Longitude for the Service Edge Group.
+	Longitude *string `json:"longitude,omitempty" tf:"longitude,omitempty"`
+
+	// Name of the Service Edge Group.
+	// Name of the Service Edge Group.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Whether the default version profile of the App Connector Group is applied or overridden. Default: false Supported values: true, false
+	// Whether the default version profile of the App Connector Group is applied or overridden.
+	OverrideVersionProfile *bool `json:"overrideVersionProfile,omitempty" tf:"override_version_profile,omitempty"`
+
+	ServiceEdges []ServiceEdgesObservation `json:"serviceEdges,omitempty" tf:"service_edges,omitempty"`
+
+	// Trusted networks for this Service Edge Group. List of trusted network objects
+	// List of trusted network IDs.
+	TrustedNetworks []TrustedNetworksObservation `json:"trustedNetworks,omitempty" tf:"trusted_networks,omitempty"`
+
+	// Service Edges in this group will attempt to update to a newer version of the software during this specified day. Default value: SUNDAY List of valid days (i.e., Sunday, Monday)
+	// Service Edges in this group will attempt to update to a newer version of the software during this specified day.
+	UpgradeDay *string `json:"upgradeDay,omitempty" tf:"upgrade_day,omitempty"`
+
+	// Service Edges in this group will attempt to update to a newer version of the software during this specified time. Default value: 66600 Integer in seconds (i..e, 66600). The integer must be greater than or equal to 0 and less than 86400, in 15 minute intervals
+	// Service Edges in this group will attempt to update to a newer version of the software during this specified time.
+	UpgradeTimeInSecs *string `json:"upgradeTimeInSecs,omitempty" tf:"upgrade_time_in_secs,omitempty"`
+
+	// ID of the version profile. To learn more, see Version Profile Use Cases. Supported values are:
+	// ID of the version profile.
+	VersionProfileID *string `json:"versionProfileId,omitempty" tf:"version_profile_id,omitempty"`
+
+	// ID of the version profile.
+	VersionProfileName *string `json:"versionProfileName,omitempty" tf:"version_profile_name,omitempty"`
 
 	// ID of the version profile.
 	VersionProfileVisibilityScope *string `json:"versionProfileVisibilityScope,omitempty" tf:"version_profile_visibility_scope,omitempty"`
@@ -40,32 +162,32 @@ type EdgeGroupParameters struct {
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
-	// Enable or disable public access for the Service Edge Group. Default value: FALSE Supported values: DEFAULT, TRUE, FALSE
+	// Enable or disable public access for the Service Edge Group. Default value: false Supported values: true, false
 	// Enable or disable public access for the Service Edge Group.
 	// +kubebuilder:validation:Optional
 	IsPublic *bool `json:"isPublic,omitempty" tf:"is_public,omitempty"`
 
 	// Latitude for the Service Edge Group. Integer or decimal with values in the range of -90 to 90
 	// Latitude for the Service Edge Group.
-	// +kubebuilder:validation:Required
-	Latitude *string `json:"latitude" tf:"latitude,omitempty"`
+	// +kubebuilder:validation:Optional
+	Latitude *string `json:"latitude,omitempty" tf:"latitude,omitempty"`
 
 	// Location for the Service Edge Group.
 	// Location for the Service Edge Group.
-	// +kubebuilder:validation:Required
-	Location *string `json:"location" tf:"location,omitempty"`
+	// +kubebuilder:validation:Optional
+	Location *string `json:"location,omitempty" tf:"location,omitempty"`
 
 	// Longitude for the Service Edge Group. Integer or decimal with values in the range of -180 to 180
 	// Longitude for the Service Edge Group.
-	// +kubebuilder:validation:Required
-	Longitude *string `json:"longitude" tf:"longitude,omitempty"`
+	// +kubebuilder:validation:Optional
+	Longitude *string `json:"longitude,omitempty" tf:"longitude,omitempty"`
 
 	// Name of the Service Edge Group.
 	// Name of the Service Edge Group.
-	// +kubebuilder:validation:Required
-	Name *string `json:"name" tf:"name,omitempty"`
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// Whether the default version profile of the App Connector Group is applied or overridden. Default: true. Supported values: true, false
+	// Whether the default version profile of the App Connector Group is applied or overridden. Default: false Supported values: true, false
 	// Whether the default version profile of the App Connector Group is applied or overridden.
 	// +kubebuilder:validation:Optional
 	OverrideVersionProfile *bool `json:"overrideVersionProfile,omitempty" tf:"override_version_profile,omitempty"`
@@ -74,6 +196,7 @@ type EdgeGroupParameters struct {
 	ServiceEdges []ServiceEdgesParameters `json:"serviceEdges,omitempty" tf:"service_edges,omitempty"`
 
 	// Trusted networks for this Service Edge Group. List of trusted network objects
+	// List of trusted network IDs.
 	// +kubebuilder:validation:Optional
 	TrustedNetworks []TrustedNetworksParameters `json:"trustedNetworks,omitempty" tf:"trusted_networks,omitempty"`
 
@@ -87,18 +210,22 @@ type EdgeGroupParameters struct {
 	// +kubebuilder:validation:Optional
 	UpgradeTimeInSecs *string `json:"upgradeTimeInSecs,omitempty" tf:"upgrade_time_in_secs,omitempty"`
 
-	// ID of the version profile. To learn more, see Version Profile Use Cases. This value becomes required if the value for override_version_profile is set to true.
+	// ID of the version profile. To learn more, see Version Profile Use Cases. Supported values are:
 	// ID of the version profile.
 	// +kubebuilder:validation:Optional
 	VersionProfileID *string `json:"versionProfileId,omitempty" tf:"version_profile_id,omitempty"`
 
-	// Name of the Service Edge Group.
 	// ID of the version profile.
 	// +kubebuilder:validation:Optional
 	VersionProfileName *string `json:"versionProfileName,omitempty" tf:"version_profile_name,omitempty"`
 }
 
+type ServiceEdgesInitParameters struct {
+	ID []*string `json:"id,omitempty" tf:"id,omitempty"`
+}
+
 type ServiceEdgesObservation struct {
+	ID []*string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type ServiceEdgesParameters struct {
@@ -107,7 +234,12 @@ type ServiceEdgesParameters struct {
 	ID []*string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
+type TrustedNetworksInitParameters struct {
+	ID []*string `json:"id,omitempty" tf:"id,omitempty"`
+}
+
 type TrustedNetworksObservation struct {
+	ID []*string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type TrustedNetworksParameters struct {
@@ -120,6 +252,18 @@ type TrustedNetworksParameters struct {
 type EdgeGroupSpec struct {
 	v1.ResourceSpec `json:",inline"`
 	ForProvider     EdgeGroupParameters `json:"forProvider"`
+	// THIS IS AN ALPHA FIELD. Do not use it in production. It is not honored
+	// unless the relevant Crossplane feature flag is enabled, and may be
+	// changed or removed without notice.
+	// InitProvider holds the same fields as ForProvider, with the exception
+	// of Identifier and other resource reference fields. The fields that are
+	// in InitProvider are merged into ForProvider when the resource is created.
+	// The same fields are also added to the terraform ignore_changes hook, to
+	// avoid updating them after creation. This is useful for fields that are
+	// required on creation, but we do not desire to update them after creation,
+	// for example because of an external controller is managing them, like an
+	// autoscaler.
+	InitProvider EdgeGroupInitParameters `json:"initProvider,omitempty"`
 }
 
 // EdgeGroupStatus defines the observed state of EdgeGroup.
@@ -140,8 +284,12 @@ type EdgeGroupStatus struct {
 type EdgeGroup struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              EdgeGroupSpec   `json:"spec"`
-	Status            EdgeGroupStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.latitude) || has(self.initProvider.latitude)",message="latitude is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.location) || has(self.initProvider.location)",message="location is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.longitude) || has(self.initProvider.longitude)",message="longitude is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || has(self.initProvider.name)",message="name is a required parameter"
+	Spec   EdgeGroupSpec   `json:"spec"`
+	Status EdgeGroupStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

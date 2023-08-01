@@ -17,6 +17,11 @@ func (mg *SegmentInspection) GetDeletionPolicy() xpv1.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
 }
 
+// GetManagementPolicies of this SegmentInspection.
+func (mg *SegmentInspection) GetManagementPolicies() xpv1.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
 // GetProviderConfigReference of this SegmentInspection.
 func (mg *SegmentInspection) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
@@ -48,6 +53,11 @@ func (mg *SegmentInspection) SetConditions(c ...xpv1.Condition) {
 // SetDeletionPolicy of this SegmentInspection.
 func (mg *SegmentInspection) SetDeletionPolicy(r xpv1.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
+}
+
+// SetManagementPolicies of this SegmentInspection.
+func (mg *SegmentInspection) SetManagementPolicies(r xpv1.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this SegmentInspection.

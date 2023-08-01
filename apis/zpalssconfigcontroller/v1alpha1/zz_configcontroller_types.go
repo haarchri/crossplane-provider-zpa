@@ -13,7 +13,24 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type ConditionsInitParameters struct {
+	Negated *bool `json:"negated,omitempty" tf:"negated,omitempty"`
+
+	// This signifies the various policy criteria.
+	Operands []OperandsInitParameters `json:"operands,omitempty" tf:"operands,omitempty"`
+
+	// Supported values are: AND or OR
+	Operator *string `json:"operator,omitempty" tf:"operator,omitempty"`
+}
+
 type ConditionsObservation struct {
+	Negated *bool `json:"negated,omitempty" tf:"negated,omitempty"`
+
+	// This signifies the various policy criteria.
+	Operands []OperandsObservation `json:"operands,omitempty" tf:"operands,omitempty"`
+
+	// Supported values are: AND or OR
+	Operator *string `json:"operator,omitempty" tf:"operator,omitempty"`
 }
 
 type ConditionsParameters struct {
@@ -26,20 +43,31 @@ type ConditionsParameters struct {
 	Operands []OperandsParameters `json:"operands,omitempty" tf:"operands,omitempty"`
 
 	// Supported values are: AND or OR
-	// +kubebuilder:validation:Required
-	Operator *string `json:"operator" tf:"operator,omitempty"`
+	// +kubebuilder:validation:Optional
+	Operator *string `json:"operator,omitempty" tf:"operator,omitempty"`
+}
+
+type ConfigControllerInitParameters struct {
+	Config []ConfigInitParameters `json:"config,omitempty" tf:"config,omitempty"`
+
+	// - id -  - App Connector Group ID(s) where logs will be forwarded to.
+	// App Connector Group(s) to be added to the LSS configuration
+	ConnectorGroups []ConnectorGroupsInitParameters `json:"connectorGroups,omitempty" tf:"connector_groups,omitempty"`
+
+	PolicyRuleResource []PolicyRuleResourceInitParameters `json:"policyRuleResource,omitempty" tf:"policy_rule_resource,omitempty"`
 }
 
 type ConfigControllerObservation struct {
-
-	// +kubebuilder:validation:Optional
 	Config []ConfigObservation `json:"config,omitempty" tf:"config,omitempty"`
+
+	// - id -  - App Connector Group ID(s) where logs will be forwarded to.
+	// App Connector Group(s) to be added to the LSS configuration
+	ConnectorGroups []ConnectorGroupsObservation `json:"connectorGroups,omitempty" tf:"connector_groups,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	PolicyRuleID *string `json:"policyRuleId,omitempty" tf:"policy_rule_id,omitempty"`
 
-	// +kubebuilder:validation:Optional
 	PolicyRuleResource []PolicyRuleResourceObservation `json:"policyRuleResource,omitempty" tf:"policy_rule_resource,omitempty"`
 }
 
@@ -57,8 +85,74 @@ type ConfigControllerParameters struct {
 	PolicyRuleResource []PolicyRuleResourceParameters `json:"policyRuleResource,omitempty" tf:"policy_rule_resource,omitempty"`
 }
 
+type ConfigInitParameters struct {
+	AuditMessage *string `json:"auditMessage,omitempty" tf:"audit_message,omitempty"`
+
+	// Description of the LSS configuration
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// Whether this LSS configuration is enabled or not. Supported values: true, false
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// Filter for the LSS configuration. Format given by the following API to get status codes: /mgmtconfig/v2/admin/lssConfig/statusCodes
+	Filter []*string `json:"filter,omitempty" tf:"filter,omitempty"`
+
+	// The format of the LSS resource. The supported formats are: JSON, CSV, and TSV
+	// Format of the log type. Format given by the following API to get formats: /mgmtconfig/v2/admin/lssConfig/logType/formats
+	Format *string `json:"format,omitempty" tf:"format,omitempty"`
+
+	// The IP or FQDN of the SIEM (Log Receiver) where logs will be forwarded to.
+	// Host of the LSS configuration
+	LssHost *string `json:"lssHost,omitempty" tf:"lss_host,omitempty"`
+
+	// The destination port of the SIEM (Log Receiver) where logs will be forwarded to.
+	// Port of the LSS configuration
+	LssPort *string `json:"lssPort,omitempty" tf:"lss_port,omitempty"`
+
+	// Name of the LSS configuration
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Refer to the log type documentation
+	// Log type of the LSS configuration
+	SourceLogType *string `json:"sourceLogType,omitempty" tf:"source_log_type,omitempty"`
+
+	UseTLS *bool `json:"useTls,omitempty" tf:"use_tls,omitempty"`
+}
+
 type ConfigObservation struct {
+	AuditMessage *string `json:"auditMessage,omitempty" tf:"audit_message,omitempty"`
+
+	// Description of the LSS configuration
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// Whether this LSS configuration is enabled or not. Supported values: true, false
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// Filter for the LSS configuration. Format given by the following API to get status codes: /mgmtconfig/v2/admin/lssConfig/statusCodes
+	Filter []*string `json:"filter,omitempty" tf:"filter,omitempty"`
+
+	// The format of the LSS resource. The supported formats are: JSON, CSV, and TSV
+	// Format of the log type. Format given by the following API to get formats: /mgmtconfig/v2/admin/lssConfig/logType/formats
+	Format *string `json:"format,omitempty" tf:"format,omitempty"`
+
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// The IP or FQDN of the SIEM (Log Receiver) where logs will be forwarded to.
+	// Host of the LSS configuration
+	LssHost *string `json:"lssHost,omitempty" tf:"lss_host,omitempty"`
+
+	// The destination port of the SIEM (Log Receiver) where logs will be forwarded to.
+	// Port of the LSS configuration
+	LssPort *string `json:"lssPort,omitempty" tf:"lss_port,omitempty"`
+
+	// Name of the LSS configuration
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Refer to the log type documentation
+	// Log type of the LSS configuration
+	SourceLogType *string `json:"sourceLogType,omitempty" tf:"source_log_type,omitempty"`
+
+	UseTLS *bool `json:"useTls,omitempty" tf:"use_tls,omitempty"`
 }
 
 type ConfigParameters struct {
@@ -80,33 +174,38 @@ type ConfigParameters struct {
 
 	// The format of the LSS resource. The supported formats are: JSON, CSV, and TSV
 	// Format of the log type. Format given by the following API to get formats: /mgmtconfig/v2/admin/lssConfig/logType/formats
-	// +kubebuilder:validation:Required
-	Format *string `json:"format" tf:"format,omitempty"`
+	// +kubebuilder:validation:Optional
+	Format *string `json:"format,omitempty" tf:"format,omitempty"`
 
 	// The IP or FQDN of the SIEM (Log Receiver) where logs will be forwarded to.
 	// Host of the LSS configuration
-	// +kubebuilder:validation:Required
-	LssHost *string `json:"lssHost" tf:"lss_host,omitempty"`
+	// +kubebuilder:validation:Optional
+	LssHost *string `json:"lssHost,omitempty" tf:"lss_host,omitempty"`
 
 	// The destination port of the SIEM (Log Receiver) where logs will be forwarded to.
 	// Port of the LSS configuration
-	// +kubebuilder:validation:Required
-	LssPort *string `json:"lssPort" tf:"lss_port,omitempty"`
+	// +kubebuilder:validation:Optional
+	LssPort *string `json:"lssPort,omitempty" tf:"lss_port,omitempty"`
 
 	// Name of the LSS configuration
-	// +kubebuilder:validation:Required
-	Name *string `json:"name" tf:"name,omitempty"`
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Refer to the log type documentation
 	// Log type of the LSS configuration
-	// +kubebuilder:validation:Required
-	SourceLogType *string `json:"sourceLogType" tf:"source_log_type,omitempty"`
+	// +kubebuilder:validation:Optional
+	SourceLogType *string `json:"sourceLogType,omitempty" tf:"source_log_type,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	UseTLS *bool `json:"useTls,omitempty" tf:"use_tls,omitempty"`
 }
 
+type ConnectorGroupsInitParameters struct {
+	ID []*string `json:"id,omitempty" tf:"id,omitempty"`
+}
+
 type ConnectorGroupsObservation struct {
+	ID []*string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type ConnectorGroupsParameters struct {
@@ -115,15 +214,44 @@ type ConnectorGroupsParameters struct {
 	ID []*string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
+type OperandsInitParameters struct {
+
+	// This is for specifying the policy critiera. Supported values: APP, APP_GROUP, CLIENT_TYPE, TRUSTED_NETWORK, SAML, SCIM, SCIM_GROUP
+	// This is for specifying the policy critiera.
+	ObjectType *string `json:"objectType,omitempty" tf:"object_type,omitempty"`
+
+	// zpn_client_type_exporter
+	// - zpn_client_type_browser_isolation
+	// - zpn_client_type_machine_tunnel
+	// - zpn_client_type_ip_anchoring
+	// - zpn_client_type_edge_connector
+	// - zpn_client_type_zapp
+	// This denotes a list of values for the given object type. The value depend upon the key. If rhs is defined this list will be ignored
+	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
+}
+
 type OperandsObservation struct {
+
+	// This is for specifying the policy critiera. Supported values: APP, APP_GROUP, CLIENT_TYPE, TRUSTED_NETWORK, SAML, SCIM, SCIM_GROUP
+	// This is for specifying the policy critiera.
+	ObjectType *string `json:"objectType,omitempty" tf:"object_type,omitempty"`
+
+	// zpn_client_type_exporter
+	// - zpn_client_type_browser_isolation
+	// - zpn_client_type_machine_tunnel
+	// - zpn_client_type_ip_anchoring
+	// - zpn_client_type_edge_connector
+	// - zpn_client_type_zapp
+	// This denotes a list of values for the given object type. The value depend upon the key. If rhs is defined this list will be ignored
+	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
 type OperandsParameters struct {
 
 	// This is for specifying the policy critiera. Supported values: APP, APP_GROUP, CLIENT_TYPE, TRUSTED_NETWORK, SAML, SCIM, SCIM_GROUP
 	// This is for specifying the policy critiera.
-	// +kubebuilder:validation:Required
-	ObjectType *string `json:"objectType" tf:"object_type,omitempty"`
+	// +kubebuilder:validation:Optional
+	ObjectType *string `json:"objectType,omitempty" tf:"object_type,omitempty"`
 
 	// zpn_client_type_exporter
 	// - zpn_client_type_browser_isolation
@@ -136,8 +264,108 @@ type OperandsParameters struct {
 	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
+type PolicyRuleResourceInitParameters struct {
+
+	// This is for providing the rule action.
+	Action *string `json:"action,omitempty" tf:"action,omitempty"`
+
+	// This field defines the description of the server.
+	ActionID *string `json:"actionId,omitempty" tf:"action_id,omitempty"`
+
+	BypassDefaultRule *bool `json:"bypassDefaultRule,omitempty" tf:"bypass_default_rule,omitempty"`
+
+	// This is for proviidng the set of conditions for the policy.
+	Conditions []ConditionsInitParameters `json:"conditions,omitempty" tf:"conditions,omitempty"`
+
+	// This is for providing a customer message for the user.
+	CustomMsg *string `json:"customMsg,omitempty" tf:"custom_msg,omitempty"`
+
+	// This is for providing a customer message for the user.
+	DefaultRule *bool `json:"defaultRule,omitempty" tf:"default_rule,omitempty"`
+
+	// This is the description of the access policy.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	LssDefaultRule *bool `json:"lssDefaultRule,omitempty" tf:"lss_default_rule,omitempty"`
+
+	// This is the name of the policy.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Supported values are: AND or OR
+	Operator *string `json:"operator,omitempty" tf:"operator,omitempty"`
+
+	PolicySetID *string `json:"policySetId,omitempty" tf:"policy_set_id,omitempty"`
+
+	PolicyType *string `json:"policyType,omitempty" tf:"policy_type,omitempty"`
+
+	Priority *string `json:"priority,omitempty" tf:"priority,omitempty"`
+
+	ReauthDefaultRule *bool `json:"reauthDefaultRule,omitempty" tf:"reauth_default_rule,omitempty"`
+
+	ReauthIdleTimeout *string `json:"reauthIdleTimeout,omitempty" tf:"reauth_idle_timeout,omitempty"`
+
+	ReauthTimeout *string `json:"reauthTimeout,omitempty" tf:"reauth_timeout,omitempty"`
+
+	RuleOrder *string `json:"ruleOrder,omitempty" tf:"rule_order,omitempty"`
+
+	ZpnCbiProfileID *string `json:"zpnCbiProfileId,omitempty" tf:"zpn_cbi_profile_id,omitempty"`
+
+	ZpnInspectionProfileID *string `json:"zpnInspectionProfileId,omitempty" tf:"zpn_inspection_profile_id,omitempty"`
+
+	ZpnIsolationProfileID *string `json:"zpnIsolationProfileId,omitempty" tf:"zpn_isolation_profile_id,omitempty"`
+}
+
 type PolicyRuleResourceObservation struct {
+
+	// This is for providing the rule action.
+	Action *string `json:"action,omitempty" tf:"action,omitempty"`
+
+	// This field defines the description of the server.
+	ActionID *string `json:"actionId,omitempty" tf:"action_id,omitempty"`
+
+	BypassDefaultRule *bool `json:"bypassDefaultRule,omitempty" tf:"bypass_default_rule,omitempty"`
+
+	// This is for proviidng the set of conditions for the policy.
+	Conditions []ConditionsObservation `json:"conditions,omitempty" tf:"conditions,omitempty"`
+
+	// This is for providing a customer message for the user.
+	CustomMsg *string `json:"customMsg,omitempty" tf:"custom_msg,omitempty"`
+
+	// This is for providing a customer message for the user.
+	DefaultRule *bool `json:"defaultRule,omitempty" tf:"default_rule,omitempty"`
+
+	// This is the description of the access policy.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	LssDefaultRule *bool `json:"lssDefaultRule,omitempty" tf:"lss_default_rule,omitempty"`
+
+	// This is the name of the policy.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Supported values are: AND or OR
+	Operator *string `json:"operator,omitempty" tf:"operator,omitempty"`
+
+	PolicySetID *string `json:"policySetId,omitempty" tf:"policy_set_id,omitempty"`
+
+	PolicyType *string `json:"policyType,omitempty" tf:"policy_type,omitempty"`
+
+	Priority *string `json:"priority,omitempty" tf:"priority,omitempty"`
+
+	ReauthDefaultRule *bool `json:"reauthDefaultRule,omitempty" tf:"reauth_default_rule,omitempty"`
+
+	ReauthIdleTimeout *string `json:"reauthIdleTimeout,omitempty" tf:"reauth_idle_timeout,omitempty"`
+
+	ReauthTimeout *string `json:"reauthTimeout,omitempty" tf:"reauth_timeout,omitempty"`
+
+	RuleOrder *string `json:"ruleOrder,omitempty" tf:"rule_order,omitempty"`
+
+	ZpnCbiProfileID *string `json:"zpnCbiProfileId,omitempty" tf:"zpn_cbi_profile_id,omitempty"`
+
+	ZpnInspectionProfileID *string `json:"zpnInspectionProfileId,omitempty" tf:"zpn_inspection_profile_id,omitempty"`
+
+	ZpnIsolationProfileID *string `json:"zpnIsolationProfileId,omitempty" tf:"zpn_isolation_profile_id,omitempty"`
 }
 
 type PolicyRuleResourceParameters struct {
@@ -173,8 +401,8 @@ type PolicyRuleResourceParameters struct {
 	LssDefaultRule *bool `json:"lssDefaultRule,omitempty" tf:"lss_default_rule,omitempty"`
 
 	// This is the name of the policy.
-	// +kubebuilder:validation:Required
-	Name *string `json:"name" tf:"name,omitempty"`
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Supported values are: AND or OR
 	// +kubebuilder:validation:Optional
@@ -202,13 +430,31 @@ type PolicyRuleResourceParameters struct {
 	RuleOrder *string `json:"ruleOrder,omitempty" tf:"rule_order,omitempty"`
 
 	// +kubebuilder:validation:Optional
+	ZpnCbiProfileID *string `json:"zpnCbiProfileId,omitempty" tf:"zpn_cbi_profile_id,omitempty"`
+
+	// +kubebuilder:validation:Optional
 	ZpnInspectionProfileID *string `json:"zpnInspectionProfileId,omitempty" tf:"zpn_inspection_profile_id,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ZpnIsolationProfileID *string `json:"zpnIsolationProfileId,omitempty" tf:"zpn_isolation_profile_id,omitempty"`
 }
 
 // ConfigControllerSpec defines the desired state of ConfigController
 type ConfigControllerSpec struct {
 	v1.ResourceSpec `json:",inline"`
 	ForProvider     ConfigControllerParameters `json:"forProvider"`
+	// THIS IS AN ALPHA FIELD. Do not use it in production. It is not honored
+	// unless the relevant Crossplane feature flag is enabled, and may be
+	// changed or removed without notice.
+	// InitProvider holds the same fields as ForProvider, with the exception
+	// of Identifier and other resource reference fields. The fields that are
+	// in InitProvider are merged into ForProvider when the resource is created.
+	// The same fields are also added to the terraform ignore_changes hook, to
+	// avoid updating them after creation. This is useful for fields that are
+	// required on creation, but we do not desire to update them after creation,
+	// for example because of an external controller is managing them, like an
+	// autoscaler.
+	InitProvider ConfigControllerInitParameters `json:"initProvider,omitempty"`
 }
 
 // ConfigControllerStatus defines the observed state of ConfigController.

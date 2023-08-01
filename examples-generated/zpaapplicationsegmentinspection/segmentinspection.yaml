@@ -33,6 +33,3 @@ spec:
     tcpPortRanges:
     - "443"
     - "443"
-
----
-

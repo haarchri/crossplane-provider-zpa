@@ -41,6 +41,3 @@ spec:
     upgradeDay: SUNDAY
     upgradeTimeInSecs: "66600"
     versionProfileId: 0
-
----
-

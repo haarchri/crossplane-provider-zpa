@@ -3,8 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.8.0
-  creationTimestamp: null
+    controller-gen.kubebuilder.io/version: v0.12.1
   name: configcontrollers.zpalssconfigcontroller.zpa.crossplane.io
 spec:
   group: zpalssconfigcontroller.zpa.crossplane.io
@@ -55,9 +54,13 @@ spec:
             properties:
               deletionPolicy:
                 default: Delete
-                description: DeletionPolicy specifies what will happen to the underlying
+                description: 'DeletionPolicy specifies what will happen to the underlying
                   external when this managed resource is deleted - either "Delete"
-                  or "Orphan" the external resource.
+                  or "Orphan" the external resource. This field is planned to be deprecated
+                  in favor of the ManagementPolicies field in a future release. Currently,
+                  both could be set independently and non-default values would be
+                  honored if the feature flag is enabled. See the design doc for more
+                  information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223'
                 enum:
                 - Orphan
                 - Delete
@@ -104,12 +107,6 @@ spec:
                           type: string
                         useTls:
                           type: boolean
-                      required:
-                      - format
-                      - lssHost
-                      - lssPort
-                      - name
-                      - sourceLogType
                       type: object
                     type: array
                   connectorGroups:
@@ -163,15 +160,11 @@ spec:
                                       items:
                                         type: string
                                       type: array
-                                  required:
-                                  - objectType
                                   type: object
                                 type: array
                               operator:
                                 description: 'Supported values are: AND or OR'
                                 type: string
-                            required:
-                            - operator
                             type: object
                           type: array
                         customMsg:
@@ -207,13 +200,196 @@ spec:
                           type: string
                         ruleOrder:
                           type: string
+                        zpnCbiProfileId:
+                          type: string
                         zpnInspectionProfileId:
                           type: string
-                      required:
-                      - name
+                        zpnIsolationProfileId:
+                          type: string
                       type: object
                     type: array
                 type: object
+              initProvider:
+                description: THIS IS AN ALPHA FIELD. Do not use it in production.
+                  It is not honored unless the relevant Crossplane feature flag is
+                  enabled, and may be changed or removed without notice. InitProvider
+                  holds the same fields as ForProvider, with the exception of Identifier
+                  and other resource reference fields. The fields that are in InitProvider
+                  are merged into ForProvider when the resource is created. The same
+                  fields are also added to the terraform ignore_changes hook, to avoid
+                  updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after
+                  creation, for example because of an external controller is managing
+                  them, like an autoscaler.
+                properties:
+                  config:
+                    items:
+                      properties:
+                        auditMessage:
+                          type: string
+                        description:
+                          description: Description of the LSS configuration
+                          type: string
+                        enabled:
+                          description: 'Whether this LSS configuration is enabled
+                            or not. Supported values: true, false'
+                          type: boolean
+                        filter:
+                          description: 'Filter for the LSS configuration. Format given
+                            by the following API to get status codes: /mgmtconfig/v2/admin/lssConfig/statusCodes'
+                          items:
+                            type: string
+                          type: array
+                        format:
+                          description: 'The format of the LSS resource. The supported
+                            formats are: JSON, CSV, and TSV Format of the log type.
+                            Format given by the following API to get formats: /mgmtconfig/v2/admin/lssConfig/logType/formats'
+                          type: string
+                        lssHost:
+                          description: The IP or FQDN of the SIEM (Log Receiver) where
+                            logs will be forwarded to. Host of the LSS configuration
+                          type: string
+                        lssPort:
+                          description: The destination port of the SIEM (Log Receiver)
+                            where logs will be forwarded to. Port of the LSS configuration
+                          type: string
+                        name:
+                          description: Name of the LSS configuration
+                          type: string
+                        sourceLogType:
+                          description: Refer to the log type documentation Log type
+                            of the LSS configuration
+                          type: string
+                        useTls:
+                          type: boolean
+                      type: object
+                    type: array
+                  connectorGroups:
+                    description: '- id -  - App Connector Group ID(s) where logs will
+                      be forwarded to. App Connector Group(s) to be added to the LSS
+                      configuration'
+                    items:
+                      properties:
+                        id:
+                          items:
+                            type: string
+                          type: array
+                      type: object
+                    type: array
+                  policyRuleResource:
+                    items:
+                      properties:
+                        action:
+                          description: This is for providing the rule action.
+                          type: string
+                        actionId:
+                          description: This field defines the description of the server.
+                          type: string
+                        bypassDefaultRule:
+                          type: boolean
+                        conditions:
+                          description: This is for proviidng the set of conditions
+                            for the policy.
+                          items:
+                            properties:
+                              negated:
+                                type: boolean
+                              operands:
+                                description: This signifies the various policy criteria.
+                                items:
+                                  properties:
+                                    objectType:
+                                      description: 'This is for specifying the policy
+                                        critiera. Supported values: APP, APP_GROUP,
+                                        CLIENT_TYPE, TRUSTED_NETWORK, SAML, SCIM,
+                                        SCIM_GROUP This is for specifying the policy
+                                        critiera.'
+                                      type: string
+                                    values:
+                                      description: zpn_client_type_exporter - zpn_client_type_browser_isolation
+                                        - zpn_client_type_machine_tunnel - zpn_client_type_ip_anchoring
+                                        - zpn_client_type_edge_connector - zpn_client_type_zapp
+                                        This denotes a list of values for the given
+                                        object type. The value depend upon the key.
+                                        If rhs is defined this list will be ignored
+                                      items:
+                                        type: string
+                                      type: array
+                                  type: object
+                                type: array
+                              operator:
+                                description: 'Supported values are: AND or OR'
+                                type: string
+                            type: object
+                          type: array
+                        customMsg:
+                          description: This is for providing a customer message for
+                            the user.
+                          type: string
+                        defaultRule:
+                          description: This is for providing a customer message for
+                            the user.
+                          type: boolean
+                        description:
+                          description: This is the description of the access policy.
+                          type: string
+                        lssDefaultRule:
+                          type: boolean
+                        name:
+                          description: This is the name of the policy.
+                          type: string
+                        operator:
+                          description: 'Supported values are: AND or OR'
+                          type: string
+                        policySetId:
+                          type: string
+                        policyType:
+                          type: string
+                        priority:
+                          type: string
+                        reauthDefaultRule:
+                          type: boolean
+                        reauthIdleTimeout:
+                          type: string
+                        reauthTimeout:
+                          type: string
+                        ruleOrder:
+                          type: string
+                        zpnCbiProfileId:
+                          type: string
+                        zpnInspectionProfileId:
+                          type: string
+                        zpnIsolationProfileId:
+                          type: string
+                      type: object
+                    type: array
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: 'THIS IS AN ALPHA FIELD. Do not use it in production.
+                  It is not honored unless the relevant Crossplane feature flag is
+                  enabled, and may be changed or removed without notice. ManagementPolicies
+                  specify the array of actions Crossplane is allowed to take on the
+                  managed and external resources. This field is planned to replace
+                  the DeletionPolicy field in a future release. Currently, both could
+                  be set independently and non-default values would be honored if
+                  the feature flag is enabled. If both are custom, the DeletionPolicy
+                  field will be ignored. See the design doc for more information:
+                  https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md'
+                items:
+                  description: A ManagementAction represents an action that the Crossplane
+                    controllers can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
               providerConfigRef:
                 default:
                   name: default
@@ -393,8 +569,57 @@ spec:
                   config:
                     items:
                       properties:
+                        auditMessage:
+                          type: string
+                        description:
+                          description: Description of the LSS configuration
+                          type: string
+                        enabled:
+                          description: 'Whether this LSS configuration is enabled
+                            or not. Supported values: true, false'
+                          type: boolean
+                        filter:
+                          description: 'Filter for the LSS configuration. Format given
+                            by the following API to get status codes: /mgmtconfig/v2/admin/lssConfig/statusCodes'
+                          items:
+                            type: string
+                          type: array
+                        format:
+                          description: 'The format of the LSS resource. The supported
+                            formats are: JSON, CSV, and TSV Format of the log type.
+                            Format given by the following API to get formats: /mgmtconfig/v2/admin/lssConfig/logType/formats'
+                          type: string
                         id:
                           type: string
+                        lssHost:
+                          description: The IP or FQDN of the SIEM (Log Receiver) where
+                            logs will be forwarded to. Host of the LSS configuration
+                          type: string
+                        lssPort:
+                          description: The destination port of the SIEM (Log Receiver)
+                            where logs will be forwarded to. Port of the LSS configuration
+                          type: string
+                        name:
+                          description: Name of the LSS configuration
+                          type: string
+                        sourceLogType:
+                          description: Refer to the log type documentation Log type
+                            of the LSS configuration
+                          type: string
+                        useTls:
+                          type: boolean
+                      type: object
+                    type: array
+                  connectorGroups:
+                    description: '- id -  - App Connector Group ID(s) where logs will
+                      be forwarded to. App Connector Group(s) to be added to the LSS
+                      configuration'
+                    items:
+                      properties:
+                        id:
+                          items:
+                            type: string
+                          type: array
                       type: object
                     type: array
                   id:
@@ -404,7 +629,89 @@ spec:
                   policyRuleResource:
                     items:
                       properties:
+                        action:
+                          description: This is for providing the rule action.
+                          type: string
+                        actionId:
+                          description: This field defines the description of the server.
+                          type: string
+                        bypassDefaultRule:
+                          type: boolean
+                        conditions:
+                          description: This is for proviidng the set of conditions
+                            for the policy.
+                          items:
+                            properties:
+                              negated:
+                                type: boolean
+                              operands:
+                                description: This signifies the various policy criteria.
+                                items:
+                                  properties:
+                                    objectType:
+                                      description: 'This is for specifying the policy
+                                        critiera. Supported values: APP, APP_GROUP,
+                                        CLIENT_TYPE, TRUSTED_NETWORK, SAML, SCIM,
+                                        SCIM_GROUP This is for specifying the policy
+                                        critiera.'
+                                      type: string
+                                    values:
+                                      description: zpn_client_type_exporter - zpn_client_type_browser_isolation
+                                        - zpn_client_type_machine_tunnel - zpn_client_type_ip_anchoring
+                                        - zpn_client_type_edge_connector - zpn_client_type_zapp
+                                        This denotes a list of values for the given
+                                        object type. The value depend upon the key.
+                                        If rhs is defined this list will be ignored
+                                      items:
+                                        type: string
+                                      type: array
+                                  type: object
+                                type: array
+                              operator:
+                                description: 'Supported values are: AND or OR'
+                                type: string
+                            type: object
+                          type: array
+                        customMsg:
+                          description: This is for providing a customer message for
+                            the user.
+                          type: string
+                        defaultRule:
+                          description: This is for providing a customer message for
+                            the user.
+                          type: boolean
+                        description:
+                          description: This is the description of the access policy.
+                          type: string
                         id:
+                          type: string
+                        lssDefaultRule:
+                          type: boolean
+                        name:
+                          description: This is the name of the policy.
+                          type: string
+                        operator:
+                          description: 'Supported values are: AND or OR'
+                          type: string
+                        policySetId:
+                          type: string
+                        policyType:
+                          type: string
+                        priority:
+                          type: string
+                        reauthDefaultRule:
+                          type: boolean
+                        reauthIdleTimeout:
+                          type: string
+                        reauthTimeout:
+                          type: string
+                        ruleOrder:
+                          type: string
+                        zpnCbiProfileId:
+                          type: string
+                        zpnInspectionProfileId:
+                          type: string
+                        zpnIsolationProfileId:
                           type: string
                       type: object
                     type: array
@@ -450,9 +757,3 @@ spec:
     storage: true
     subresources:
       status: {}
-status:
-  acceptedNames:
-    kind: ""
-    plural: ""
-  conditions: []
-  storedVersions: []

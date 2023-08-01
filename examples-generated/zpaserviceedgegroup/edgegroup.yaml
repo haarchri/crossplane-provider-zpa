@@ -21,6 +21,3 @@ spec:
     upgradeDay: SUNDAY
     upgradeTimeInSecs: "66600"
     versionProfileName: New Release
-
----
-

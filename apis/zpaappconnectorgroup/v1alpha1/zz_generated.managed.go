@@ -17,6 +17,11 @@ func (mg *ConnectorGroup) GetDeletionPolicy() xpv1.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
 }
 
+// GetManagementPolicies of this ConnectorGroup.
+func (mg *ConnectorGroup) GetManagementPolicies() xpv1.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
 // GetProviderConfigReference of this ConnectorGroup.
 func (mg *ConnectorGroup) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
@@ -48,6 +53,11 @@ func (mg *ConnectorGroup) SetConditions(c ...xpv1.Condition) {
 // SetDeletionPolicy of this ConnectorGroup.
 func (mg *ConnectorGroup) SetDeletionPolicy(r xpv1.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
+}
+
+// SetManagementPolicies of this ConnectorGroup.
+func (mg *ConnectorGroup) SetManagementPolicies(r xpv1.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this ConnectorGroup.

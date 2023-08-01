@@ -12,6 +12,3 @@ spec:
     enabled: true
     name: test1-segment-group
     tcpKeepAliveEnabled: "1"
-
----
-

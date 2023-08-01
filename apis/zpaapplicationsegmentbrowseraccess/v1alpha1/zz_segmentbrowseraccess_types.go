@@ -13,8 +13,92 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type ClientlessAppsInitParameters struct {
+
+	// - If you want ZPA to forward unauthenticated HTTP preflight OPTIONS requests from the browser to the app.. Supported values: true and false
+	// If you want ZPA to forward unauthenticated HTTP preflight OPTIONS requests from the browser to the app.
+	AllowOptions *bool `json:"allowOptions,omitempty" tf:"allow_options,omitempty"`
+
+	// - Port for the BA app.
+	// Port for the BA app.
+	ApplicationPort *string `json:"applicationPort,omitempty" tf:"application_port,omitempty"`
+
+	// - Protocol for the BA app. Supported values: HTTP and HTTPS
+	// Protocol for the BA app.
+	ApplicationProtocol *string `json:"applicationProtocol,omitempty" tf:"application_protocol,omitempty"`
+
+	// - ID of the BA certificate. Refer to the data source documentation for zpa_ba_certificate
+	// ID of the BA certificate.
+	CertificateID *string `json:"certificateId,omitempty" tf:"certificate_id,omitempty"`
+
+	Cname *string `json:"cname,omitempty" tf:"cname,omitempty"`
+
+	// Description of the application.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// - Domain name or IP address of the BA app.
+	// Domain name or IP address of the BA app.
+	Domain *string `json:"domain,omitempty" tf:"domain,omitempty"`
+
+	// Whether this app is enabled or not.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	Hidden *bool `json:"hidden,omitempty" tf:"hidden,omitempty"`
+
+	LocalDomain *string `json:"localDomain,omitempty" tf:"local_domain,omitempty"`
+
+	// Name of the application.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	Path *string `json:"path,omitempty" tf:"path,omitempty"`
+
+	// Indicates whether Use Untrusted Certificates is enabled or disabled for a BA app.
+	TrustUntrustedCert *bool `json:"trustUntrustedCert,omitempty" tf:"trust_untrusted_cert,omitempty"`
+}
+
 type ClientlessAppsObservation struct {
+
+	// - If you want ZPA to forward unauthenticated HTTP preflight OPTIONS requests from the browser to the app.. Supported values: true and false
+	// If you want ZPA to forward unauthenticated HTTP preflight OPTIONS requests from the browser to the app.
+	AllowOptions *bool `json:"allowOptions,omitempty" tf:"allow_options,omitempty"`
+
+	// - Port for the BA app.
+	// Port for the BA app.
+	ApplicationPort *string `json:"applicationPort,omitempty" tf:"application_port,omitempty"`
+
+	// - Protocol for the BA app. Supported values: HTTP and HTTPS
+	// Protocol for the BA app.
+	ApplicationProtocol *string `json:"applicationProtocol,omitempty" tf:"application_protocol,omitempty"`
+
+	// - ID of the BA certificate. Refer to the data source documentation for zpa_ba_certificate
+	// ID of the BA certificate.
+	CertificateID *string `json:"certificateId,omitempty" tf:"certificate_id,omitempty"`
+
+	Cname *string `json:"cname,omitempty" tf:"cname,omitempty"`
+
+	// Description of the application.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// - Domain name or IP address of the BA app.
+	// Domain name or IP address of the BA app.
+	Domain *string `json:"domain,omitempty" tf:"domain,omitempty"`
+
+	// Whether this app is enabled or not.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	Hidden *bool `json:"hidden,omitempty" tf:"hidden,omitempty"`
+
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	LocalDomain *string `json:"localDomain,omitempty" tf:"local_domain,omitempty"`
+
+	// Name of the application.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	Path *string `json:"path,omitempty" tf:"path,omitempty"`
+
+	// Indicates whether Use Untrusted Certificates is enabled or disabled for a BA app.
+	TrustUntrustedCert *bool `json:"trustUntrustedCert,omitempty" tf:"trust_untrusted_cert,omitempty"`
 }
 
 type ClientlessAppsParameters struct {
@@ -26,18 +110,18 @@ type ClientlessAppsParameters struct {
 
 	// - Port for the BA app.
 	// Port for the BA app.
-	// +kubebuilder:validation:Required
-	ApplicationPort *string `json:"applicationPort" tf:"application_port,omitempty"`
+	// +kubebuilder:validation:Optional
+	ApplicationPort *string `json:"applicationPort,omitempty" tf:"application_port,omitempty"`
 
 	// - Protocol for the BA app. Supported values: HTTP and HTTPS
 	// Protocol for the BA app.
-	// +kubebuilder:validation:Required
-	ApplicationProtocol *string `json:"applicationProtocol" tf:"application_protocol,omitempty"`
+	// +kubebuilder:validation:Optional
+	ApplicationProtocol *string `json:"applicationProtocol,omitempty" tf:"application_protocol,omitempty"`
 
 	// - ID of the BA certificate. Refer to the data source documentation for zpa_ba_certificate
 	// ID of the BA certificate.
-	// +kubebuilder:validation:Required
-	CertificateID *string `json:"certificateId" tf:"certificate_id,omitempty"`
+	// +kubebuilder:validation:Optional
+	CertificateID *string `json:"certificateId,omitempty" tf:"certificate_id,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Cname *string `json:"cname,omitempty" tf:"cname,omitempty"`
@@ -62,8 +146,8 @@ type ClientlessAppsParameters struct {
 	LocalDomain *string `json:"localDomain,omitempty" tf:"local_domain,omitempty"`
 
 	// Name of the application.
-	// +kubebuilder:validation:Required
-	Name *string `json:"name" tf:"name,omitempty"`
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Path *string `json:"path,omitempty" tf:"path,omitempty"`
@@ -73,12 +157,178 @@ type ClientlessAppsParameters struct {
 	TrustUntrustedCert *bool `json:"trustUntrustedCert,omitempty" tf:"trust_untrusted_cert,omitempty"`
 }
 
+type SegmentBrowserAccessInitParameters struct {
+
+	// Indicates whether users can bypass ZPA to access applications. Default value is: NEVER and supported values are: ALWAYS, NEVER and ON_NET. The value NEVER indicates the use of the client forwarding policy.
+	// Indicates whether users can bypass ZPA to access applications. Default: NEVER. Supported values: ALWAYS, NEVER, ON_NET. The value NEVER indicates the use of the client forwarding policy.
+	BypassType *string `json:"bypassType,omitempty" tf:"bypass_type,omitempty"`
+
+	ClientlessApps []ClientlessAppsInitParameters `json:"clientlessApps,omitempty" tf:"clientless_apps,omitempty"`
+
+	// Default: DEFAULT. Supported values: DEFAULT, SIEM
+	ConfigSpace *string `json:"configSpace,omitempty" tf:"config_space,omitempty"`
+
+	// Description of the application.
+	// Description of the application.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// List of domains and IPs.
+	// List of domains and IPs.
+	DomainNames []*string `json:"domainNames,omitempty" tf:"domain_names,omitempty"`
+
+	// Whether Double Encryption is enabled or disabled for the app.
+	// Whether Double Encryption is enabled or disabled for the app.
+	DoubleEncrypt *bool `json:"doubleEncrypt,omitempty" tf:"double_encrypt,omitempty"`
+
+	// Whether this app is enabled or not.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// Default: DEFAULT. Supported values: DEFAULT, NONE
+	HealthCheckType *string `json:"healthCheckType,omitempty" tf:"health_check_type,omitempty"`
+
+	// Whether health reporting for the app is Continuous or On Access. Supported values: NONE, ON_ACCESS, CONTINUOUS.
+	// Whether health reporting for the app is Continuous or On Access. Supported values: NONE, ON_ACCESS, CONTINUOUS.
+	HealthReporting *string `json:"healthReporting,omitempty" tf:"health_reporting,omitempty"`
+
+	// If Source IP Anchoring for use with ZIA, is enabled or disabled for the app. Supported values are true and false
+	IPAnchored *bool `json:"ipAnchored,omitempty" tf:"ip_anchored,omitempty"`
+
+	IcmpAccessType *string `json:"icmpAccessType,omitempty" tf:"icmp_access_type,omitempty"`
+
+	// Indicates if the Zscaler Client Connector (formerly Zscaler App or Z App) receives CNAME DNS records from the connectors.
+	// Indicates if the Zscaler Client Connector (formerly Zscaler App or Z App) receives CNAME DNS records from the connectors.
+	IsCnameEnabled *bool `json:"isCnameEnabled,omitempty" tf:"is_cname_enabled,omitempty"`
+
+	// Supported values: true, false
+	IsIncompleteDrConfig *bool `json:"isIncompleteDrConfig,omitempty" tf:"is_incomplete_dr_config,omitempty"`
+
+	// Name of the application.
+	// Name of the application.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Whether this app is enabled or not.
+	PassiveHealthEnabled *bool `json:"passiveHealthEnabled,omitempty" tf:"passive_health_enabled,omitempty"`
+
+	// List of Segment Group IDs
+	SegmentGroupID *string `json:"segmentGroupId,omitempty" tf:"segment_group_id,omitempty"`
+
+	// Name of the application.
+	SegmentGroupName *string `json:"segmentGroupName,omitempty" tf:"segment_group_name,omitempty"`
+
+	// Supported values: true, false
+	SelectConnectorCloseToApp *bool `json:"selectConnectorCloseToApp,omitempty" tf:"select_connector_close_to_app,omitempty"`
+
+	// List of Server Group IDs
+	// List of the server group IDs.
+	ServerGroups []ServerGroupsInitParameters `json:"serverGroups,omitempty" tf:"server_groups,omitempty"`
+
+	// Supported values: 1 for Enabled and 0 for Disabled
+	TCPKeepAlive *string `json:"tcpKeepAlive,omitempty" tf:"tcp_keep_alive,omitempty"`
+
+	// tcp port range
+	TCPPortRange []TCPPortRangeInitParameters `json:"tcpPortRange,omitempty" tf:"tcp_port_range,omitempty"`
+
+	// TCP port ranges used to access the app.
+	// TCP port ranges used to access the app.
+	TCPPortRanges []*string `json:"tcpPortRanges,omitempty" tf:"tcp_port_ranges,omitempty"`
+
+	// udp port range
+	UDPPortRange []UDPPortRangeInitParameters `json:"udpPortRange,omitempty" tf:"udp_port_range,omitempty"`
+
+	// UDP port ranges used to access the app.
+	// UDP port ranges used to access the app.
+	UDPPortRanges []*string `json:"udpPortRanges,omitempty" tf:"udp_port_ranges,omitempty"`
+
+	// Supported values: true, false
+	UseInDrMode *bool `json:"useInDrMode,omitempty" tf:"use_in_dr_mode,omitempty"`
+}
+
 type SegmentBrowserAccessObservation struct {
 
-	// +kubebuilder:validation:Required
+	// Indicates whether users can bypass ZPA to access applications. Default value is: NEVER and supported values are: ALWAYS, NEVER and ON_NET. The value NEVER indicates the use of the client forwarding policy.
+	// Indicates whether users can bypass ZPA to access applications. Default: NEVER. Supported values: ALWAYS, NEVER, ON_NET. The value NEVER indicates the use of the client forwarding policy.
+	BypassType *string `json:"bypassType,omitempty" tf:"bypass_type,omitempty"`
+
 	ClientlessApps []ClientlessAppsObservation `json:"clientlessApps,omitempty" tf:"clientless_apps,omitempty"`
 
+	// Default: DEFAULT. Supported values: DEFAULT, SIEM
+	ConfigSpace *string `json:"configSpace,omitempty" tf:"config_space,omitempty"`
+
+	// Description of the application.
+	// Description of the application.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// List of domains and IPs.
+	// List of domains and IPs.
+	DomainNames []*string `json:"domainNames,omitempty" tf:"domain_names,omitempty"`
+
+	// Whether Double Encryption is enabled or disabled for the app.
+	// Whether Double Encryption is enabled or disabled for the app.
+	DoubleEncrypt *bool `json:"doubleEncrypt,omitempty" tf:"double_encrypt,omitempty"`
+
+	// Whether this app is enabled or not.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// Default: DEFAULT. Supported values: DEFAULT, NONE
+	HealthCheckType *string `json:"healthCheckType,omitempty" tf:"health_check_type,omitempty"`
+
+	// Whether health reporting for the app is Continuous or On Access. Supported values: NONE, ON_ACCESS, CONTINUOUS.
+	// Whether health reporting for the app is Continuous or On Access. Supported values: NONE, ON_ACCESS, CONTINUOUS.
+	HealthReporting *string `json:"healthReporting,omitempty" tf:"health_reporting,omitempty"`
+
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// If Source IP Anchoring for use with ZIA, is enabled or disabled for the app. Supported values are true and false
+	IPAnchored *bool `json:"ipAnchored,omitempty" tf:"ip_anchored,omitempty"`
+
+	IcmpAccessType *string `json:"icmpAccessType,omitempty" tf:"icmp_access_type,omitempty"`
+
+	// Indicates if the Zscaler Client Connector (formerly Zscaler App or Z App) receives CNAME DNS records from the connectors.
+	// Indicates if the Zscaler Client Connector (formerly Zscaler App or Z App) receives CNAME DNS records from the connectors.
+	IsCnameEnabled *bool `json:"isCnameEnabled,omitempty" tf:"is_cname_enabled,omitempty"`
+
+	// Supported values: true, false
+	IsIncompleteDrConfig *bool `json:"isIncompleteDrConfig,omitempty" tf:"is_incomplete_dr_config,omitempty"`
+
+	// Name of the application.
+	// Name of the application.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Whether this app is enabled or not.
+	PassiveHealthEnabled *bool `json:"passiveHealthEnabled,omitempty" tf:"passive_health_enabled,omitempty"`
+
+	// List of Segment Group IDs
+	SegmentGroupID *string `json:"segmentGroupId,omitempty" tf:"segment_group_id,omitempty"`
+
+	// Name of the application.
+	SegmentGroupName *string `json:"segmentGroupName,omitempty" tf:"segment_group_name,omitempty"`
+
+	// Supported values: true, false
+	SelectConnectorCloseToApp *bool `json:"selectConnectorCloseToApp,omitempty" tf:"select_connector_close_to_app,omitempty"`
+
+	// List of Server Group IDs
+	// List of the server group IDs.
+	ServerGroups []ServerGroupsObservation `json:"serverGroups,omitempty" tf:"server_groups,omitempty"`
+
+	// Supported values: 1 for Enabled and 0 for Disabled
+	TCPKeepAlive *string `json:"tcpKeepAlive,omitempty" tf:"tcp_keep_alive,omitempty"`
+
+	// tcp port range
+	TCPPortRange []TCPPortRangeObservation `json:"tcpPortRange,omitempty" tf:"tcp_port_range,omitempty"`
+
+	// TCP port ranges used to access the app.
+	// TCP port ranges used to access the app.
+	TCPPortRanges []*string `json:"tcpPortRanges,omitempty" tf:"tcp_port_ranges,omitempty"`
+
+	// udp port range
+	UDPPortRange []UDPPortRangeObservation `json:"udpPortRange,omitempty" tf:"udp_port_range,omitempty"`
+
+	// UDP port ranges used to access the app.
+	// UDP port ranges used to access the app.
+	UDPPortRanges []*string `json:"udpPortRanges,omitempty" tf:"udp_port_ranges,omitempty"`
+
+	// Supported values: true, false
+	UseInDrMode *bool `json:"useInDrMode,omitempty" tf:"use_in_dr_mode,omitempty"`
 }
 
 type SegmentBrowserAccessParameters struct {
@@ -88,8 +338,8 @@ type SegmentBrowserAccessParameters struct {
 	// +kubebuilder:validation:Optional
 	BypassType *string `json:"bypassType,omitempty" tf:"bypass_type,omitempty"`
 
-	// +kubebuilder:validation:Required
-	ClientlessApps []ClientlessAppsParameters `json:"clientlessApps" tf:"clientless_apps,omitempty"`
+	// +kubebuilder:validation:Optional
+	ClientlessApps []ClientlessAppsParameters `json:"clientlessApps,omitempty" tf:"clientless_apps,omitempty"`
 
 	// Default: DEFAULT. Supported values: DEFAULT, SIEM
 	// +kubebuilder:validation:Optional
@@ -102,8 +352,8 @@ type SegmentBrowserAccessParameters struct {
 
 	// List of domains and IPs.
 	// List of domains and IPs.
-	// +kubebuilder:validation:Required
-	DomainNames []*string `json:"domainNames" tf:"domain_names,omitempty"`
+	// +kubebuilder:validation:Optional
+	DomainNames []*string `json:"domainNames,omitempty" tf:"domain_names,omitempty"`
 
 	// Whether Double Encryption is enabled or disabled for the app.
 	// Whether Double Encryption is enabled or disabled for the app.
@@ -135,27 +385,39 @@ type SegmentBrowserAccessParameters struct {
 	// +kubebuilder:validation:Optional
 	IsCnameEnabled *bool `json:"isCnameEnabled,omitempty" tf:"is_cname_enabled,omitempty"`
 
+	// Supported values: true, false
+	// +kubebuilder:validation:Optional
+	IsIncompleteDrConfig *bool `json:"isIncompleteDrConfig,omitempty" tf:"is_incomplete_dr_config,omitempty"`
+
 	// Name of the application.
 	// Name of the application.
-	// +kubebuilder:validation:Required
-	Name *string `json:"name" tf:"name,omitempty"`
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Whether this app is enabled or not.
 	// +kubebuilder:validation:Optional
 	PassiveHealthEnabled *bool `json:"passiveHealthEnabled,omitempty" tf:"passive_health_enabled,omitempty"`
 
 	// List of Segment Group IDs
-	// +kubebuilder:validation:Required
-	SegmentGroupID *string `json:"segmentGroupId" tf:"segment_group_id,omitempty"`
+	// +kubebuilder:validation:Optional
+	SegmentGroupID *string `json:"segmentGroupId,omitempty" tf:"segment_group_id,omitempty"`
 
 	// Name of the application.
 	// +kubebuilder:validation:Optional
 	SegmentGroupName *string `json:"segmentGroupName,omitempty" tf:"segment_group_name,omitempty"`
 
+	// Supported values: true, false
+	// +kubebuilder:validation:Optional
+	SelectConnectorCloseToApp *bool `json:"selectConnectorCloseToApp,omitempty" tf:"select_connector_close_to_app,omitempty"`
+
 	// List of Server Group IDs
 	// List of the server group IDs.
-	// +kubebuilder:validation:Required
-	ServerGroups []ServerGroupsParameters `json:"serverGroups" tf:"server_groups,omitempty"`
+	// +kubebuilder:validation:Optional
+	ServerGroups []ServerGroupsParameters `json:"serverGroups,omitempty" tf:"server_groups,omitempty"`
+
+	// Supported values: 1 for Enabled and 0 for Disabled
+	// +kubebuilder:validation:Optional
+	TCPKeepAlive *string `json:"tcpKeepAlive,omitempty" tf:"tcp_keep_alive,omitempty"`
 
 	// tcp port range
 	// +kubebuilder:validation:Optional
@@ -174,18 +436,36 @@ type SegmentBrowserAccessParameters struct {
 	// UDP port ranges used to access the app.
 	// +kubebuilder:validation:Optional
 	UDPPortRanges []*string `json:"udpPortRanges,omitempty" tf:"udp_port_ranges,omitempty"`
+
+	// Supported values: true, false
+	// +kubebuilder:validation:Optional
+	UseInDrMode *bool `json:"useInDrMode,omitempty" tf:"use_in_dr_mode,omitempty"`
+}
+
+type ServerGroupsInitParameters struct {
+	ID []*string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type ServerGroupsObservation struct {
+	ID []*string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type ServerGroupsParameters struct {
 
-	// +kubebuilder:validation:Required
-	ID []*string `json:"id" tf:"id,omitempty"`
+	// +kubebuilder:validation:Optional
+	ID []*string `json:"id,omitempty" tf:"id,omitempty"`
+}
+
+type TCPPortRangeInitParameters struct {
+	From *string `json:"from,omitempty" tf:"from"`
+
+	To *string `json:"to,omitempty" tf:"to"`
 }
 
 type TCPPortRangeObservation struct {
+	From *string `json:"from,omitempty" tf:"from,omitempty"`
+
+	To *string `json:"to,omitempty" tf:"to,omitempty"`
 }
 
 type TCPPortRangeParameters struct {
@@ -197,7 +477,16 @@ type TCPPortRangeParameters struct {
 	To *string `json:"to,omitempty" tf:"to"`
 }
 
+type UDPPortRangeInitParameters struct {
+	From *string `json:"from,omitempty" tf:"from"`
+
+	To *string `json:"to,omitempty" tf:"to"`
+}
+
 type UDPPortRangeObservation struct {
+	From *string `json:"from,omitempty" tf:"from,omitempty"`
+
+	To *string `json:"to,omitempty" tf:"to,omitempty"`
 }
 
 type UDPPortRangeParameters struct {
@@ -213,6 +502,18 @@ type UDPPortRangeParameters struct {
 type SegmentBrowserAccessSpec struct {
 	v1.ResourceSpec `json:",inline"`
 	ForProvider     SegmentBrowserAccessParameters `json:"forProvider"`
+	// THIS IS AN ALPHA FIELD. Do not use it in production. It is not honored
+	// unless the relevant Crossplane feature flag is enabled, and may be
+	// changed or removed without notice.
+	// InitProvider holds the same fields as ForProvider, with the exception
+	// of Identifier and other resource reference fields. The fields that are
+	// in InitProvider are merged into ForProvider when the resource is created.
+	// The same fields are also added to the terraform ignore_changes hook, to
+	// avoid updating them after creation. This is useful for fields that are
+	// required on creation, but we do not desire to update them after creation,
+	// for example because of an external controller is managing them, like an
+	// autoscaler.
+	InitProvider SegmentBrowserAccessInitParameters `json:"initProvider,omitempty"`
 }
 
 // SegmentBrowserAccessStatus defines the observed state of SegmentBrowserAccess.
@@ -233,8 +534,12 @@ type SegmentBrowserAccessStatus struct {
 type SegmentBrowserAccess struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              SegmentBrowserAccessSpec   `json:"spec"`
-	Status            SegmentBrowserAccessStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.clientlessApps) || has(self.initProvider.clientlessApps)",message="clientlessApps is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.domainNames) || has(self.initProvider.domainNames)",message="domainNames is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || has(self.initProvider.name)",message="name is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.segmentGroupId) || has(self.initProvider.segmentGroupId)",message="segmentGroupId is a required parameter"
+	Spec   SegmentBrowserAccessSpec   `json:"spec"`
+	Status SegmentBrowserAccessStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

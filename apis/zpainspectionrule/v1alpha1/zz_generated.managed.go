@@ -17,6 +17,11 @@ func (mg *InspectionRule) GetDeletionPolicy() xpv1.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
 }
 
+// GetManagementPolicies of this InspectionRule.
+func (mg *InspectionRule) GetManagementPolicies() xpv1.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
 // GetProviderConfigReference of this InspectionRule.
 func (mg *InspectionRule) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
@@ -48,6 +53,11 @@ func (mg *InspectionRule) SetConditions(c ...xpv1.Condition) {
 // SetDeletionPolicy of this InspectionRule.
 func (mg *InspectionRule) SetDeletionPolicy(r xpv1.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
+}
+
+// SetManagementPolicies of this InspectionRule.
+func (mg *InspectionRule) SetManagementPolicies(r xpv1.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this InspectionRule.
