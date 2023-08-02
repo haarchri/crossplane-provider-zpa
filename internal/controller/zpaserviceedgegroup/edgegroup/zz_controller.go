@@ -31,7 +31,7 @@ func Setup(mgr ctrl.Manager, o tjcontroller.Options) error {
 	}
 	ac := tjcontroller.NewAPICallbacks(mgr, xpresource.ManagedKind(v1alpha1.EdgeGroup_GroupVersionKind), tjcontroller.WithEventHandler(o.EventHandler))
 	opts := []managed.ReconcilerOption{
-		managed.WithExternalConnecter(tjcontroller.NewConnector(mgr.GetClient(), o.WorkspaceStore, o.SetupFn, o.Provider.Resources["zpa_service_edge_group"], tjcontroller.WithLogger(o.Logger),
+		managed.WithExternalConnecter(tjcontroller.NewConnector(mgr.GetClient(), o.WorkspaceStore, o.SetupFn, o.Provider.Resources["zpa_service_edge_group"], tjcontroller.WithLogger(o.Logger), tjcontroller.WithConnectorEventHandler(o.EventHandler),
 			tjcontroller.WithCallbackProvider(ac),
 		)),
 		managed.WithLogger(o.Logger.WithValues("controller", name)),
